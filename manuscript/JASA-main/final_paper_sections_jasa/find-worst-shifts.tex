@@ -1,0 +1,132 @@
+% -*- Mode: latex -*- %
+
+\subsection{Finding directions of maximal shift}
+
+In this section, we revisit worst potential shifts, designing a
+methodology to estimate the worst direction and protect
+against it, additionally providing sufficient conditions for consistency.
+For a confidence
+set mapping $C : \mc{X} \toto {Y}$, we define the worst shift direction
+\begin{equation}
+  v\subopt(C) \defeq \argmin_{v \in \mc{V}} \wc(C, \mc{R}_v, \delta; \, Q_0),
+  \label{eqn:worst-shift-def}
+\end{equation}
+which evidently satisfies
+\begin{equation*}
+  \wc(C, \mc{R}_{v\subopt(C)}, \delta; \, Q_0) 
+  = \wc(C, \mc{R}, \delta; \, Q_0) 
+  \defeq \inf_{v \in \mc{V}} \wc(C, \mc{R}_{v}, \delta; \, Q_0).
+\end{equation*}
+If we could identify such a worst direction, and it is consistent across
+thresholds $q$ in our typical definition $C(x) = \{y \in \mc{Y} \mid
+\score(x, y) \le q\}$ (a strong condition), then the procedures in the
+preceding sections allow us to choose thresholds to guarantee coverage.
+The intuition here is that there may exist a direction with
+higher variance in predictions, for example, time in a temporal system.
+A more explicit example comes from heteroskedastic regression:
+
+\begin{example}[Heteroskedastic regression]
+  \label{example:heterogeneous-regression}
+  Let the data $(X, Y) \in \R^d \times \R$ follow the model
+  \begin{equation*}
+    Y = \mu\opt(X) + h(\vvar^T X) \noise
+  \end{equation*}
+  where $h : \R \to \R_+$ is non-decreasing, $\noise \sim \normal(0,1)$
+  independent of $X$, which generalizes the standard regression model
+  to have heteroskedastic noise, with the noise increasing in the
+  direction $\vvar$. Evidently the oracle (smallest length) conditional
+  confidence set for $Y \mid X = x$ is the
+  interval $[\pm z_{1 - \alpha/2} \sqrt{h(\vvar^T x)}]$ where $z_{1 - \alpha}$
+  is the standard normal quantile. The standard split
+  conformal methodology (Section~\ref{sec:split-conformal-intro})
+  will undercover for those $x$ such that $\vvar^T x$ is large: shifts
+  of $X$ in the direction $v\subopt = \vvar$ may decrease coverage.
+\end{example}
+
+With this example as motivation, we propose identifying challenging
+directions for dataset shift by separating those datapoints $(X_i, Y_i)$
+with large nonconformity scores $\score(X_i, Y_i)$ from those with lower
+scores.  In principle, one can use any M-estimator to find such a
+discriminator. 
+\begin{definition}%[Prediction set at level $q$]
+  \label{def:smallest-rho-s}
+  For $q \in \R$ and a score  $\score : \mc{X} \times
+  \mc{Y} \to \R$, the \emph{$\score$-prediction set at level $q$} is
+  \begin{equation}
+    \label{eqn:confidence-set-from-score}
+    C^{(q,\score)}(x) \defeq \{ y \in \mc{Y} \mid \score(x,y) \le q \}.
+  \end{equation}
+\end{definition}
+
+We assume in this section that $\mc{V} \subset L^2(Q_{0,X})$ is an RKHS, or a
+subset thereof, with associated Hilbert norm $\norm{\cdot}_{\mc{V}}$, and
+each collection $\mc{R}_v$ is as in Example~\ref{ex:level-sets}.  The case
+where $\mc{R}$ is the collection of all half-spaces corresponds to $\mc{V} =
+\left\{ x \mapsto v^T x \mid v\in \R^d \right\}$.  Additionally, for every
+$v \in \mc{V}$ we let $F_v$ be the cumulative distribution function of
+$v(X)$ when $X \sim Q_{0,X}$ and $F_v^-(t) \defeq \P(v(X) < t)$
+its left-continuous version.
+
+\begin{algorithm}
+  \caption{Worst-direction validation given a score function}
+  \label{alg:worst-direction-validation}
+  \begin{algorithmic}
+    \STATE {\bf Input:} sample $\{(X_i,Y_i) \}_{i=1}^n$; score function
+    $\scoreest: \mc{X} \times \mc{Y} \to \R$ independent of the sample;
+    coverage rate $1-\alpha \in (0,1)$; divergence function $f : \R_+ \to
+    \R$; smallest subset size $\delta \in (0,1)$, worst direction estimation procedure $\mc{M} :(\R \times \mc{X})^\star \to \mc{V}$.
+
+    \STATE {\bf Initialize:} Split sample $\{ (X_i, Y_i) \}_{i=1}^n$ into
+    $\{ (X_i,Y_i) \}_{i=1}^{n_1}$, $\{ (X_i,Y_i) \}_{i=n_1+1}^{n_1+n_2}$
+    with empirical distributions $\empQone$, and $\empQtwo$
+    (resp.\ $\empPone$ and $\empPtwo$ for the scores).
+    
+    \STATE {\bf Do}: Estimate the worst direction of shift on the first sample distribution $\empQone$:
+    \begin{align*}
+    \what{v}_n \defeq \mc{M}(\{ \scoreest(X_i, Y_i), X_i \}_{i=1}^{n_1}).
+%      \what{v}_{n} = \argmin_{v \in \mc{V}} \left\{ \frac{1}{n_1} \sum_{i=1}^{n_1}
+%      \left(\scoreest(X_i,Y_i) - v(X_i) \right)^2 \right\}.
+    \end{align*}
+
+    \STATE Use the second subsample to set the threshold
+    $\what{q}_\delta$ to
+    \begin{align}
+      \label{eqn:rhohat-criterion-worst-direction-after-learning-scores}
+      \what{q}_\delta
+      \defeq \inf \left\{ q \in \R : \textup{WC}(C^{(q,\scoreest)}, \mc{R}_{\hat{v}_n}, \delta; \, \empQtwo) \geq 1-\alpha \right\}.
+    \end{align}
+
+    \STATE Set $\hat{\rho}_\delta \defeq \rho_{f,\alpha}( \what q_\delta;
+    \empPtwo) = \sup\{\rho \ge 0 \mid
+    \WCQuantile_{f,\rho}(1 - \alpha; \empPtwo) \le q\}$
+    as in Lemma~\ref{lemma:equivalence-rho-threshold}.
+
+    \STATE \textbf{Return:} the confidence set mapping $\what{C}_n(x)
+    = C^{(\what q_\delta, \scoreest)}(x) = C_{f,\hat{\rho}_\delta}(x;
+    \empPtwo)$.
+  \end{algorithmic}
+\end{algorithm}
+
+The intuition behind Algorithm~\ref{alg:worst-direction-validation} is
+simple: we seek a direction $v$ in which shifts in $X$ make the given
+nonconformity score $\scoreest$ large, then guarantee coverage for
+shifts in that direction and, via the distributionally robust
+confidence set $C_{f,\hat{\rho}}$ the procedure returns, any
+future distributional shift for which the distribution
+$P_{\textup{new}}$ of scores $\score(X, Y)$ satisfies
+$\fdiv{P_{\textup{new}}}{P_0} \le \hat{\rho}$. Because we need only
+solve a single M-estimation problem---rather than sample a large
+number of directions $v$ as in Alg.~\ref{alg:rho-selection-procedure}---the estimation methodology is more computationally efficient.
+
+In Appendix~\ref{subsec:population-level-consistency}, we study different worst direction estimation procedures,  for instance the non-parametric estimator
+\begin{align}
+\label{eqn:penalized-linear-loss-finite-sample-worst-direction-estimator}
+\hat{v}_{n,  \lambda_n} \defeq \argmin_{v \in \mc{V}} \left\{ \frac{1}{n(n-1)} \sum_{1\le i \neq j \le n} \left( v(X_i) - \indic{\scorerv_i \ge \scorerv_j} \right)^2  + \lambda_n \norm{v}_{\mc{V}}^2 \right\},
+\end{align}
+whose consistency to an oracle worst direction depends on stochastic order assumptions. 
+
+In our subsequent experiments, with a high-dimensional feature space, we use
+simpler least-squares and SVM estimators of the scores as a fitting
+procedure for the worst direction of shift, considering linear shifts only.
+This parametric approach is admittedly more restrictive, and obtaining
+consistency requires even stronger distributional assumptions; we present one example of such in Appendix~\ref{subsec:consistency-linear-shift-estimator}.

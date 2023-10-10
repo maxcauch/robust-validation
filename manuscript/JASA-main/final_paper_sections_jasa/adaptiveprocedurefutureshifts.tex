@@ -1,0 +1,326 @@
+% -*- Mode: latex -*- %
+
+\section{Procedures for estimating future distribution shift}
+\label{sec:futureshiftestimation}
+
+While the results in the previous section apply for a fixed shift amount
+$\rho$, a fundamental challenge is---given a validation data set---to
+determine the amount of shift against which to protect.  We suggest a
+methodology to identify shifts motivated by two
+(somewhat oppositional) perspectives: first, the variability in predictions
+in current data is suggestive of the amount of variability we might expect
+in the future; second, from the perspective of protection against future
+shifts, that there is no reason future data would \emph{not} shift as much
+as we can observe in a given validation set.
+%% We must make do with what is
+%% actually available, and it is only sensible to investigate the observable
+%% variability.
+%
+As a motivating thought experiment, consider the case that the data is a
+mixture of distinct sub-populations.  Should we provide valid coverage for
+each of these sub-populations, we expect our coverage to remain valid if the
+future (test) distribution remains any mixture of the same sub-populations.
+In empirical risk minimization (ERM)-based models, we expect rarer
+sub-populations to have higher non-conformity scores than average, and
+building on this intuition, our procedures look for regions in validation
+data with high non-conformity scores, choosing $\rho$ to give valid coverage
+in these regions.
+
+We adopt a two-step procedure to describe the set of shifts we consider.
+Abstractly, let $\mc{V}$ be a (potentially infinite) set indexing
+``directions'' of possible shifts, and to each $v \in \mc{V}$ associate a
+collection $\mc{R}_v$ of subsets of $\mc{X}$.  (Typically, we either take
+$\mc{V} \subset \R^d$ when $\mc{X} \subset \R^d$, or $\mc{V}$ a subset of
+functions of $\mc{X}$, with each $\mc{R}_v$ then a collection of level
+sets).  For each $R \in \mc{R} \defeq \bigcup_{v \in \mc{V}} \mc{R}_v
+\subset \mc{P}(\mc{X})$, we consider the shifted distribution
+\begin{align}
+  \label{eqn:distribution-shifts-covariate}
+  dQ_{R}(x,y) = \frac{\indic{x \in R }}{Q_0(X \in R)}dQ_0(x,y)
+  = dQ_0(x,y \mid x \in R),
+\end{align}
+which restricts $X$ to a smaller subset $R$ of the feature space without
+changing the conditional distribution of $Y \mid X$.  The intuition
+behind the approach is twofold: first, conditionally
+valid predictors remain valid under covariate shifts of only
+$X$ (so that we hope to identify failures of validity under such shifts),
+and second, there may exist 
+privileged directions of shift in the
+$\mc{X}$-space (e.g.\ time in temporal data or protected
+attributes in data with sensitive features) for which we wish to provide
+appropriate $1-\alpha$ coverage.
+
+\begin{example}[Slabs and Euclidean balls]
+  \label{ex:slab-euclideanballs}
+  Our prototypical example is slabs (hyperplanes) and Euclidean
+  balls, where we take $\mc{V} \subset \R^d$, both of which
+  have VC-dimension $O(d)$. In the slab case, for
+  $v \in \R^d$ we define the collection
+  of slabs orthogonal to $v$,
+  \begin{equation*}
+    \mc{R}_v = \left\{ \{x \in \R^d \mid a \le v^T x \le b \}
+    ~\mbox{s.t.}~ a < b \right\}.
+  \end{equation*}
+  In the Euclidean ball case, we consider $\mc{R}_v = \{ \{x
+  \in \R^d \mid \ltwo{x-v} \le r \} ~\mbox{s.t.}~ r>0 \}$, the collection of
+  $\ell_2$-balls centered at $v \in \mc{V} = \R^d$.
+\end{example}
+
+\begin{example}[Upper-level functional sets]
+  \label{ex:level-sets}
+  A more general example takes $\mc{V}$ be a collection of real-valued
+  functions, for instance, a reproducing kernel Hilbert space (RKHS).  For
+  each $v \in \mc{V}$, $ \mc{R}_v$ is then the collection of upper
+  level-sets
+  \begin{equation*}
+   \left\{ \{x \in \mc{X} \mid v(x) \ge a \}
+    ~\mbox{s.t.}~ a \in \R \right\}.
+  \end{equation*}
+  Were $\mc{V}$ all measurable functions, this would guarantee coverage
+  under any covariate shift; practically, $\mc{V}$ is a (much)
+  smaller collection.
+\end{example}
+
+Given $\delta \in (0, 1)$, we define the \emph{worst coverage}
+for a confidence set mapping $C : \mc{X} \toto \mc{Y}$
+over $\mc{R}$-sets of size $\delta$ by
+\begin{align}
+  \label{eqn:worst-global-coverage}
+  \wcoverage(C, \mc{\mc{R}}, \delta; \, Q) \defeq
+  \inf_{R \in \mc{R}}
+  \left\{Q\left( Y \in C(X) \mid X \in R \right)
+  ~ \mbox{s.t.}~
+  Q(X \in R) \ge \delta \right\}
+\end{align}
+Our goal is to find a (tight) confidence set
+$\what{C}$ such that
+$\wcoverage(\what{C}, \mc{R}, \delta; Q_0) \ge 1 - \alpha$, which,
+in the setting of Section~\ref{sec:robustpredinference},
+corresponds to
+choosing $\rho > 0$ such that
+\begin{equation*}
+  \wcoverage(\what{C}_{n,f,\rho},
+  \mc{R}, \delta; \, Q_0) \ge 1-\alpha.
+\end{equation*}
+That is, we seek $1 - \alpha$ coverage over all large enough subsets
+of $X$-space. 
+
+\citet{BarberCaRaTi19a} show that one can theoretically construct such a
+confidence set when the collection of sets $\mc{R}$ is not too large,
+e.g.\ if it has finite VC-dimension.  Unfortunately, the computation of the
+worst coverage~\eqref{eqn:worst-global-coverage} is usually challenging when
+the dimension $d$ of the problem grows (as in
+Example~\ref{ex:slab-euclideanballs}), as it typically involves
+minimizing a non-convex function over a $d$-dimensional domain.  This makes
+the estimation of quantity~\eqref{eqn:worst-global-coverage} intractable for
+large $d$ and hints that requiring such coverage to hold uniformly
+over all directions $v \in \mc{V}$ may be too stringent for practical
+purposes.  However, for a fixed $v \in \R^d$, both sets $\mc{R}_v$ in
+Example~\ref{ex:slab-euclideanballs} admit $O(d \cdot n)$-time algorithms
+for computing $\wcoverage(C, \mc{R}_v, \delta; \what{Q}_n)$ for any
+empirical distribution $\what{Q}_n$ with support on $n$ points, which in the
+slab case is the maximum density segment problem~\cite{ChungLu03}. Thus
+instead of the full worst coverage~\eqref{eqn:worst-global-coverage}, we
+typically resort to a slightly weaker notion of robust coverage, where we
+require coverage to hold for ``most'' distributions of the
+form~\eqref{eqn:distribution-shifts-covariate}.  In the next two sections,
+we therefore consider two approaches: one that samples directions $v \in
+\mc{V}$, seeking good coverage with high probability, and the other that
+proposes surrogate convex optimization problems to find the worst direction
+$v$, which we can show under (strong) distributional assumptions is optimal.
+
+%% Assume that we have a prior distribution on future shifts, under the form of a probability distribution $\Pv$ over all directions $\mc{V}$.
+%% Without further information on a future distribution shift, a natural choice for $\Pv$ is simply the uniform distribution over $\mc{V}$; on the other hand, if there is precisely one direction of interest, \eg time component or a principal component direction, $\Pv$ can also be a pure Dirac distribution ---we study examples of both situations below.
+
+\subsection{High-probability coverage over specific classes of shifts}
+\label{sec:coverage-high-probability-over-shifts}
+
+Our first approach is to let $\Pv$ be a distribution on $v \in \mc{V}$ that models plausible future shifts. 
+A natural desiderata here is to provide
+coverage with high probability, that is, conditional on $\what{C}$, to
+guarantee that for a hyperparameter $0 < \levelv < 1$ and
+for $v \sim \Pv$,
+\begin{align}
+  \label{eqn:worst-quantiled-coverage}
+  \Pv \left[ \wcoverage(\what{C}, \mc{R}_v, \delta; \, Q_0) \geq 1 - \alpha \right]
+  \geq 1-\levelv.
+\end{align}
+Thus with $\Pv$-probability $1 - \levelv$ over the direction $v$ of shift,
+the confidence set $\what{C}(X)$ provides $1-\alpha$ coverage over all $R
+\in \mc{R}_v$ satisfying $Q_0(X\in R) \ge \delta$.  The
+coverage~\eqref{eqn:worst-quantiled-coverage} becomes more conservative as
+$\levelv$ decreases to $0$, reducing to
+condition~\eqref{eqn:worst-global-coverage} when $\levelv = 0$.
+
+Before presenting the procedure, we index the confidence sets by the
+threshold $q$ for the score function $\score$, providing a complementary
+condition via the robust prediction set~\eqref{eqn:robust-prediction-set}.
+
+\begin{definition}
+  \label{def:smallest-rho}
+  For $q \in \R$, the \emph{prediction set at level} $q$ is
+  \begin{align*}
+    % \label{eqn:threshold-prediction-set}
+    C^{(q)}(x) \defeq \{ y \in \mc{Y} \mid \score(x,y) \le q \}.
+  \end{align*}
+  For a distribution $P$ on $\R$, the
+  value $\rho$ provides
+  \emph{sufficient divergence for threshold $q$} if
+  \begin{equation*}
+    C_{f,\rho}(x; P) \supset C^{(q)}(x) ~ \mbox{for~all~} x \in \mc{X}.
+  \end{equation*}
+  %% \begin{equation}
+  %%   \label{eqn:smallest-rho}
+  %%   \begin{split}
+  %%     \rho_{f,\alpha}(q; P) & \defeq 
+  %%     \sup \left\{ \rho \ge 0 \mid C_{f,\rho}(x; P) \subset C^{(q)}(x) ~
+  %%     \mbox{for~all~}x \in \mc{X}\right\} \\
+  %%     & \,= \sup
+  %%     \left\{ \rho \ge 0 \mid \WCQuantile_{f,\rho}( 1-\alpha; P) \le q \right\}.
+  %%   \end{split}
+  %% \end{equation}
+\end{definition}
+\noindent
+By the definition~\eqref{eqn:robust-prediction-set} of
+$C_{f,\rho}$ and Proposition~\ref{proposition:rho-vs-alpha}, we see that $\rho$ 
+gives sufficient divergence for threshold $q$ if and only if
+\begin{equation*}
+  \WCQuantile_{f,\rho}(1 - \alpha; P)
+  = \Quantile(g_{f,\rho}^{-1}(1 - \alpha; P)) \ge q.
+\end{equation*}
+
+To output a confidence set $\what{C}$ satisfying the high probability
+worst-coverage~\eqref{eqn:worst-quantiled-coverage}, we wish to find $q \in
+\R$ such that $\Pv[ \wcoverage(C^{(q)}, \mc{R}_v, \delta; \, Q_0) \geq 1 -
+  \alpha] \geq 1-\levelv$. Notably, any choice of $\rho$ satisfying
+$\WCQuantile_{f,\rho}(1 - \alpha; P_0) \ge q$ yields a prediction set
+$C_{f,\rho}(\cdot; P_0)$ that both provides coverage for covariate shifts
+$Q_R$ of the form~\eqref{eqn:distribution-shifts-covariate} across most
+directions $v \in \mc{V}$, in agreement
+with~\eqref{eqn:worst-quantiled-coverage}, and enjoys the protection against
+distribution shift we establish in Section~\ref{sec:robustpredinference} for
+the given value $\rho$ (including against more than covariate shifts).
+Algorithm~\ref{alg:rho-selection-procedure} performs this using plug-in
+empirical estimators for $P_0$, $Q_0$ and $\Pv$.
+
+\begin{algorithm}
+  \caption{Worst-subset validation procedure}
+  \label{alg:rho-selection-procedure}
+  \begin{algorithmic}
+    \STATE {\bf Input:} sample $\{(X_i,Y_i) \}_{i=1}^n$ with empirical
+    distribution $\empQ$; score function $\score: \mc{X} \times \mc{Y}
+    \to \R$ with empirical distribution $\empP$ on $\{\score(X_i,
+    Y_i)\}_{i=1}^n$; levels $\alpha, \levelv \in (0,1)$; divergence function
+    $f : \R_+ \to \R$; smallest subset size $\delta \in (0,1)$;
+    number of sampled directions $k \ge 1.$
+
+    % \STATE {\bf Output:} confidence set mapping $\what C: \mc{X} \toto \mc{Y}$
+
+    \STATE {\bf Do:} Sample $\{ v_j \}_{j=1}^k \simiid \Pv$, and let
+    $\Pvemp$ be their empirical distribution and set
+    %%
+    %% \STATE Set
+    \begin{align}
+      \label{eqn:rhohat-criterion}
+      \what q_\delta
+      \defeq \inf \Bigg\{ q \in \R : \Pvemp \Big( \wcoverage(C^{(q)}, \mc{R}_v, \delta; \, \what{Q}_{n}) \geq 1-\alpha \Big) \geq 1-\levelv \Bigg\}.
+    \end{align}
+
+    \STATE Set $\hat{\rho}_\delta$ to be any sufficient
+    divergence level for threshold $\what{q}_\delta$.
+
+    \STATE \textbf{Return:}
+    confidence set mapping $\what{C} : \mc{X} \toto \mc{Y}$ with
+    $\what C(x)  \defeq C^{(\what q_\delta ) }(x)$ or
+    $\what{C}(x) \defeq C_{f,\hat \rho_\delta}(x; \empP)$.
+  \end{algorithmic}
+\end{algorithm}
+
+%% \noindent
+%% (If $\mc{R}_v$ is the set of all slabs orthogonal to $v \in \sphere^{d-1}$,
+%% as in Ex.~\ref{ex:slab-euclideanballs}, maximum density segment algorithms
+%% efficiently compute criterion~\eqref{eqn:rhohat-criterion} in time $O(k n
+%% \log n)$~\cite{ChungLu03}.)
+
+We show that procedure~\ref{alg:rho-selection-procedure}
+approaches uniform $1 - \alpha$ coverage if the subsets
+in $\mc{R}$ have finite VC-dimension in Appendix~\ref{sec:adaptive_procedure_shifts_high_prob_coverage}.
+%To achieve almost exact
+%coverage, we will sometimes require
+
+%\begin{assumption}[Score continuity]
+%  \label{assumption:continuity-scores-v}
+%  The distribution of the scores under $P_0$ is continuous.
+%\end{assumption}
+%
+%%\begin{assumption}[Continuity of the worst coverage]
+%%\label{assumption:continuity-worst-coverage-v}
+%%For every $\delta \in (0,1)$ and $v \in \mc{V}$, the function $t \in \R \mapsto \wcoverage(C^{(t)}, \mc{R}_v, \delta; \, Q_0)$ is continuous.
+%%\end{assumption}
+%\begin{theorem}
+%  \label{theorem:high-probability-coverage}
+%  Let $\what C$ be the prediction set
+%  Alg.~\ref{alg:rho-selection-procedure} returns. Assume
+%  that $\mc{R} = \bigcup_{v
+%    \in \mc{V}} \mc{R}_v$ has VC-dimension $\VC(\mc{R}) < \infty$.
+%  Then there exists a universal constant $c < \infty$ such that the
+%  following holds. For
+%  all $t > 0$, defining
+%  \begin{equation*}
+%    \alpha_{t,n}^\pm \defeq \alpha \pm c
+%    \sqrt{\frac{\VC(\mc{R}) \log n + t}{\delta n}},
+%    \; \textrm{ and }\;
+%    \delta_{t,n}^\pm = \delta \pm c \sqrt{\frac{\VC(\mc{R}) \log n + t}{n}},
+%  \end{equation*}
+%  then with probability at least $1 - e^{-t}$ over
+%  $\{X_i, Y_i\}_{i = 1}^n \simiid Q_0$ and
+%  $\{v_i\}_{i = 1}^k \simiid \Pv$,
+%  \begin{equation*}
+%    \Pv \Big( \wcoverage(\what C, \mc{R}_v, \delta_{t,n}^+; \, Q_0)
+%    \ge 1 - \alpha_{t,n}^+ \Big) \ge 1 - \levelv - c \sqrt{\frac{1 + t}{k}}.
+%  \end{equation*}
+%  If additionally Assumption~\ref{assumption:continuity-scores-v}
+%  holds, then
+%  \begin{align*}
+%    \Pv  \Big( \wcoverage(\what C, \mc{R}_v, \delta_{t,n}^-; \, Q_0)
+%    \le 1 - \alpha_{t,n}^-  \Big)
+%    \ge \levelv - \frac{1}{k} - c\sqrt{\frac{1 + t}{k}}.
+%  \end{align*}
+%\end{theorem}
+%\noindent
+%See Appendix~\ref{sec:proof-high-probability-coverage} for a proof of
+%the theorem.
+%
+%Theorem~\ref{theorem:high-probability-coverage} shows that
+%Procedure~\ref{alg:rho-selection-procedure} approaches uniform $1-\alpha$
+%coverage if the subsets in $\mc{R}$ have finite VC-dimension. More
+%precisely, the estimate $\hat{\rho}_\delta$ almost achieves the randomized
+%worst-case coverage~\eqref{eqn:worst-quantiled-coverage}: with probability
+%nearly $1-\levelv$ over the direction $v \sim \Pv$, $\what{C}$ provides
+%coverage at level $1-\alpha - O(1/\sqrt{n})$ for all shifts $Q_R$ (as in
+%Eq.~\eqref{eqn:distribution-shifts-covariate}) satisfying $R \in \mc{R}_v$
+%and $Q_0(X \in R) \ge \delta$. The second statement in the theorem
+%is an insurance against drastic overcoverage:
+%while we cannot guarantee that the
+%worst coverage is always no more than $1 - \alpha$, we can guarantee
+%that---if the scores are continuous---then the empirical set $\what{C}$
+%has worst coverage \emph{no more} than $1 - \alpha + O(1/\sqrt{n})$
+%for at least a fraction $\levelv$ of directions $v \sim \Pv$.
+%In a sense, this is unimprovable: if the worst coverage
+%$W = \wcoverage(C, \mc{R}_v, \delta; Q_0)$ is continuous
+%in $v$, the best we could expect is that
+%$\Pv(W \ge 1 - \alpha) = 1 - \levelv$ while
+%$\Pv(W < 1 - \alpha) = \levelv$.
+%
+%As a last remark, we note that when the scores are distinct,
+%there is a complete equivalence between thresholds $q$ and
+%divergence levels $\rho$ in Algorithm~\ref{alg:rho-selection-procedure};
+%see Appendix~\ref{sec:proof-equivalence-rho-threshold} for a proof.
+%\begin{lemma}
+%  \label{lemma:equivalence-rho-threshold}
+%  Assume that the scores $\score(X_i, Y_i)$ are all distinct.
+%  Define $\rho_{f, \alpha}(q; P) \defeq \sup\{\rho \ge 0 \mid
+%  \WCQuantile_{f,\rho}(1 - \alpha; P) \le q\}$ and let
+%  $\what{\rho}_\delta = \rho_{f,\alpha}(\what{q}_\delta, \empP)$. Then
+%  $C^{(\what{q}_\delta)} = C_{f, \what{\rho}_\delta}(\cdot; \empP)$.
+%\end{lemma}

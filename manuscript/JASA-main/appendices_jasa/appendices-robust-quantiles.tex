@@ -1,0 +1,348 @@
+% -*- Mode: latex -*- %
+\section{Proofs of results on robust inference}
+
+\subsection{Proof of Proposition~\ref{proposition:rho-vs-alpha}}
+\label{sec:proof-rho-vs-alpha}
+
+We provide several properties of $g_{f,\rho}(\beta) = \inf\{z \in [0, 1] :
+\beta f(\frac{z}{\beta}) + (1 - \beta) f(\frac{1-z}{1 - \beta}) \le \rho\}$,
+deferring their proof to Sec.~\ref{sec:proof-properties-robust-cdf}.
+\begin{lemma}[Properties of $g_{f,\rho}$]
+  \label{lemma:properties-robust-cdf}
+  Let $f$ be a closed convex function such that $f(1) = 0$ and $f(t) < \infty$ for all $t > 0$. Then the function
+  $g_{f,\rho}$ satisfies the following.
+  \begin{enumerate}[(a)]
+  \item $(\beta, \rho) \mapsto g_{f,\rho}(\beta)$ is a convex
+    function.
+  \item \label{item:gf-rho-monotonicity}
+    $g_{f,\rho}$ is non-increasing in $\rho$ and non-decreasing in
+    $\beta$. Moreover, for all $\rho >0$, there exists $\beta_0(\rho) \defeq
+    \sup \{\beta \in (0,1) \mid g_{f,\rho}(\beta) = 0 \}$, and
+    $g_{f,\rho}$ is strictly increasing for $\beta > \beta_0(\rho)$.
+  \item \label{item:gf-rho-continuity}
+    $(\beta, \rho) \mapsto g_{f,\rho}(\beta)$ is continuous for $\beta
+    \in [0, 1]$ and $\rho \in (0,\infty)$.
+  \item For $\beta \in [0,1]$ and $\rho > 0 $, $g_{f,\rho}(\beta) \le
+    \beta$.  For $\rho > 0$, equality holds for $\beta = 0$,
+    strict inequality holds for $\beta \in (0,1)$ and $\rho > 0$,
+   and $g_{f,\rho}(1)=1$ if and only if $f'(\infty) = \infty$.
+  \item Let $g_{f,\rho}^{-1}(t) = \sup\{\beta : g_{f,\rho}(\beta) \le t\}$
+    as in the statement of Proposition~\ref{proposition:rho-vs-alpha}.
+    Then for $\beta \in (0, 1)$, $g_{f,\rho}(\tau) \ge \beta$ if and only
+    if $g_{f,\rho}^{-1}(\beta) \le \tau$.
+  \end{enumerate}
+\end{lemma}
+
+We now define the worst-case cumulative distribution function, which
+generalizes the c.d.f.\ of a distribution in the same way the worst-case
+quantile generalizes standard quantiles.
+\begin{definition}[$f$-worst-case c.d.f.]
+  Let $\rho > 0$ and consider any distribution $P$ on the real line.
+  The \emph{$(f,\rho)$-worst-case cumulative distribution function} is
+  \begin{align}
+    \label{eqn:robust-f-div-cdf-def}
+    \cdfrob_{f,\rho}(t; \, P) \defeq 
+    \inf \big\{ P_1(S \le t) \mid S \sim P_1, \; \fdivs{P_1}{P}
+    \le \rho \big\}.
+  \end{align}
+\end{definition}
+
+Proposition~\ref{proposition:rho-vs-alpha} will then follow from the coming
+lemma.
+\begin{lemma}
+  \label{lemma:effective-cdf}
+  Let $P$ be a distribution on $\R$ with c.d.f.\ $F$.
+  Then
+  \begin{align}
+    \cdfrob_{f,\rho}(t; \, P) = g_{f,\rho}(F(t)).
+  \end{align}
+\end{lemma}
+\noindent Deferring the proof of this lemma as well (see
+Sec.~\ref{sec:proof-effective-cdf}), let us see how it implies
+Proposition~\ref{proposition:rho-vs-alpha}. Observe that for all
+$\beta \in (0,1)$, and any real distribution $P$ with c.d.f.\ $F$, we have
+\begin{align*}
+  \WCQuantile_{f,\rho}(\beta; \, P) 
+  &=  
+  \inf \big\{ q \in \R \mid \cdfrob_{f,\rho}(q, P) \geq \beta \big\} \\
+  & \stackrel{(i)}{=}
+  \inf \big\{ q \in \R \mid g_{f,\rho}(F(q)) \ge \beta \big\} \\
+  & \stackrel{(ii)}{=} \inf
+  \big\{ q \in \R \mid F(q) \ge g_{f,\rho}^{-1}(\beta) \big\}
+  = \Quantile(g_{f,\rho}^{-1}(\beta); \, P),
+\end{align*}
+where equality~$(i)$ uses Lemma~\ref{lemma:effective-cdf} and~$(ii)$
+follows because by Lemma~\ref{lemma:properties-robust-cdf}, as
+$g_{f,\rho}(\tau) \ge \beta$ if and only if $g_{f,\rho}^{-1}(\beta) \le
+\tau$.
+
+
+\subsubsection{Proof of Lemma~\ref{lemma:properties-robust-cdf}}
+\label{sec:proof-properties-robust-cdf}
+\providecommand{\persp}{_{\textup{per}}}
+
+It is no loss of generality to assume that $f'(1) = 0$ and $f \ge 0$,
+as replacing $f$ by $f_0(t) \defeq f(t) -f'(1)(t - 1)$ generates the same
+$f$-divergence and evidently $\inf_t f_0(t) = f_0(1) = 0$.
+
+\begin{enumerate}[(a)]
+\item Let $f\persp(t, \beta) = \beta f(t / \beta)$ be the perspective
+  transform of $f$, which is convex, with the understanding that
+  \begin{itemize}
+  \item $f\persp(0, \beta) = f(0) = f(0^+)$ for $\beta >0$,
+  \item $f\persp(0, 0) = 0 f(0/0) = 0$,
+  \item $f\persp(t, \beta) = 0 f(t/0) = t f'(\infty)$ for all $t>0$, where $f'(\infty) = \lim_{a \to \infty} f'(a) \in (0,\infty]$.
+  \end{itemize} 
+  Then $g_{f,\rho}(\beta)$ is the partial
+  minimization of the convex function $(\rho, \beta, z) \mapsto z +
+  \mathbf{I}(f\persp(z, \beta) + f\persp(1-z, 1 - \beta) \le \rho)$ and hence
+  convex, where $\mathbf{I}(\cdot)$ is the convex indicator function,
+  $+\infty$ if its argument is false
+  and $0$ otherwise.
+  (See \cite[Ch.~IV]{HiriartUrrutyLe93} for proofs of each of
+  these claims and that the limits indeed exist.)
+	
+\item That $\rho \mapsto g_{f,\rho}(\beta)$ is non-increasing is evident.
+  As $g$ is nonnegative, convex, and $g_{f,\rho}(0) = 0$, it must therefore
+  be non-decreasing.  That $g_{f,\rho}(\beta) > 0$ is strictly increasing in
+  $\beta > \beta_0(\rho)$ is again immediate by convexity as $g_{f,\rho}(0)
+  = 0$.
+  
+  \item Any convex function is continuous on the interior of its domain,
+    thus $g$ is continuous on $(0,1) \times (0,\infty)$.  To see that
+    $g_{f,\rho}$ is continuous from the left at $\beta = 1$, first observe
+    that $\beta \mapsto g_{f,\rho}(\beta)$ is non-decreasing by
+    \eqref{item:gf-rho-monotonicity} (which
+    only uses convexity and the fact that $g_{f,\rho}(0) = 0 f(0/0) = 0$),
+    so we only need to prove that
+ \begin{align*}
+ \limsup_{\beta \uparrow 1} g_{f,  \rho}(\beta) \ge g_{f,\rho}(1) &= \inf \left\{ z\in [0,1]: f(z) + f'(\infty)(1-z) \le \rho \right\} \\  &= \sup \left\{ z \in (0,1) : f(z) + f'(\infty)(1-z) > \rho \right\},
+ \end{align*}
+ where the last equality follows from the fact that $z \mapsto f(z) + f'(\infty)(1-z)$ is decreasing on $[0,1]$.
+However,  for any $z \in (0,1)$ such that $f(z) + f'(\infty)(1-z) > \rho$,  the continuity of $f$ in $z$ and the fact that $t f((1-z)/t) \underset{t \to 0}{\to} f'(\infty) (1-z)$ ensure the existence of $\beta_0 \in [z,1)$ such that $\beta_0 f(z / \beta_0) + (1-\beta_0) f((1-z)/(1-\beta_0)) > \rho$. 
+Since $\tilde{z} \mapsto f\persp(\tilde{z}, \beta_0) + f\persp(1-\tilde{z}, 1-\beta_0)$ is non-increasing on $[0,\beta_0]$, this implies that $g_{f,\rho}(\beta_0) \ge z$, hence that $\limsup_{\beta \to 1} g_{f,\rho}(\beta) \ge z$, which concludes the proof.
+
+  That $g_{f,\rho}$ is right continuous at $\beta = 0$ is immediate
+  because $g_{f,\rho}$ is non-decreasing and convex.
+
+\item
+  The non-strict inequality is immediate by considering $z = \beta$ and
+  using that $f(1) = 0$. The strict inequality is immediate
+  because $f$ is continuous near $1$,  the equality for $\beta=0$ is trivial since $0 \le g_{f,\rho}(\beta) \le \beta$, and $g_{f,\rho}(1) = \inf \left\{ z\in [0,1]: f(z) + f'(\infty)(1-z) \le \rho \right\}$ equals $1$ if and only if $f'(\infty) = \infty$.
+  
+\item
+  Let $g = g_{f,\rho}$ for shorthand.
+  Suppose that $g(\tau) \ge \beta > 0$. Then
+  as $g$ is strictly increasing when it is positive, we have
+  $g(t) > g(\tau) \ge \beta$ for all $t > \tau$, so that
+  $g^{-1}(\beta) \le t$ for any $t > \tau$, or $g^{-1}(\beta) \le \tau$.
+
+  Now, assume the converse, that is, that $g^{-1}(\beta) \le \tau$, and
+  assume for the sake of contradiction that $g(\tau) < \beta$.  By
+  part~\eqref{item:gf-rho-monotonicity}, we must therefore have $\tau < 1$.
+  As $g$ is continuous by part~\eqref{item:gf-rho-continuity}, we have
+  $g(\tau + \epsilon) \le \beta$ for all sufficiently small $\epsilon > 0$,
+  contradicting that $g^{-1}(\beta) \le \tau$.  Thus we must have $g(\tau)
+  \ge \beta$.
+\end{enumerate}
+
+\subsubsection{Proof of Lemma~\ref{lemma:effective-cdf}}
+\label{sec:proof-effective-cdf}
+
+Recall that $P$ is a real distribution with c.d.f.\ $F$.  
+We treat the cases $F(t) = 0$, $F(t) \in (0,1)$ and $F(t) = 1$ separately.
+
+\begin{itemize}
+\item If $F(t) = 0$, the result is immediate, since we have $0 \le \cdfrob_{f,\rho}(t; P) \le F(t)$.
+\item Suppose now that $0 < F(t)
+= P( S \le t) < 1$.
+The inequality $\cdfrob_{f,\rho}(t; \, P) \le g_{f,\rho}(F(t))$ is
+immediate:
+\begin{align*}
+  \lefteqn{
+    \inf\left\{P_1(S \le t) \mid \fdiv{P_1}{P} \le \rho \right\}
+  } \\
+  & \le
+  \inf\left\{P_1(S \le t) \mid \fdiv{P_1}{P} \le \rho,
+  ~ \frac{dP_1}{dP} ~ \mbox{is~constant~on~}
+  \{S \le t\} ~ \mbox{and} ~ \{S > t\} \right\}.
+\end{align*}
+The reverse inequality is a consequence of the data processing
+inequality~\cite{LieseVa06}. Fix $t \in \R$. Let $P_1$
+be a distribution satisfying $\fdiv{P_1}{P} \le \rho$. We show how
+to construct $\tilde{P}$ with $\fdivs{\tilde{P}}{P}
+\le \fdivs{P_1}{P}$ and $\tilde{P}(S \le t) = P_1(S \le t)$.
+Indeed, define the Markov kernel $K$ by
+\begin{align*}
+  K \left(ds^\prime \mid s \right) \propto              
+  \left\{
+  \begin{array}{lr}
+    dP(s^\prime) \indic{s^\prime \le t}, &\text{if } s \le t\\
+    dP(s^\prime) \indic{s^\prime > t},   &\text{if } s > t. \\
+  \end{array}\right.
+\end{align*}
+Then $P = K \cdot P$, while $\tilde{P} \defeq K \cdot P_1$
+satisfies
+\begin{align*}
+  \fdivs{\tilde{P}}{P}
+  = \fdivs{K \cdot P_1}{K \cdot P}
+  \le \fdivs{P_1}{P} \le \rho
+\end{align*}
+by the data processing inequality. Now we observe that
+\begin{align*}
+  d\tilde{P}(s) = \left(
+  \frac{P_1(S \le t)}{P(S \le t)}\indic{S \le t}
+  +  \frac{P_1(S > t)}{P(S > t)}\indic{S > t} 
+  \right) dP(s).
+\end{align*}
+By construction, $\tilde{P}(S \le t) = P_1(S \le t)$,
+and it is immediate that
+\begin{align*}
+  \fdivs{\tilde{P}}{P}
+  = P(S\le t)f\left(\frac{P_1(S \le t)}{P(S \le t)}\right)
+  + P(S> t)f\left(\frac{P_1(S > t)}{P(S > t)}\right).
+\end{align*}
+Matching the expression of $\fdivs{\tilde{P}}{P}$ to the definition of
+$g_{f,\rho}$ gives $g_{f,\rho}(F(t)) \le P_1(S \le t)$.  Taking the infimum
+over all possible distributions $P_1$ concludes the proof.
+
+\item Finally, if $F(t) = P(S \le t) = 1$, we have $\cdfrob_{f,\rho}(t; \, P) \le g_{f,\rho}(1)$ since for any $z \in (g_{f,\rho}(1),1]$, the distribution $P_{z,1} \defeq (1-z) \delta_{t+1} + z P$ satisfies $\fdiv{P_{z,1}}{P} \le \rho$ and $P_{z,1}(S\le t) = z$.
+The proof of the other inequality is similar to the case where $F(t) \in (0,1)$, except a valid Markov kernel $K$ is now
+\begin{align*}
+  K \left(ds^\prime \mid s \right) \propto              
+  \left\{
+  \begin{array}{lr}
+    dP(s^\prime) \indic{s^\prime \le t}, &\text{if } s \le t\\
+    \delta_{s^\prime = t+1},   &\text{if } s > t,\\
+  \end{array}\right.
+\end{align*}
+to account for the fact that $P(S>t) = 0$.
+\end{itemize}
+
+%If 
+%immediate if $F(t)\in \{0,1\}$, as the $1$-coercivity of $f$ implies that
+%any $P_1$ satisfying $D_f(P_1 \mid \mid P) < \infty$ is absolutely
+%continuous with respect to $P$, guaranteeing that $P_1(S \le t) =
+%F(t) \in \{0, 1\}$, so that $\cdfrob_{f,\rho}(t; P) = F(t) =
+%g_{f,\rho}(F(t))$. 
+
+
+
+\subsection{Proof of Proposition~\ref{proposition:cvg-only-test}}
+\label{sec:proof-cvg-only-test}
+
+Since $\rho\opt = \fdivs{P_\textup{test}}{P_0} < \infty$, the definition of
+$\cdfrob_{f,\rho}$ and Lemma~\ref{lemma:effective-cdf}
+imply that for all $q \in \R$,
+\begin{align*}
+  F_\textup{test}(q) \ge \cdfrob_{f,\rho^\star}(q, P_0) = g_{f,\rho^\star}(F_0(q)).
+\end{align*}
+Applying this inequality with $q \defeq \WCQuantile_{f,\rho}(1-\alpha; \hat
+P_n) = \Quantile(g_{f,\rho}^{-1}(1-\alpha); \hat P_n)$, we obtain
+\begin{align*}
+  \P \Big( Y_{n+1} \in \hat C_{n,f, \rho}(X_{n+1}) \mid \{(X_i,Y_i)\}_{i=1}^n
+  \Big) & \stackrel{(i)}{=} F_\textup{test}( \WCQuantile_{f,\rho}(1-\alpha; \hat
+  P_n) ) \\ &\ge g_{f,\rho^\star}(F_0(\WCQuantile_{f,\rho}(1-\alpha; \hat
+  P_n))) \\ &\stackrel{(ii)}{=}
+  g_{f,\rho^\star}(F_0(\Quantile(g_{f,\rho}^{-1}(1-\alpha); \hat P_n))),
+\end{align*}
+where equality~$(i)$ uses that $\score(X_{n+1},Y_{n+1}) \sim \Ptest$ is
+independent of $\{(X_i, Y_i) \}_{i=1}^n$
+and~$(ii)$ is Proposition~\ref{proposition:rho-vs-alpha}.
+
+\subsection{Proof of Theorem~\ref{theorem:robust-coverage-marginal}}
+\label{sec:proof-robust-coverage-marginal}
+
+We require the following lemma to prove the theorem.
+\begin{lemma}[Quantile coverage~\cite{VovkGaSh05,
+      LeiGSRiTiWa18, BarberCaRaTi19a}]
+  \label{lemma:conformal-inference-coverage-cdf}
+  Assume that $\{ \scorerv_i \}_{i=1}^n \simiid P_0$ with c.d.f.\ $F_0$, and
+  let $\hat P_n$ be their empirical distribution.  Then for all $\beta \in
+  (0,1)$,
+  \begin{align*}
+    \E \left[ F_0\left( \Quantile(\beta; \, \hat P_n) \right) \right] \ge \frac{\ceil{n\beta}}{n+1}.
+  \end{align*}
+\end{lemma}
+
+We include the brief proof of
+Lemma~\ref{lemma:conformal-inference-coverage-cdf} below for completeness,
+giving the proof of Theorem~\ref{theorem:robust-coverage-marginal} here.
+By Proposition~\ref{proposition:cvg-only-test}, for
+$\rho\opt = \fdivs{P_{\textup{test}}}{P_0} < \infty$,
+we have
+\begin{align*}
+  \P \Big( Y_{n+1} \in \hat C_{n,f, \rho}(X_{n+1}) \mid  \{(X_i,Y_i)\}_{i=1}^n \Big)  
+  \ge g_{f,\rho\opt}(F_0(\Quantile(g_{f,\rho}^{-1}(1-\alpha); \hat P_n))).
+%% \ge g_{f,\rho}(F_0(\Quantile(g_{f,\rho}^{-1}(1-\alpha); \hat P_n))),
+\end{align*}
+Marginalizing over $(X_i, Y_i)$,
+this implies that
+\begin{align*}
+  \P \Big( Y_{n+1} \in \hat C_{n,f, \rho}(X_{n+1}) \Big)  
+  & \ge \E \left[ g_{f,\rho\opt}(F_0(\Quantile(g_{f,\rho}^{-1}(1-\alpha); \hat P_n))
+    \right] \\
+  & \stackrel{(i)}{\ge}  g_{f,\rho\opt}\left(
+  \E\left[ F_0(\Quantile(g_{f,\rho}^{-1}(1-\alpha); \hat P_n) \right] \right) \\
+  & \stackrel{(ii)}{\ge}
+  g_{f,\rho\opt} \left(\frac{\ceil{n g_{f,\rho}^{-1}(1-\alpha)}}{n+1}\right),
+\end{align*}
+where inequality $(i)$ is a consequence of Jensen's inequality applied to
+$g_{f,\rho\opt}$ (recall Lemma~\ref{lemma:properties-robust-cdf}(a)),
+while inequality $(ii)$ uses
+Lemma~\ref{lemma:conformal-inference-coverage-cdf} and that $\beta
+\mapsto g_{f,\rho}(\beta)$ is non-decreasing.
+
+\begin{proof-of-lemma}[\ref{lemma:conformal-inference-coverage-cdf}]
+  Let $ S_{n+1} \sim P_0$ independent of $\{ S_i \}_{i=1}^n$. Then
+  \begin{align*}
+    \E \left[ F_0\left( \Quantile(\beta; \, P_n) \right) \right] 
+    &= \P\left( S_{n+1} \le  \Quantile(\beta; \, P_n) \right) \\
+    &\ge \P( \text{Rank of } S_{n+1} \text{ in } \{S_i\}_{i=1}^{n+1} \le \ceil{n \beta})
+    = \frac{\ceil{n \beta}}{n+1},
+  \end{align*}
+  where we break ties uniformly at random to define the rank of $S_{n+1}$ in
+  $\{S_i\}_{i=1}^{n+1}$, ensuring by exchangeability that it is uniform on
+  $\{1,\ldots, n+1\}$.
+\end{proof-of-lemma}
+
+%% \subsection{Proof of Corollary~\ref{corollary:almost-alpha-coverage}}
+%% \label{sec:proof-almost-alpha-coverage}
+
+\subsection{Proof of Corollaries~\ref{corollary:almost-alpha-coverage}
+  and~\ref{corollary:corrected-alpha-coverage}}
+\label{sec:proof-alpha-coverages}
+
+When $\rho\opt = \fdivs{\Ptest}{P_0} \ge \rho$,
+Lemma~\ref{lemma:properties-robust-cdf} guarantees that $g_{f,\rho} \ge
+g_{f,\rho\opt}$, so Theorem~\ref{theorem:robust-coverage-marginal}
+gives
+\begin{equation}
+  \label{eqn:no-burritos-in-portland}
+  \P(Y_{ n +1} \in \hat{C}_{n,f,\rho})
+  \ge
+  g_{f,\rho}\left(\frac{\ceil{n g_{f,\rho}^{-1}(1 - \alpha)}}{n+1}\right).
+\end{equation}
+To prove Corollary~\ref{corollary:almost-alpha-coverage},
+note that as $g_{f,\rho}$ in convex, it has (at least) a left
+derivative $g'_{f,\rho}$, which satisfies
+\begin{align*}
+g_{f,\rho}\Biggr( \frac{\ceil{n g_{f,\rho}^{-1}(1-\alpha)}}{n+1}\Biggr) \ge g_{f,\rho}\Biggr( \frac{n g_{f,\rho}^{-1}(1-\alpha)}{n+1}\Biggr) \ge 1 - \alpha - \frac{g_{f,\rho}^{-1}(1-\alpha) g'_{f,\rho} (g_{f,\rho}^{-1}(1-\alpha))}{n+1}.
+\end{align*}
+This gives the first corollary.
+
+For the second corollary, replacing $\hat{C}$ in
+Eq.~\eqref{eqn:no-burritos-in-portland}
+with $\hat{C}^{\textup{corr}}$ gives
+\begin{align*}
+  \P(Y_{ n +1} \in \hat{C}^{\textup{corr}}_{n,f,\rho})
+  & \ge
+  g_{f,\rho}\left(
+  \frac{\ceil{n g_{f,\rho}^{-1}
+      \left(g_{f,\rho}\left((1 + 1/n) g_{f,\rho}^{-1}(1 - \alpha)\right)\right)}
+  }{n+1}\right) \\
+  & = g_{f,\rho}\left(\frac{\ceil{n(1 + 1/n) g_{f,\rho}^{-1}(1 - \alpha)}}{
+    n + 1}\right)
+  \ge g_{f,\rho}\left(g_{f,\rho}^{-1}(1 - \alpha)\right)
+  \ge 1 - \alpha.
+\end{align*}

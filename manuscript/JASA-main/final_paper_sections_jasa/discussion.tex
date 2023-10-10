@@ -1,0 +1,31 @@
+% -*- Mode: latex -*- %
+
+\section{Discussion and conclusions}
+% \label{sec:concl}
+
+We have presented methods and motivation for robust predicitve inference,
+seeking protection against distribution shift. Our arguments and perspective
+are somewhat different from the typical approach in distributional
+robustness~\cite{ DuchiNa21, BlanchetKaMu19,
+  SagawaKoHaLi20}, as we wish to maintain validity in prediction.  
+A number of future directions and questions remain unanswered. Perhaps
+the most glaring is to fully understand the ``right'' level of
+robustness. While this is a longstanding problem~\cite{DuchiNa21}, we
+present approaches to leverage the available validation data.  Alternatives
+might be compare new covariates and test data
+$X$ to the available validation data. \citet{TibshiraniBaCaRa19}
+suggest an importance-sampling approach for this, reweighting
+data based on likelihood ratios, which may sometimes be feasible
+but is likely impossible in high-dimensional scenarios. It would be
+interesting, for example, to use projections of the data
+to match $X$-statistics on new test data, using this to
+generate appropriate distributional robustness sets.
+We hope that the perspective here inspires renewed consideration of
+predictive validity.
+
+  
+\section{Disclosure statement:}
+
+The authors report there are no competing interests to declare.
+
+% We described a method for predictive inference under distribution shifts.  We showed theoretically and empirically that the method generally achieves coverage at the nominal level with no real loss of efficiency, even in a distribution shift setting, whereas the standard conformal methodology breaks down.  We also proposed a procedure, used by our method, for estimating the amount of shift from samples.  A few interesting directions for future work are: (i) considering sets of more structured shifts, which might make our method less conservative; (ii) extending our methodology to more complex prediction problems (\ie, moving beyond regression, classification, etc.); and (iii) investigating what types of conditional coverage guarantees are possible in a distribution shift setup.

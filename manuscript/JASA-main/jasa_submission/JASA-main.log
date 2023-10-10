@@ -1,0 +1,1841 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.12.22)  10 OCT 2023 11:15
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**JASA-main.tex
+(./JASA-main.tex
+LaTeX2e <2021-11-15> patch level 1
+L3 programming layer <2022-02-24>
+(/usr/local/texlive/2022/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2021/10/04 v1.4n Standard LaTeX document class
+(/usr/local/texlive/2022/texmf-dist/tex/latex/base/size12.clo
+File: size12.clo 2021/10/04 v1.4n Standard LaTeX file (size option)
+)
+\c@part=\count185
+\c@section=\count186
+\c@subsection=\count187
+\c@subsubsection=\count188
+\c@paragraph=\count189
+\c@subparagraph=\count190
+\c@figure=\count191
+\c@table=\count192
+\abovecaptionskip=\skip47
+\belowcaptionskip=\skip48
+\bibindent=\dimen138
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/comment/comment.sty
+\CommentStream=\write3
+
+Excluding comment 'comment')
+(/usr/local/texlive/2022/texmf-dist/tex/latex/tools/enumerate.sty
+Package: enumerate 2015/07/23 v3.00 enumerate extensions (DPC)
+\@enLab=\toks16
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip16
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/preprint/authblk.sty
+Package: authblk 2001/02/27 1.3 (PWD)
+\affilsep=\skip49
+\@affilsep=\skip50
+\c@Maxaffil=\count193
+\c@authors=\count194
+\c@affil=\count195
+)
+(./header-jasa.tex (./jcd.sty
+(/usr/local/texlive/2022/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\@emptytoks=\toks17
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+))
+(/usr/local/texlive/2022/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks18
+\ex@=\dimen139
+)
+\pmbraise@=\dimen140
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2021/10/15 v2.17l AMS math features
+\@mathmargin=\skip51
+
+For additional information on amsmath, use the `?' option.
+(/usr/local/texlive/2022/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2021/08/26 v2.01 AMS text
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2021/08/26 v2.02 operator names
+)
+\inf@bad=\count196
+LaTeX Info: Redefining \frac on input line 234.
+\uproot@=\count197
+\leftroot@=\count198
+LaTeX Info: Redefining \overline on input line 399.
+\classnum@=\count199
+\DOTSCASE@=\count266
+LaTeX Info: Redefining \ldots on input line 496.
+LaTeX Info: Redefining \dots on input line 499.
+LaTeX Info: Redefining \cdots on input line 620.
+\Mathstrutbox@=\box50
+\strutbox@=\box51
+\big@size=\dimen141
+LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
+\macc@depth=\count267
+\c@MaxMatrixCols=\count268
+\dotsspace@=\muskip17
+\c@parentequation=\count269
+\dspbrk@lvl=\count270
+\tag@help=\toks19
+\row@=\count271
+\column@=\count272
+\maxfields@=\count273
+\andhelp@=\toks20
+\eqnshift@=\dimen142
+\alignsep@=\dimen143
+\tagshift@=\dimen144
+\tagwidth@=\dimen145
+\totwidth@=\dimen146
+\lineht@=\dimen147
+\@envbody=\toks21
+\multlinegap=\skip52
+\multlinetaggap=\skip53
+\mathdisplay@stack=\toks22
+LaTeX Info: Redefining \[ on input line 2938.
+LaTeX Info: Redefining \] on input line 2939.
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/amscls/amsthm.sty
+Package: amsthm 2020/05/29 v2.20.6
+\thm@style=\toks23
+\thm@bodyfont=\toks24
+\thm@headfont=\toks25
+\thm@notefont=\toks26
+\thm@headpunct=\toks27
+\thm@preskip=\skip54
+\thm@postskip=\skip55
+\thm@headsep=\skip56
+\dth@everypar=\toks28
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/base/latexsym.sty
+Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
+\symlasy=\mathgroup6
+LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
+(Font)                  U/lasy/m/n --> U/lasy/b/n on input line 52.
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks29
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2021/03/04 v1.4d Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 107.
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen148
+\Gin@req@width=\dimen149
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2021/10/31 v2.13 LaTeX color extensions (UK)
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 227.
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1352.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1356.
+Package xcolor Info: Model `RGB' extended on input line 1368.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1370.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1371.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1372.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1373.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1374.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1375.
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/xifthen/xifthen.sty
+Package: xifthen 2015/11/05 v1.4.0 Extended ifthen features
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count274
+\calc@Bcount=\count275
+\calc@Adimen=\dimen150
+\calc@Bdimen=\dimen151
+\calc@Askip=\skip57
+\calc@Bskip=\skip58
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count276
+\calc@Cskip=\skip59
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2020/11/24 v1.1c Standard LaTeX ifthen package (DPC)
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/ifmtarg/ifmtarg.sty
+Package: ifmtarg 2018/04/16 v1.2b check for an empty argument
+))
+(/usr/local/texlive/2022/texmf-dist/tex/latex/mathtools/mathtools.sty
+Package: mathtools 2022/02/07 v1.28a mathematical typesetting tools
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/mathtools/mhsetup.sty
+Package: mhsetup 2021/03/18 v1.4 programming setup (MH)
+)
+\g_MT_multlinerow_int=\count277
+\l_MT_multwidth_dim=\dimen152
+\origjot=\skip60
+\l_MT_shortvdotswithinadjustabove_dim=\dimen153
+\l_MT_shortvdotswithinadjustbelow_dim=\dimen154
+\l_MT_above_intertext_sep=\dimen155
+\l_MT_below_intertext_sep=\dimen156
+\l_MT_above_shortintertext_sep=\dimen157
+\l_MT_below_shortintertext_sep=\dimen158
+\xmathstrut@box=\box52
+\xmathstrut@dim=\dimen159
+)
+\c@theorem=\count278
+\c@lemma=\count279
+\c@corollary=\count280
+\c@proposition=\count281
+\c@definition=\count282
+\c@claim=\count283
+\c@assumption=\count284
+\c@example=\count285
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/natbib/natbib.sty
+Package: natbib 2010/09/13 8.31b (PWD, AO)
+\bibhang=\skip61
+\bibsep=\skip62
+LaTeX Info: Redefining \cite on input line 694.
+\c@NAT@ctr=\count286
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/tools/xspace.sty
+Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/overpic/overpic.sty
+Package: overpic 2020/02/22 1.3 picture overlays (RN)
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/eepic/epic.sty
+Enhancements to Picture Environment. Version 1.2 - Released June 1, 1986
+\@@multicnt=\count287
+\d@lta=\count288
+\@delta=\dimen160
+\@@delta=\dimen161
+\@gridcnt=\count289
+\@joinkind=\count290
+\@dotgap=\dimen162
+\@ddotgap=\dimen163
+\@x@diff=\count291
+\@y@diff=\count292
+\x@diff=\dimen164
+\y@diff=\dimen165
+\@dotbox=\box53
+\num@segments=\count293
+\num@segmentsi=\count294
+\@datafile=\read2
+)
+\OVP@box=\box54
+) (/usr/local/texlive/2022/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
+(/usr/local/texlive/2022/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
+(/usr/local/texlive/2022/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.te
+x
+\pgfutil@everybye=\toks30
+\pgfutil@tempdima=\dimen166
+\pgfutil@tempdimb=\dimen167
+
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/utilities/pgfutil-common-li
+sts.tex))
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
+\pgfutil@abb=\box55
+) (/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/pgf.revision.tex)
+Package: pgfrcs 2021/05/15 v3.1.9a (3.1.9a)
+))
+Package: pgf 2021/05/15 v3.1.9a (3.1.9a)
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty
+(/usr/local/texlive/2022/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
+Package: pgfsys 2021/05/15 v3.1.9a (3.1.9a)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
+\pgfkeys@pathtoks=\toks31
+\pgfkeys@temptoks=\toks32
+
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/utilities/pgfkeysfiltered.c
+ode.tex
+\pgfkeys@tmptoks=\toks33
+))
+\pgf@x=\dimen168
+\pgf@y=\dimen169
+\pgf@xa=\dimen170
+\pgf@ya=\dimen171
+\pgf@xb=\dimen172
+\pgf@yb=\dimen173
+\pgf@xc=\dimen174
+\pgf@yc=\dimen175
+\pgf@xd=\dimen176
+\pgf@yd=\dimen177
+\w@pgf@writea=\write4
+\r@pgf@reada=\read3
+\c@pgf@counta=\count295
+\c@pgf@countb=\count296
+\c@pgf@countc=\count297
+\c@pgf@countd=\count298
+\t@pgf@toka=\toks34
+\t@pgf@tokb=\toks35
+\t@pgf@tokc=\toks36
+\pgf@sys@id@count=\count299
+
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
+File: pgf.cfg 2021/05/15 v3.1.9a (3.1.9a)
+)
+Driver file for pgf: pgfsys-pdftex.def
+
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-pdftex.d
+ef
+File: pgfsys-pdftex.def 2021/05/15 v3.1.9a (3.1.9a)
+
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-p
+df.def
+File: pgfsys-common-pdf.def 2021/05/15 v3.1.9a (3.1.9a)
+)))
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.
+code.tex
+File: pgfsyssoftpath.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgfsyssoftpath@smallbuffer@items=\count300
+\pgfsyssoftpath@bigbuffer@items=\count301
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.
+code.tex
+File: pgfsysprotocol.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+))
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
+Package: pgfcore 2021/05/15 v3.1.9a (3.1.9a)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
+\pgfmath@dimen=\dimen178
+\pgfmath@count=\count302
+\pgfmath@box=\box56
+\pgfmath@toks=\toks37
+\pgfmath@stack@operand=\toks38
+\pgfmath@stack@operation=\toks39
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.
+tex
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic
+.code.tex)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigo
+nometric.code.tex)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.rando
+m.code.tex)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.compa
+rison.code.tex)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.
+code.tex)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round
+.code.tex)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.
+code.tex)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integ
+erarithmetics.code.tex)))
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
+\c@pgfmathroundto@lastzeros=\count303
+)) (/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfint.code.tex)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.co
+de.tex
+File: pgfcorepoints.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgf@picminx=\dimen179
+\pgf@picmaxx=\dimen180
+\pgf@picminy=\dimen181
+\pgf@picmaxy=\dimen182
+\pgf@pathminx=\dimen183
+\pgf@pathmaxx=\dimen184
+\pgf@pathminy=\dimen185
+\pgf@pathmaxy=\dimen186
+\pgf@xx=\dimen187
+\pgf@xy=\dimen188
+\pgf@yx=\dimen189
+\pgf@yy=\dimen190
+\pgf@zx=\dimen191
+\pgf@zy=\dimen192
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconst
+ruct.code.tex
+File: pgfcorepathconstruct.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgf@path@lastx=\dimen193
+\pgf@path@lasty=\dimen194
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage
+.code.tex
+File: pgfcorepathusage.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgf@shorten@end@additional=\dimen195
+\pgf@shorten@start@additional=\dimen196
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.co
+de.tex
+File: pgfcorescopes.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgfpic=\box57
+\pgf@hbox=\box58
+\pgf@layerbox@main=\box59
+\pgf@picture@serial@count=\count304
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicst
+ate.code.tex
+File: pgfcoregraphicstate.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgflinewidth=\dimen197
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransform
+ations.code.tex
+File: pgfcoretransformations.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgf@pt@x=\dimen198
+\pgf@pt@y=\dimen199
+\pgf@pt@temp=\dimen256
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.cod
+e.tex
+File: pgfcorequick.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.c
+ode.tex
+File: pgfcoreobjects.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathproce
+ssing.code.tex
+File: pgfcorepathprocessing.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.co
+de.tex
+File: pgfcorearrows.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgfarrowsep=\dimen257
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.cod
+e.tex
+File: pgfcoreshade.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgf@max=\dimen258
+\pgf@sys@shading@range@num=\count305
+\pgf@shadingcount=\count306
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.cod
+e.tex
+File: pgfcoreimage.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.
+code.tex
+File: pgfcoreexternal.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgfexternal@startupbox=\box60
+))
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.co
+de.tex
+File: pgfcorelayers.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretranspare
+ncy.code.tex
+File: pgfcoretransparency.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepatterns.
+code.tex
+File: pgfcorepatterns.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/basiclayer/pgfcorerdf.code.
+tex
+File: pgfcorerdf.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+)))
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.cod
+e.tex
+File: pgfmoduleshapes.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgfnodeparttextbox=\box61
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.
+tex
+File: pgfmoduleplot.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version
+-0-65.sty
+Package: pgfcomp-version-0-65 2021/05/15 v3.1.9a (3.1.9a)
+\pgf@nodesepstart=\dimen259
+\pgf@nodesepend=\dimen260
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version
+-1-18.sty
+Package: pgfcomp-version-1-18 2021/05/15 v3.1.9a (3.1.9a)
+))
+(/usr/local/texlive/2022/texmf-dist/tex/latex/pgf/utilities/pgffor.sty
+(/usr/local/texlive/2022/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex)
+) (/usr/local/texlive/2022/texmf-dist/tex/latex/pgf/math/pgfmath.sty
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex))
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex
+Package: pgffor 2021/05/15 v3.1.9a (3.1.9a)
+
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex)
+\pgffor@iter=\dimen261
+\pgffor@skip=\dimen262
+\pgffor@stack=\toks40
+\pgffor@toks=\toks41
+))
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.cod
+e.tex
+Package: tikz 2021/05/15 v3.1.9a (3.1.9a)
+
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothan
+dlers.code.tex
+File: pgflibraryplothandlers.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgf@plot@mark@count=\count307
+\pgfplotmarksize=\dimen263
+)
+\tikz@lastx=\dimen264
+\tikz@lasty=\dimen265
+\tikz@lastxsaved=\dimen266
+\tikz@lastysaved=\dimen267
+\tikz@lastmovetox=\dimen268
+\tikz@lastmovetoy=\dimen269
+\tikzleveldistance=\dimen270
+\tikzsiblingdistance=\dimen271
+\tikz@figbox=\box62
+\tikz@figbox@bg=\box63
+\tikz@tempbox=\box64
+\tikz@tempbox@bg=\box65
+\tikztreelevel=\count308
+\tikznumberofchildren=\count309
+\tikznumberofcurrentchild=\count310
+\tikz@fig@count=\count311
+
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.cod
+e.tex
+File: pgfmodulematrix.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+\pgfmatrixcurrentrow=\count312
+\pgfmatrixcurrentcolumn=\count313
+\pgf@matrix@numberofcolumns=\count314
+)
+\tikz@expandcount=\count315
+
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibrarytopaths.code.tex
+File: tikzlibrarytopaths.code.tex 2021/05/15 v3.1.9a (3.1.9a)
+)))
+(/usr/local/texlive/2022/texmf-dist/tex/latex/algorithms/algorithm.sty
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count316
+\float@exts=\toks42
+\float@box=\box66
+\@float@everytoks=\toks43
+\@floatcapt=\box67
+)
+\@float@every@algorithm=\toks44
+\c@algorithm=\count317
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/algorithms/algorithmic.sty
+Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
+\c@ALC@unique=\count318
+\c@ALC@line=\count319
+\c@ALC@rem=\count320
+\c@ALC@depth=\count321
+\ALC@tlm=\skip63
+\algorithmicindent=\skip64
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2022-02-21 v7.00n Hypertext links for LaTeX
+
+(/usr/local/texlive/2022/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+Package: ltxcmds 2020-05-10 v1.25 LaTeX kernel commands for general use (HO)
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2022/02/03 v1.0f TeX engine tests
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(/usr/local/texlive/2022/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/kvsetkeys/kvsetkeys.sty
+Package: kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
+Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/hycolor/hycolor.sty
+Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty
+Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/auxhook/auxhook.sty
+Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+Package: kvoptions 2020-10-07 v3.14 Key value format for package options (HO)
+)
+\@linkdim=\dimen272
+\Hy@linkcounter=\count322
+\Hy@pagecounter=\count323
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2022-02-21 v7.00n Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/intcalc/intcalc.sty
+Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/etexcmds/etexcmds.sty
+Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
+)
+\Hy@SavedSpaceFactor=\count324
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/hyperref/puenc.def
+File: puenc.def 2022-02-21 v7.00n Hyperref: PDF Unicode definition (HO)
+Now handling font encoding PU ...
+... no UTF-8 mapping file for font encoding PU
+)
+Package hyperref Info: Option `colorlinks' set `true' on input line 4018.
+Package hyperref Info: Hyper figures OFF on input line 4137.
+Package hyperref Info: Link nesting OFF on input line 4142.
+Package hyperref Info: Hyper index ON on input line 4145.
+Package hyperref Info: Plain pages OFF on input line 4152.
+Package hyperref Info: Backreferencing OFF on input line 4157.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4390.
+\c@Hy@tempcnt=\count325
+LaTeX Info: Redefining \url on input line 4749.
+\XeTeXLinkMargin=\dimen273
+
+(/usr/local/texlive/2022/texmf-dist/tex/generic/bitset/bitset.sty
+Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
+
+(/usr/local/texlive/2022/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
+)
+))
+\Fld@menulength=\count326
+\Field@Width=\dimen274
+\Fld@charsize=\dimen275
+Package hyperref Info: Hyper figures OFF on input line 6027.
+Package hyperref Info: Link nesting OFF on input line 6032.
+Package hyperref Info: Hyper index ON on input line 6035.
+Package hyperref Info: backreferencing OFF on input line 6042.
+Package hyperref Info: Link coloring ON on input line 6045.
+Package hyperref Info: Link coloring with OCG OFF on input line 6052.
+Package hyperref Info: PDF/A mode OFF on input line 6057.
+LaTeX Info: Redefining \ref on input line 6097.
+LaTeX Info: Redefining \pageref on input line 6101.
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/base/atbegshi-ltx.sty
+Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
+package with kernel methods
+)
+\Hy@abspage=\count327
+\c@Item=\count328
+\c@Hfootnote=\count329
+)
+Package hyperref Info: Driver (autodetected): hpdftex.
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2022-02-21 v7.00n Hyperref driver for pdfTeX
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/base/atveryend-ltx.sty
+Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend pac
+kage
+with kernel methods
+)
+\Fld@listcount=\count330
+\c@bookmark@seq@number=\count331
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+Package: rerunfilecheck 2019/12/05 v1.9 Rerun checks for auxiliary files (HO)
+
+(/usr/local/texlive/2022/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
+)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+86.
+)
+\Hy@SectionHShift=\skip65
+))
+(/usr/local/texlive/2022/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+File: l3backend-pdftex.def 2022-02-07 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count332
+\l__pdf_internal_box=\box68
+)
+(./JASA-main.aux)
+\openout1 = `JASA-main.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+
+(/usr/local/texlive/2022/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count333
+\scratchdimen=\dimen276
+\scratchbox=\box69
+\nofMPsegments=\count334
+\nofMParguments=\count335
+\everyMPshowfont=\toks45
+\MPscratchCnt=\count336
+\MPscratchDim=\dimen277
+\MPnumerator=\count337
+\makeMPintoPDFobject=\count338
+\everyMPtoPDFconversion=\toks46
+) (/usr/local/texlive/2022/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+Package hyperref Info: Link coloring ON on input line 36.
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/refcount/refcount.sty
+Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
+)
+(/usr/local/texlive/2022/texmf-dist/tex/generic/gettitlestring/gettitlestring.s
+ty
+Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
+)
+\c@section@level=\count339
+)
+LaTeX Info: Redefining \ref on input line 36.
+LaTeX Info: Redefining \pageref on input line 36.
+LaTeX Info: Redefining \nameref on input line 36.
+ (./JASA-main.out) (./JASA-main.out)
+\@outlinefile=\write5
+\openout5 = `JASA-main.out'.
+
+LaTeX Font Info:    Trying to load font information for U+msa on input line 64.
+
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 64.
+
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+LaTeX Font Info:    Trying to load font information for U+lasy on input line 64
+.
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/base/ulasy.fd
+File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
+)
+(../final_paper_sections_jasa/abstract.tex) [1
+
+{/usr/local/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+(../final_paper_sections_jasa/introduction.tex [2] [3]
+Overfull \hbox (16.90994pt too wide) detected at line 110
+\U/msb/m/n/12 P [] \OMS/cmsy/m/n/12 ^^U \U/msb/m/n/12 P\OT1/cmr/m/n/12 ([](\OML
+/cmm/m/it/12 S[]\OT1/cmr/m/n/12 ) \OMS/cmsy/m/n/12 ^^T []\OT1/cmr/m/n/12 ) \OMS
+/cmsy/m/n/12 ^^U \OT1/cmr/m/n/12 1 \OMS/cmsy/m/n/12 ^^@ \OML/cmm/m/it/12 :
+ []
+
+
+Overfull \hbox (5.59702pt too wide) in paragraph at lines 112--130
+[]\OT1/cmr/m/n/12 Using this idea to pro-vide con-fi-dence sets is now straight
+-for-ward [[], []]. Let $\OMS/cmsy/m/n/12 f\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 X[
+]; Y[]\OT1/cmr/m/n/12 )\OMS/cmsy/m/n/12 g[]$
+ []
+
+[4] [5]) (../final_paper_sections_jasa/motivationfordistributionshift.tex
+[6]
+<../figs//uci/abalone_coverage_Standard_I-B.pdf, id=312, 401.8576pt x 297.09055
+pt>
+File: ../figs//uci/abalone_coverage_Standard_I-B.pdf Graphic file (type pdf)
+<use ../figs//uci/abalone_coverage_Standard_I-B.pdf>
+Package pdftex.def Info: ../figs//uci/abalone_coverage_Standard_I-B.pdf  used o
+n input line 33.
+(pdftex.def)             Requested size: 138.6824pt x 102.52808pt.
+<../figs//uci/ailerons_coverage_Standard_I-B.pdf, id=313, 401.8576pt x 297.0905
+5pt>
+File: ../figs//uci/ailerons_coverage_Standard_I-B.pdf Graphic file (type pdf)
+<use ../figs//uci/ailerons_coverage_Standard_I-B.pdf>
+Package pdftex.def Info: ../figs//uci/ailerons_coverage_Standard_I-B.pdf  used 
+on input line 35.
+(pdftex.def)             Requested size: 138.6824pt x 102.52808pt.
+<../figs//uci/airfoil_coverage_Standard_I-B.pdf, id=314, 401.8576pt x 297.09055
+pt>
+File: ../figs//uci/airfoil_coverage_Standard_I-B.pdf Graphic file (type pdf)
+<use ../figs//uci/airfoil_coverage_Standard_I-B.pdf>
+Package pdftex.def Info: ../figs//uci/airfoil_coverage_Standard_I-B.pdf  used o
+n input line 37.
+(pdftex.def)             Requested size: 138.6824pt x 102.52808pt.
+<../figs//uci/bank_coverage_Standard_I-B.pdf, id=315, 391.6319pt x 297.09055pt>
+
+File: ../figs//uci/bank_coverage_Standard_I-B.pdf Graphic file (type pdf)
+<use ../figs//uci/bank_coverage_Standard_I-B.pdf>
+Package pdftex.def Info: ../figs//uci/bank_coverage_Standard_I-B.pdf  used on i
+nput line 39.
+(pdftex.def)             Requested size: 138.6824pt x 105.20268pt.
+<../figs//uci/bos_coverage_Standard_I-B.pdf, id=316, 391.6319pt x 297.09055pt>
+File: ../figs//uci/bos_coverage_Standard_I-B.pdf Graphic file (type pdf)
+<use ../figs//uci/bos_coverage_Standard_I-B.pdf>
+Package pdftex.def Info: ../figs//uci/bos_coverage_Standard_I-B.pdf  used on in
+put line 41.
+(pdftex.def)             Requested size: 138.6824pt x 105.20268pt.
+<../figs//uci/ca_coverage_Standard_I-B.pdf, id=317, 391.6319pt x 297.09055pt>
+File: ../figs//uci/ca_coverage_Standard_I-B.pdf Graphic file (type pdf)
+<use ../figs//uci/ca_coverage_Standard_I-B.pdf>
+Package pdftex.def Info: ../figs//uci/ca_coverage_Standard_I-B.pdf  used on inp
+ut line 43.
+(pdftex.def)             Requested size: 138.6824pt x 105.20268pt.
+<../figs//uci/delta_coverage_Standard_I-B.pdf, id=318, 401.8576pt x 297.09055pt
+>
+File: ../figs//uci/delta_coverage_Standard_I-B.pdf Graphic file (type pdf)
+<use ../figs//uci/delta_coverage_Standard_I-B.pdf>
+Package pdftex.def Info: ../figs//uci/delta_coverage_Standard_I-B.pdf  used on 
+input line 45.
+(pdftex.def)             Requested size: 138.6824pt x 102.52808pt.
+<../figs//uci/kin_coverage_Standard_I-B.pdf, id=319, 401.8576pt x 297.09055pt>
+File: ../figs//uci/kin_coverage_Standard_I-B.pdf Graphic file (type pdf)
+<use ../figs//uci/kin_coverage_Standard_I-B.pdf>
+Package pdftex.def Info: ../figs//uci/kin_coverage_Standard_I-B.pdf  used on in
+put line 47.
+(pdftex.def)             Requested size: 138.6824pt x 102.52808pt.
+<../figs//uci/puma_coverage_Standard_I-B.pdf, id=320, 401.8576pt x 297.09055pt>
+
+File: ../figs//uci/puma_coverage_Standard_I-B.pdf Graphic file (type pdf)
+<use ../figs//uci/puma_coverage_Standard_I-B.pdf>
+Package pdftex.def Info: ../figs//uci/puma_coverage_Standard_I-B.pdf  used on i
+nput line 49.
+(pdftex.def)             Requested size: 138.6824pt x 102.52808pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+) (../final_paper_sections_jasa/robustpredictiveinference.tex [7] [8 <../figs//
+uci/abalone_coverage_Standard_I-B.pdf> <../figs//uci/ailerons_coverage_Standard
+_I-B.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ../figs//uci/ailerons_covera
+ge_Standard_I-B.pdf): PDF inclusion: multiple pdfs with page group included in 
+a single page
+> <../figs//uci/airfoil_coverage_Standard_I-B.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ../figs//uci/airfoil_coverag
+e_Standard_I-B.pdf): PDF inclusion: multiple pdfs with page group included in a
+ single page
+> <../figs//uci/bank_coverage_Standard_I-B.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ../figs//uci/bank_coverage_S
+tandard_I-B.pdf): PDF inclusion: multiple pdfs with page group included in a si
+ngle page
+> <../figs//uci/bos_coverage_Standard_I-B.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ../figs//uci/bos_coverage_St
+andard_I-B.pdf): PDF inclusion: multiple pdfs with page group included in a sin
+gle page
+> <../figs//uci/ca_coverage_Standard_I-B.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ../figs//uci/ca_coverage_Sta
+ndard_I-B.pdf): PDF inclusion: multiple pdfs with page group included in a sing
+le page
+> <../figs//uci/delta_coverage_Standard_I-B.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ../figs//uci/delta_coverage_
+Standard_I-B.pdf): PDF inclusion: multiple pdfs with page group included in a s
+ingle page
+> <../figs//uci/kin_coverage_Standard_I-B.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ../figs//uci/kin_coverage_St
+andard_I-B.pdf): PDF inclusion: multiple pdfs with page group included in a sin
+gle page
+> <../figs//uci/puma_coverage_Standard_I-B.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ../figs//uci/puma_coverage_S
+tandard_I-B.pdf): PDF inclusion: multiple pdfs with page group included in a si
+ngle page
+>]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 57.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 57.
+
+[9]
+Overfull \hbox (7.7247pt too wide) in paragraph at lines 102--111
+\OT1/cmr/m/n/12 (Bernoulli) prob-lem. The choice of $\OML/cmm/m/it/12 f$ \OT1/c
+mr/m/n/12 and $\OML/cmm/m/it/12 ^^Z$ \OT1/cmr/m/n/12 de-ter-mine plau-si-ble am
+ounts of shift---appropriate
+ []
+
+[10] [11] [12]) (../final_paper_sections_jasa/adaptiveprocedurefutureshifts.tex
+[13] [14] [15] [16]
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
+put line 207.
+) (../final_paper_sections_jasa/find-worst-shifts.tex
+[17] [18]
+Overfull \hbox (5.68098pt too wide) in paragraph at lines 46--51
+\OT1/cmr/m/n/12 dataset shift by sep-a-rat-ing those dat-a-points $(\OML/cmm/m/
+it/12 X[]; Y[]\OT1/cmr/m/n/12 )$ with large non-con-for-mity scores $\OML/cmm/m
+/it/12 s\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 X[]; Y[]\OT1/cmr/m/n/12 )$
+ []
+
+[19] [20]) (../final_paper_sections_jasa/sensitivity.tex [21] [22] [23]
+[24]) (../final_paper_sections_jasa/experiments.tex [25] [26]
+<../figs//cifar-10/cifar-10_coverages_boxplot.pdf, id=675, 401.8576pt x 281.061
+92pt>
+File: ../figs//cifar-10/cifar-10_coverages_boxplot.pdf Graphic file (type pdf)
+<use ../figs//cifar-10/cifar-10_coverages_boxplot.pdf>
+Package pdftex.def Info: ../figs//cifar-10/cifar-10_coverages_boxplot.pdf  used
+ on input line 57.
+(pdftex.def)             Requested size: 200.9283pt x 140.53061pt.
+<../figs//cifar-10/cifar-10_sizes_boxplot.pdf, id=676, 401.8576pt x 281.06192pt
+>
+File: ../figs//cifar-10/cifar-10_sizes_boxplot.pdf Graphic file (type pdf)
+<use ../figs//cifar-10/cifar-10_sizes_boxplot.pdf>
+Package pdftex.def Info: ../figs//cifar-10/cifar-10_sizes_boxplot.pdf  used on 
+input line 59.
+(pdftex.def)             Requested size: 200.9283pt x 140.53061pt.
+<../figs//mnist/mnist_coverages_boxplot.pdf, id=679, 401.8576pt x 281.06192pt>
+File: ../figs//mnist/mnist_coverages_boxplot.pdf Graphic file (type pdf)
+<use ../figs//mnist/mnist_coverages_boxplot.pdf>
+Package pdftex.def Info: ../figs//mnist/mnist_coverages_boxplot.pdf  used on in
+put line 71.
+(pdftex.def)             Requested size: 200.9283pt x 140.53061pt.
+<../figs//mnist/mnist_sizes_boxplot.pdf, id=680, 401.8576pt x 281.06192pt>
+File: ../figs//mnist/mnist_sizes_boxplot.pdf Graphic file (type pdf)
+<use ../figs//mnist/mnist_sizes_boxplot.pdf>
+Package pdftex.def Info: ../figs//mnist/mnist_sizes_boxplot.pdf  used on input 
+line 73.
+(pdftex.def)             Requested size: 200.9283pt x 140.53061pt.
+<../figs//imagenet/imagenet_coverages_boxplot.pdf, id=683, 401.8576pt x 281.061
+92pt>
+File: ../figs//imagenet/imagenet_coverages_boxplot.pdf Graphic file (type pdf)
+<use ../figs//imagenet/imagenet_coverages_boxplot.pdf>
+Package pdftex.def Info: ../figs//imagenet/imagenet_coverages_boxplot.pdf  used
+ on input line 85.
+(pdftex.def)             Requested size: 200.9283pt x 140.53061pt.
+<../figs//imagenet/imagenet_sizes_boxplot.pdf, id=684, 401.8576pt x 281.06192pt
+>
+File: ../figs//imagenet/imagenet_sizes_boxplot.pdf Graphic file (type pdf)
+<use ../figs//imagenet/imagenet_sizes_boxplot.pdf>
+Package pdftex.def Info: ../figs//imagenet/imagenet_sizes_boxplot.pdf  used on 
+input line 87.
+(pdftex.def)             Requested size: 200.9283pt x 140.53061pt.
+ [27 <../figs//cifar-10/cifar-10_coverages_boxplot.pdf> <../figs//cifar-10/cifa
+r-10_sizes_boxplot.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ../figs//cifar-10/cifar-10_s
+izes_boxplot.pdf): PDF inclusion: multiple pdfs with page group included in a s
+ingle page
+>] [28 <../figs//mnist/mnist_coverages_boxplot.pdf> <../figs//mnist/mnist_sizes
+_boxplot.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ../figs//mnist/mnist_sizes_b
+oxplot.pdf): PDF inclusion: multiple pdfs with page group included in a single 
+page
+> <../figs//imagenet/imagenet_coverages_boxplot.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ../figs//imagenet/imagenet_c
+overages_boxplot.pdf): PDF inclusion: multiple pdfs with page group included in
+ a single page
+> <../figs//imagenet/imagenet_sizes_boxplot.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ../figs//imagenet/imagenet_s
+izes_boxplot.pdf): PDF inclusion: multiple pdfs with page group included in a s
+ingle page
+>]
+Overfull \hbox (8.45406pt too wide) in paragraph at lines 144--154
+\OT1/cmr/m/n/12 tion (Alg. [][]2[][]) is faster than sam-pling di-rec-tions (Al
+g. [][]1[][]); the for-mer takes time $\OML/cmm/m/it/12 O\OT1/cmr/m/n/12 (\OML/
+cmm/m/it/12 nd []\OMS/cmsy/m/n/12 f\OML/cmm/m/it/12 n; d\OMS/cmsy/m/n/12 g\OT1/
+cmr/m/n/12 )$
+ []
+
+[29]) (../final_paper_sections_jasa/discussion.tex) (./JASA-main.bbl [30]
+[31] [32] [33] [34]) [35]
+(../appendices_jasa/appendices_adaptiveproceduresfutureshifts.tex
+pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.69 
+      [1]
+pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.109   \begin{equation*}
+                          [2]
+pdfTeX warning (ext4): destination with the same identifier (name{page.3}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.176 
+       [3]
+pdfTeX warning (ext4): destination with the same identifier (name{page.4}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.227   \end{align*}
+                     [4]
+pdfTeX warning (ext4): destination with the same identifier (name{page.5}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.277 
+       [5]
+pdfTeX warning (ext4): destination with the same identifier (name{page.6}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.324 \begin{align}
+                    [6]
+Overfull \hbox (19.04152pt too wide) detected at line 350
+[]
+ []
+
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.7}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.392   \end{align*}
+                     [7])
+(../appendices_jasa/appendices_sensitivity_consistency.tex
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\hbox' on input line 3.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\mathsurround' on input line 3.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\z@' on input line 3.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\unskip' on input line 3.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\@@italiccorr' on input line 3.
+
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.8}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.24 \begin{align*}
+                    [8]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 78.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\setbox' on input line 78.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\z@' on input line 78.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\hbox' on input line 78.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\mathsurround' on input line 78.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\z@' on input line 78.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 78.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\textstyle' on input line 78.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\mathop' on input line 78.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\mathcode' on input line 78.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\mathcode' on input line 78.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\mathcode' on input line 78.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\mathchardef' on input line 78.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\std@minus' on input line 78.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\mathcode' on input line 78.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\mathcode' on input line 78.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\mathcode' on input line 78.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\mathcode' on input line 78.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\leavevmode@ifvmode' on input line 78.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                \kern 2.6108pt
+(hyperref)                removed on input line 78.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\mathgroup' on input line 78.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\symoperators' on input line 78.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\nmlimits@' on input line 78.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 78.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\mathaccent' on input line 78.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\mathop' on input line 78.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\mathcode' on input line 78.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\mathcode' on input line 78.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\mathcode' on input line 78.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\mathchardef' on input line 78.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\std@minus' on input line 78.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\mathcode' on input line 78.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\mathcode' on input line 78.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\mathcode' on input line 78.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\mathcode' on input line 78.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\leavevmode@ifvmode' on input line 78.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                \kern 2.6108pt
+(hyperref)                removed on input line 78.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\mathgroup' on input line 78.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\symoperators' on input line 78.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\nmlimits@' on input line 78.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `superscript' on input line 78.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `subscript' on input line 78.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 78.
+
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.9}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.93 
+      [9]
+pdfTeX warning (ext4): destination with the same identifier (name{page.10}) has
+ been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.145 \end{align*}
+                   [10]) (../appendices_jasa/appendices_experiments.tex
+pdfTeX warning (ext4): destination with the same identifier (name{page.11}) has
+ been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.36 
+      [11]
+<../figs//uci/abalone_coverage_Chi-squared_I-B.pdf, id=1052, 401.8576pt x 297.0
+9055pt>
+File: ../figs//uci/abalone_coverage_Chi-squared_I-B.pdf Graphic file (type pdf)
+
+<use ../figs//uci/abalone_coverage_Chi-squared_I-B.pdf>
+Package pdftex.def Info: ../figs//uci/abalone_coverage_Chi-squared_I-B.pdf  use
+d on input line 39.
+(pdftex.def)             Requested size: 138.6824pt x 102.52808pt.
+<../figs//uci/ailerons_coverage_Chi-squared_I-B.pdf, id=1053, 401.8576pt x 297.
+09055pt>
+File: ../figs//uci/ailerons_coverage_Chi-squared_I-B.pdf Graphic file (type pdf
+)
+<use ../figs//uci/ailerons_coverage_Chi-squared_I-B.pdf>
+Package pdftex.def Info: ../figs//uci/ailerons_coverage_Chi-squared_I-B.pdf  us
+ed on input line 41.
+(pdftex.def)             Requested size: 138.6824pt x 102.52808pt.
+<../figs//uci/airfoil_coverage_Chi-squared_I-B.pdf, id=1054, 401.8576pt x 297.0
+9055pt>
+File: ../figs//uci/airfoil_coverage_Chi-squared_I-B.pdf Graphic file (type pdf)
+
+<use ../figs//uci/airfoil_coverage_Chi-squared_I-B.pdf>
+Package pdftex.def Info: ../figs//uci/airfoil_coverage_Chi-squared_I-B.pdf  use
+d on input line 43.
+(pdftex.def)             Requested size: 138.6824pt x 102.52808pt.
+<../figs//uci/bank_coverage_Chi-squared_I-B.pdf, id=1055, 391.6319pt x 297.0905
+5pt>
+File: ../figs//uci/bank_coverage_Chi-squared_I-B.pdf Graphic file (type pdf)
+<use ../figs//uci/bank_coverage_Chi-squared_I-B.pdf>
+Package pdftex.def Info: ../figs//uci/bank_coverage_Chi-squared_I-B.pdf  used o
+n input line 45.
+(pdftex.def)             Requested size: 138.6824pt x 105.20268pt.
+<../figs//uci/bos_coverage_Chi-squared_I-B.pdf, id=1056, 401.8576pt x 297.09055
+pt>
+File: ../figs//uci/bos_coverage_Chi-squared_I-B.pdf Graphic file (type pdf)
+<use ../figs//uci/bos_coverage_Chi-squared_I-B.pdf>
+Package pdftex.def Info: ../figs//uci/bos_coverage_Chi-squared_I-B.pdf  used on
+ input line 47.
+(pdftex.def)             Requested size: 138.6824pt x 102.52808pt.
+<../figs//uci/ca_coverage_Chi-squared_I-B.pdf, id=1057, 391.6319pt x 297.09055p
+t>
+File: ../figs//uci/ca_coverage_Chi-squared_I-B.pdf Graphic file (type pdf)
+<use ../figs//uci/ca_coverage_Chi-squared_I-B.pdf>
+Package pdftex.def Info: ../figs//uci/ca_coverage_Chi-squared_I-B.pdf  used on 
+input line 49.
+(pdftex.def)             Requested size: 138.6824pt x 105.20268pt.
+<../figs//uci/delta_coverage_Chi-squared_I-B.pdf, id=1058, 401.8576pt x 297.090
+55pt>
+File: ../figs//uci/delta_coverage_Chi-squared_I-B.pdf Graphic file (type pdf)
+<use ../figs//uci/delta_coverage_Chi-squared_I-B.pdf>
+Package pdftex.def Info: ../figs//uci/delta_coverage_Chi-squared_I-B.pdf  used 
+on input line 51.
+(pdftex.def)             Requested size: 138.6824pt x 102.52808pt.
+<../figs//uci/kin_coverage_Chi-squared_I-B.pdf, id=1059, 401.8576pt x 297.09055
+pt>
+File: ../figs//uci/kin_coverage_Chi-squared_I-B.pdf Graphic file (type pdf)
+<use ../figs//uci/kin_coverage_Chi-squared_I-B.pdf>
+Package pdftex.def Info: ../figs//uci/kin_coverage_Chi-squared_I-B.pdf  used on
+ input line 53.
+(pdftex.def)             Requested size: 138.6824pt x 102.52808pt.
+<../figs//uci/puma_coverage_Chi-squared_I-B.pdf, id=1060, 401.8576pt x 297.0905
+5pt>
+File: ../figs//uci/puma_coverage_Chi-squared_I-B.pdf Graphic file (type pdf)
+<use ../figs//uci/puma_coverage_Chi-squared_I-B.pdf>
+Package pdftex.def Info: ../figs//uci/puma_coverage_Chi-squared_I-B.pdf  used o
+n input line 55.
+(pdftex.def)             Requested size: 138.6824pt x 102.52808pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.12}) has
+ been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.90 
+      [12]
+pdfTeX warning (ext4): destination with the same identifier (name{page.13}) has
+ been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.111 \end{equation*}
+                      [13 <../figs//uci/abalone_coverage_Chi-squared_I-B.pdf> <
+../figs//uci/ailerons_coverage_Chi-squared_I-B.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ../figs//uci/ailerons_covera
+ge_Chi-squared_I-B.pdf): PDF inclusion: multiple pdfs with page group included 
+in a single page
+> <../figs//uci/airfoil_coverage_Chi-squared_I-B.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ../figs//uci/airfoil_coverag
+e_Chi-squared_I-B.pdf): PDF inclusion: multiple pdfs with page group included i
+n a single page
+> <../figs//uci/bank_coverage_Chi-squared_I-B.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ../figs//uci/bank_coverage_C
+hi-squared_I-B.pdf): PDF inclusion: multiple pdfs with page group included in a
+ single page
+> <../figs//uci/bos_coverage_Chi-squared_I-B.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ../figs//uci/bos_coverage_Ch
+i-squared_I-B.pdf): PDF inclusion: multiple pdfs with page group included in a 
+single page
+> <../figs//uci/ca_coverage_Chi-squared_I-B.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ../figs//uci/ca_coverage_Chi
+-squared_I-B.pdf): PDF inclusion: multiple pdfs with page group included in a s
+ingle page
+> <../figs//uci/delta_coverage_Chi-squared_I-B.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ../figs//uci/delta_coverage_
+Chi-squared_I-B.pdf): PDF inclusion: multiple pdfs with page group included in 
+a single page
+> <../figs//uci/kin_coverage_Chi-squared_I-B.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ../figs//uci/kin_coverage_Ch
+i-squared_I-B.pdf): PDF inclusion: multiple pdfs with page group included in a 
+single page
+> <../figs//uci/puma_coverage_Chi-squared_I-B.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ../figs//uci/puma_coverage_C
+hi-squared_I-B.pdf): PDF inclusion: multiple pdfs with page group included in a
+ single page
+>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.14}) has
+ been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.147 
+       [14]
+<../figs//covid/covid_rob_pred_ints_boxplot_Coverage_2021-10-05.pdf, id=1181, 7
+27.38939pt x 330.68546pt>
+File: ../figs//covid/covid_rob_pred_ints_boxplot_Coverage_2021-10-05.pdf Graphi
+c file (type pdf)
+<use ../figs//covid/covid_rob_pred_ints_boxplot_Coverage_2021-10-05.pdf>
+Package pdftex.def Info: ../figs//covid/covid_rob_pred_ints_boxplot_Coverage_20
+21-10-05.pdf  used on input line 150.
+(pdftex.def)             Requested size: 416.04016pt x 189.13853pt.
+<../figs//covid/covid_rob_pred_ints_boxplot_Length_2021-10-05.pdf, id=1186, 727
+.38939pt x 330.46588pt>
+File: ../figs//covid/covid_rob_pred_ints_boxplot_Length_2021-10-05.pdf Graphic 
+file (type pdf)
+<use ../figs//covid/covid_rob_pred_ints_boxplot_Length_2021-10-05.pdf>
+Package pdftex.def Info: ../figs//covid/covid_rob_pred_ints_boxplot_Length_2021
+-10-05.pdf  used on input line 157.
+(pdftex.def)             Requested size: 416.04016pt x 189.01294pt.
+<../figs//covid/covid_rob_pred_ints_04-15-2021_true_alg_idx_0_cbar.pdf, id=1193
+, 590.54164pt x 351.93733pt>
+File: ../figs//covid/covid_rob_pred_ints_04-15-2021_true_alg_idx_0_cbar.pdf Gra
+phic file (type pdf)
+<use ../figs//covid/covid_rob_pred_ints_04-15-2021_true_alg_idx_0_cbar.pdf>
+Package pdftex.def Info: ../figs//covid/covid_rob_pred_ints_04-15-2021_true_alg
+_idx_0_cbar.pdf  used on input line 166.
+(pdftex.def)             Requested size: 416.04016pt x 247.944pt.
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.15}) has
+ been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.171 \clearpage
+                 [15 <../figs//covid/covid_rob_pred_ints_boxplot_Coverage_2021-
+10-05.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.16}) has
+ been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.171 \clearpage
+                 [16 <../figs//covid/covid_rob_pred_ints_boxplot_Length_2021-10
+-05.pdf> <../figs//covid/covid_rob_pred_ints_04-15-2021_true_alg_idx_0_cbar.pdf
+
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ../figs//covid/covid_rob_pre
+d_ints_04-15-2021_true_alg_idx_0_cbar.pdf): PDF inclusion: multiple pdfs with p
+age group included in a single page
+>]
+<../figs//covid/covid_rob_pred_ints_04-15-2021_his_alg_idx_0_cbar.pdf, id=1277,
+ 590.54164pt x 351.93733pt>
+File: ../figs//covid/covid_rob_pred_ints_04-15-2021_his_alg_idx_0_cbar.pdf Grap
+hic file (type pdf)
+<use ../figs//covid/covid_rob_pred_ints_04-15-2021_his_alg_idx_0_cbar.pdf>
+Package pdftex.def Info: ../figs//covid/covid_rob_pred_ints_04-15-2021_his_alg_
+idx_0_cbar.pdf  used on input line 174.
+(pdftex.def)             Requested size: 416.04016pt x 247.944pt.
+<../figs//covid/covid_rob_pred_ints_04-15-2021_los_alg_idx_0_cbar.pdf, id=1278,
+ 590.54164pt x 351.93733pt>
+File: ../figs//covid/covid_rob_pred_ints_04-15-2021_los_alg_idx_0_cbar.pdf Grap
+hic file (type pdf)
+<use ../figs//covid/covid_rob_pred_ints_04-15-2021_los_alg_idx_0_cbar.pdf>
+Package pdftex.def Info: ../figs//covid/covid_rob_pred_ints_04-15-2021_los_alg_
+idx_0_cbar.pdf  used on input line 175.
+(pdftex.def)             Requested size: 416.04016pt x 247.944pt.
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.17}) has
+ been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.179 \clearpage
+                 [17
+
+ <../figs//covid/covid_rob_pred_ints_04-15-2021_his_alg_idx_0_cbar.pdf> <../fig
+s//covid/covid_rob_pred_ints_04-15-2021_los_alg_idx_0_cbar.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ../figs//covid/covid_rob_pre
+d_ints_04-15-2021_los_alg_idx_0_cbar.pdf): PDF inclusion: multiple pdfs with pa
+ge group included in a single page
+>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.18}) has
+ been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.228 
+       [18
+
+]
+<../figs//sensitivity/real-estate.pdf, id=1319, 1445.4pt x 722.7pt>
+File: ../figs//sensitivity/real-estate.pdf Graphic file (type pdf)
+<use ../figs//sensitivity/real-estate.pdf>
+Package pdftex.def Info: ../figs//sensitivity/real-estate.pdf  used on input li
+ne 234.
+(pdftex.def)             Requested size: 404.70924pt x 202.35461pt.
+<../figs//sensitivity/weather-history.pdf, id=1320, 1445.4pt x 722.7pt>
+File: ../figs//sensitivity/weather-history.pdf Graphic file (type pdf)
+<use ../figs//sensitivity/weather-history.pdf>
+Package pdftex.def Info: ../figs//sensitivity/weather-history.pdf  used on inpu
+t line 250.
+(pdftex.def)             Requested size: 404.70924pt x 202.35461pt.
+<../figs//sensitivity/wine-quality.pdf, id=1321, 1565.85pt x 722.7pt>
+File: ../figs//sensitivity/wine-quality.pdf Graphic file (type pdf)
+<use ../figs//sensitivity/wine-quality.pdf>
+Package pdftex.def Info: ../figs//sensitivity/wine-quality.pdf  used on input l
+ine 266.
+(pdftex.def)             Requested size: 438.43501pt x 202.35461pt.
+
+
+LaTeX Warning: Float too large for page by 19.1828pt on input line 281.
+
+) (../appendices_jasa/appendices-robust-quantiles.tex
+pdfTeX warning (ext4): destination with the same identifier (name{page.19}) has
+ been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.39 \begin{definition}
+                       [$f$-worst-case c.d.f.] [19]
+pdfTeX warning (ext4): destination with the same identifier (name{page.20}) has
+ been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.39 \begin{definition}
+                       [$f$-worst-case c.d.f.] [20 <../figs//sensitivity/real-e
+state.pdf> <../figs//sensitivity/weather-history.pdf> <../figs//sensitivity/win
+e-quality.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{page.21}) has
+ been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.93   \item $
+              f\persp(0, 0) = 0 f(0/0) = 0$, [21]
+Overfull \hbox (10.73347pt too wide) in paragraph at lines 96--104
+\OT1/cmr/m/n/12 Then $\OML/cmm/m/it/12 g[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 ^^L
+\OT1/cmr/m/n/12 )$ is the par-tial min-i-miza-tion of the con-vex func-tion $(\
+OML/cmm/m/it/12 ^^Z; ^^L; z\OT1/cmr/m/n/12 ) \OMS/cmsy/m/n/12 7! \OML/cmm/m/it/
+12 z \OT1/cmr/m/n/12 + \OT1/cmr/bx/n/12 I\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 f[]\
+OT1/cmr/m/n/12 (\OML/cmm/m/it/12 z; ^^L\OT1/cmr/m/n/12 ) +
+ []
+
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.22}) has
+ been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.124 
+       [22]
+pdfTeX warning (ext4): destination with the same identifier (name{page.23}) has
+ been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.169 \end{align*}
+                   [23]
+pdfTeX warning (ext4): destination with the same identifier (name{page.24}) has
+ been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.218 \end{align*}
+                   [24]
+pdfTeX warning (ext4): destination with the same identifier (name{page.25}) has
+ been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.278 \end{align*}
+                   [25]
+Overfull \hbox (26.63783pt too wide) in paragraph at lines 289--295
+\OT1/cmr/m/n/12 where in-equal-ity $(\OML/cmm/m/it/12 i\OT1/cmr/m/n/12 )$ is a 
+con-se-quence of Jensen's in-equal-ity ap-plied to $\OML/cmm/m/it/12 g[]$ \OT1/
+cmr/m/n/12 (re-call Lemma [][]D.1[][](a)),
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 303--308
+
+ []
+
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.26}) has
+ been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.331 \end{align*}
+                   [26]) (../appendices_jasa/appendices-estimation.tex
+pdfTeX warning (ext4): destination with the same identifier (name{page.27}) has
+ been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.44 \end{align}
+                 [27]
+pdfTeX warning (ext4): destination with the same identifier (name{page.28}) has
+ been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.121   \end{align*}
+                     [28]
+Overfull \hbox (7.94615pt too wide) in paragraph at lines 156--161
+[]\OT1/cmr/m/n/12 We now ob-serve that for any fixed $(\OML/cmm/m/it/12 v; ^^N\
+OT1/cmr/m/n/12 ) \OMS/cmsy/m/n/12 2 V ^^B \OT1/cmr/m/n/12 (0\OML/cmm/m/it/12 ; 
+\OT1/cmr/m/n/12 1)$, the func-tion $\OML/cmm/m/it/12 q \OMS/cmsy/m/n/12 7! []\O
+T1/cmr/m/n/12 (\OML/cmm/m/it/12 C[]; \OMS/cmsy/m/n/12 R[]\OML/cmm/m/it/12 ; ^^N
+\OT1/cmr/m/n/12 ;  \OML/cmm/m/it/12 Q[]\OT1/cmr/m/n/12 )$
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 175--210
+
+ []
+
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.29}) has
+ been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.246 \end{align*}
+                   [29]
+pdfTeX warning (ext4): destination with the same identifier (name{page.30}) has
+ been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.349 \end{equation}
+                     [30]) (../appendices_jasa/appendices-worst-shifts.tex
+pdfTeX warning (ext4): destination with the same identifier (name{page.31}) has
+ been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.17 \end{align*}
+                  [31]
+Overfull \hbox (15.11415pt too wide) detected at line 45
+[]
+ []
+
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.32}) has
+ been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.45 \end{align*}
+                  [32]
+pdfTeX warning (ext4): destination with the same identifier (name{page.33}) has
+ been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.158   \end{equation}
+                       [33]
+Overfull \hbox (1.00285pt too wide) in paragraph at lines 158--163
+\OT1/cmr/m/it/12 If ad-di-tion-ally $\OML/cmm/m/it/12 U[] [] V[]$ \OT1/cmr/m/it
+/12 and $\U/msb/m/n/12 E\OT1/cmr/m/n/12 [\OMS/cmsy/m/n/12 j\OML/cmm/m/it/12 f\O
+T1/cmr/m/n/12 (\OML/cmm/m/it/12 V[]\OT1/cmr/m/n/12 )\OML/cmm/m/it/12 g\OT1/cmr/
+m/n/12 (\OML/cmm/m/it/12 V[]\OT1/cmr/m/n/12 )\OMS/cmsy/m/n/12 j\OT1/cmr/m/n/12 
+]$ \OT1/cmr/m/it/12 and $\U/msb/m/n/12 E\OT1/cmr/m/n/12 [\OMS/cmsy/m/n/12 j\OML
+/cmm/m/it/12 f\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 U[]\OT1/cmr/m/n/12 )\OML/cmm/m/
+it/12 g\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 U[]\OT1/cmr/m/n/12 )\OMS/cmsy/m/n/12 j
+\OT1/cmr/m/n/12 ] \OML/cmm/m/it/12 < \OMS/cmsy/m/n/12 1$\OT1/cmr/m/it/12 , then
+ $\U/msb/m/n/12 E\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 f\OT1/cmr/m/n/12 (\OML/cmm/m
+/it/12 V[]\OT1/cmr/m/n/12 )\OML/cmm/m/it/12 g\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 
+V[]\OT1/cmr/m/n/12 )] \OMS/cmsy/m/n/12 ^^T
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 175--178
+
+ []
+
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.34}) has
+ been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.204 \end{align*}
+                   [34]
+Overfull \hbox (5.55524pt too wide) detected at line 208
+[]
+ []
+
+
+Overfull \hbox (23.0888pt too wide) detected at line 223
+[]
+ []
+
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.35}) has
+ been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.230 \begin{align*}
+                     [35] [36]
+Overfull \hbox (4.37758pt too wide) detected at line 307
+[]
+ []
+
+[37] [38] [39] [40] [41]
+Overfull \hbox (5.19098pt too wide) detected at line 544
+[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 544--548
+
+ []
+
+[42]
+Underfull \hbox (badness 10000) in paragraph at lines 591--594
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 630--631
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 649--652
+
+ []
+
+[43] [44]
+Overfull \hbox (9.99597pt too wide) in paragraph at lines 934--939
+\OT1/cmr/m/n/12 We thus have, con-di-tion-ally on $\OML/cmm/m/it/12 s[]$ \OT1/c
+mr/m/n/12 and $[]$, which are in-de-pen-dent of the sam-ple $\OMS/cmsy/m/n/12 f
+\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 X[]; Y[]\OT1/cmr/m/n/12 )\OMS/cmsy/m/n/12 g[]
+$\OT1/cmr/m/n/12 ,
+ []
+
+
+Overfull \hbox (21.1839pt too wide) detected at line 965
+[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 C[]; \OMS/cmsy/m/n/12 R[]\OML/cmm/m/it/12 ;
+ ^^N[]\OT1/cmr/m/n/12 ; \OML/cmm/m/it/12 Q[]\OT1/cmr/m/n/12 ) = [] [] \OML/cmm/
+m/it/12 :
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 984--990
+
+ []
+
+[45]
+Overfull \hbox (0.4057pt too wide) detected at line 1019
+[]
+ []
+
+[46]
+Underfull \hbox (badness 10000) in paragraph at lines 1057--1060
+
+ []
+
+[47]
+Underfull \hbox (badness 10000) in paragraph at lines 1112--1115
+
+ []
+
+
+Overfull \hbox (20.21295pt too wide) in paragraph at lines 1153--1158
+\OT1/cmr/m/n/12 With Lemma [][]A.2[][], As-sump-tion [][]A2[][] en-sures that $
+[](\OML/cmm/m/it/12 C[]; \OMS/cmsy/m/n/12 R[]\OML/cmm/m/it/12 ; ^^N\OT1/cmr/m/n
+/12 ;  \OML/cmm/m/it/12 Q[]\OT1/cmr/m/n/12 ) = [](\OML/cmm/m/it/12 C[]; \OMS/cm
+sy/m/n/12 R\OML/cmm/m/it/12 ; ^^N\OT1/cmr/m/n/12 ;  \OML/cmm/m/it/12 Q[]\OT1/cm
+r/m/n/12 )$,
+ []
+
+[48]) (../appendices_jasa/appendices-sensitivity-empiricalprocess.tex [49]
+[50]
+Underfull \hbox (badness 10000) in paragraph at lines 135--138
+
+ []
+
+[51]
+Overfull \hbox (11.03053pt too wide) detected at line 174
+[]
+ []
+
+[52]
+Underfull \hbox (badness 10000) in paragraph at lines 191--201
+
+ []
+
+[53]
+Underfull \hbox (badness 10000) in paragraph at lines 241--244
+
+ []
+
+
+Overfull \hbox (35.09456pt too wide) detected at line 263
+[]
+ []
+
+[54]
+Overfull \hbox (41.29976pt too wide) in paragraph at lines 282--284
+\OT1/cmr/m/n/12 using as en-ve-lope func-tion the con-stant func-tion $(\OML/cm
+m/m/it/12 x; s\OT1/cmr/m/n/12 ) \OMS/cmsy/m/n/12 7! \OT1/cmr/m/n/12 4 [][] \OML
+/cmm/m/it/12 e[]$\OT1/cmr/m/n/12 , since $[] [] \OMS/cmsy/m/n/12 ^^T
+ []
+
+[55] [56]
+Overfull \hbox (36.3753pt too wide) detected at line 360
+[]
+ []
+
+) [57] (./JASA-main.aux)
+Package rerunfilecheck Info: File `JASA-main.out' has not changed.
+(rerunfilecheck)             Checksum: 9428E285C9BCA0E79864845905554ACB;12392.
+ ) 
+Here is how much of TeX's memory you used:
+ 22953 strings out of 478268
+ 435300 string characters out of 5846346
+ 692584 words of memory out of 5000000
+ 40358 multiletter control sequences out of 15000+600000
+ 487664 words of font info for 102 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 89i,22n,83p,1719b,606s stack positions out of 10000i,1000n,20000p,200000b,200000s
+{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc
+}</usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb>
+</usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><
+/usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></
+usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb
+></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb>
+</usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><
+/usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></u
+sr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr
+/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/l
+ocal/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/loc
+al/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/
+texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/tex
+live/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texliv
+e/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/local/texlive
+/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2
+022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/20
+22/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2022
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2022/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2022/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2022/tex
+mf-dist/fonts/type1/public/amsfonts/latxfont/lasy10.pfb></usr/local/texlive/202
+2/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive
+/2022/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/tex
+live/2022/texmf-dist/fonts/type1/public/cm-super/sfrm0700.pfb></usr/local/texli
+ve/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
+Output written on JASA-main.pdf (92 pages, 23434847 bytes).
+PDF statistics:
+ 1905 PDF objects out of 2073 (max. 8388607)
+ 1535 compressed objects within 16 object streams
+ 302 named destinations out of 1000 (max. 500000)
+ 589 words of extra memory for PDF output out of 10000 (max. 10000000)
+

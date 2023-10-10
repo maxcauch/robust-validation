@@ -1,0 +1,382 @@
+% -*- Mode: latex -*- %
+
+\section{Proof of Theorem~\ref{theorem:high-probability-coverage}}
+\label{sec:proof-high-probability-coverage}
+
+Throughout the proof, we will typically not assume that the scores
+$\score(X_i, Y_i)$ are distinct, and thus will not make
+Assumption~\ref{assumption:continuity-scores-v}. Some inequalities will
+require the assumption, which implies the distinctness
+of the scores, and we will highlight those.
+
+Recall that $\{(X_i,Y_i)\}_{i=1}^n \simiid Q_0$ and 
+$\{\score(X_i,Y_i)\}_{i=1}^n \simiid P_0$, that for all $q \in \R$
+\begin{align*}
+  C^{(q)}(x) = \left\{ y \in \mc{Y} \mid \score(x,y) \le q \right\},
+\end{align*}
+and that we use $P_0(\cdot \mid X \in R)$ as shorthand for the law
+of $\score(X, Y)$ for $(X, Y) \sim Q_0(\cdot \mid X \in R)$.
+We also use $\empQ$ and $\empP$ for the empirical distributions f $Q$ and $P$,
+respectively.
+Observe that for all $q \in \R$ and $0<\delta < 1$, 
+$\wcoverage(C^{(q)}, \mc{R}_v, \delta; \, Q_0) \ge 1 - \alpha$ 
+if and only if
+\begin{align*}
+  \sup_{R \in \mc{R}_v: Q_0(R) \ge \delta}
+  \Quantile(1-\alpha;P_0(\cdot \mid X \in R)) \le q.
+\end{align*}
+
+By a VC-covering argument (cf.~\cite[Sec.~A.4]{CauchoisGuDu21} or
+\cite[Thm.~5]{BarberCaRaTi19a}), there exists a universal constant
+$C_\varepsilon < \infty$ such that the following holds.  For $t>0$, define
+$\epsilon_n(t) \defeq C_\varepsilon \sqrt{\dfrac{\text{VC}(\mc{R})\log(n) +
+    t}{n}}$. Then with probability at least $1-\half e^{-t}$ over $\{X_i,Y_i
+\}_{i =1}^n$, the following equations hold simultaneously for all $v \in
+\mc{V}$:
+\begin{align}
+  \label{eqn:uniform-robust-estimation-cdf}
+  \sup_{s \in \R} \left|
+  \inf_{\substack{R \in \mc{R}_v \\ \empQ (R) \ge \delta }}
+  \empP\left( \score(X,Y) \le s \mid X \in R \right) -  
+  \inf_{\substack{R \in \mc{R}_v \\ \empQ(R) \ge \delta }}
+  P_0\left( \score(X,Y) \le s \mid X \in R \right) \right|
+  \le \frac{\varepsilon_n(t)}{\sqrt{\delta}}
+\end{align} 
+and
+\begin{align}
+  \label{eqn:uniform-probability-events}
+  \sup_{R \in \mc{R}_v} \left|  \empQ( X \in R) - Q_0(X \in R) \right| \le  \varepsilon_n(t).
+\end{align}
+We assume for the remainder of the proof that
+inequalities~\eqref{eqn:uniform-robust-estimation-cdf}
+and~\eqref{eqn:uniform-probability-events} hold.
+
+Define the 
+empirical quantile
+\begin{align*}
+  \what{q}_n(v, \delta) \defeq \sup_{R \in \mc{R}_v}
+  \left\{\Quantile(1-\alpha; \empP( \cdot \mid X \in R))
+  ~ \mbox{s.t.}~
+  \empQ( X \in R) \ge \delta \right\}.
+\end{align*}
+We first give a lemma on its coverage.
+\begin{lemma}
+  \label{lemma:empirical-q-once-coverage}
+  Let the bounds~\eqref{eqn:uniform-robust-estimation-cdf}
+  and~\eqref{eqn:uniform-probability-events} hold. Then
+  \begin{equation}
+    \label{eqn:quantile-comparison-over-v}
+    \begin{split}
+      \wcoverage(C^{(\what{q}_n(v, \delta))}, \mc{R}_v, \delta_{n}^{+}(t); \, Q_0)
+      & ~ \ge ~ 1 - \alpha_{n}^{+}(t)  \\
+      \wcoverage(C^{(\what{q}_n(v, \delta))}, \mc{R}_v, \delta_{n}^{-}(t); \, Q_0)
+      & \stackrel{(\textup{\ref{assumption:continuity-scores-v}})}{\le}
+      1 - \alpha_{n}^{-}(t)
+    \end{split}
+  \end{equation}
+  simultaneously for all $v \in \mc{V}$,
+  where the second inequality requires
+  Assumption~\ref{assumption:continuity-scores-v}.
+\end{lemma}
+\begin{proof}
+  Applying the bounds~\eqref{eqn:uniform-robust-estimation-cdf},
+  we can bound the worst-case quantiles via
+  \begin{equation}
+    \begin{split}
+      \lefteqn{
+        \sup_{R \in \mc{R}_v}
+        \left\{ \Quantile(1-\alpha^+_n(t);
+        P_0( \cdot \mid X \in R)) ~ \mbox{s.t.} ~
+        \empQ(X \in R) \ge \delta \right\}
+      }
+      \\
+      & \quad \le
+      \what{q}_n(v, \delta)
+      \le 
+      \sup_{R \in \mc{R}_v}
+      \left\{
+      \Quantile(1-\alpha^-_n(t); P_0( \cdot \mid X \in R))
+      ~ \mbox{s.t.}~
+      \empQ( X \in R) \ge \delta \right\}.
+    \end{split}
+    \label{eqn:bound-empirical-quantile}
+  \end{equation}
+  The inclusions
+  \begin{align*}
+    \{ R \in \mc{R} \mid Q_0(X \in R) \ge \delta + \varepsilon_n(t) \}
+    & \subset
+    \{ R \in \mc{R} \mid \empQ(X \in R) \ge \delta \} \\
+    & \subset \{ R \in \mc{R}
+    \mid Q_0(X\in R) \ge \delta - \varepsilon_n(t) \}
+  \end{align*}
+  are an immediate consequence of
+  inequality~\eqref{eqn:uniform-probability-events}, and, in turn, imply that
+  for all $\alpha \in (0,1)$,
+  \begin{align*}
+    \sup_{\substack{R \in \mc{R}_v \\ Q_0( X \in R) \ge \delta^+_n(t)}} \Quantile(1-\alpha; P_0( \cdot \mid X \in R))
+    & \le
+    \sup_{\substack{R \in \mc{R}_v \\ \empQ( X \in R) \ge \delta}} \Quantile(1-\alpha; P_0( \cdot \mid X \in R)) \\
+    &\le
+    \sup_{\substack{R \in \mc{R}_v \\ Q_0( X \in R) \ge \delta^-_n(t)}} \Quantile(1-\alpha; P_0( \cdot \mid X \in R)).
+  \end{align*}
+  Combining these inclusions with the
+  inequalities~\eqref{eqn:bound-empirical-quantile}, we thus obtain
+  \begin{align}
+   \label{eqn:quantile-comparison}
+    \lefteqn{q_n^{\inf}(v)
+      \defeq
+      \sup_{R \in \mc{R}_v}
+      \left\{\Quantile(1-\alpha^+_n(t); P_0( \cdot \mid X \in R))
+      ~ \mbox{s.t.} ~ Q_0( X \in R) \ge \delta^+_n(t) \right\} } \nonumber \\
+    & \le
+    \what{q}_n(v, \delta) \\
+    & \le 
+    \sup_{R \in \mc{R}_v}
+    \left\{
+    \Quantile(1-\alpha^-_n(t); P_0( \cdot \mid X \in R))
+    ~ \mbox{s.t.}~
+    Q_0( X \in R) \ge \delta^-_n(t)\right\}
+    \eqdef q_n^{\sup}(v) \nonumber.
+  \end{align}
+  The infimum and supremum quantiles satisfy
+  \begin{equation*}
+    % \label{eqn:wc-of-inf-sup-quants}
+    \begin{split}
+      \wcoverage(C^{(q_n^\text{inf}(v))}, \mc{R}_v,
+      \delta_{n}^{+}(t); \, Q_0)
+      & ~ \ge ~ 1 - \alpha_{n}^{+}(t) \\
+      \wcoverage(C^{(q_n^\text{sup}(v))}, \mc{R}_v, \delta_n^{-}(t); \, Q_0)
+      & \stackrel{(\textup{\ref{assumption:continuity-scores-v}})}{=}
+      1 - \alpha_{n}^{-}(t),
+    \end{split}
+  \end{equation*}
+  where the inequality always holds and the equality requires
+  Assumption~\ref{assumption:continuity-scores-v}.
+
+  We now observe that for any fixed $(v, \delta) \in \mc{V} \times (0,1)$,
+  the function $q \mapsto \wcoverage(C^{(q)}, \mc{R}_v, \delta; \, Q_0)$ is
+  non-decreasing, since the confidence sets $C^{(q)}(x)$ increase as $q$
+  increases.  Recalling inequalities~\eqref{eqn:quantile-comparison}, we
+  conclude that
+\begin{align*}
+\wcoverage(C^{(\what{q}_n(v, \delta)}, \mc{R}_v,
+      \delta_{n}^{+}(t); \, Q_0) \ge 
+      \wcoverage(C^{(q_n^\text{inf}(v))}, \mc{R}_v,
+      \delta_{n}^{+}(t); \, Q_0) 
+      \ge 1 - \alpha_n^+(t) 
+      \end{align*}
+and
+\begin{align*}
+  \wcoverage(C^{( \what{q}_n(v, \delta))}, \mc{R}_v,
+      \delta_{n}^{-}(t); \, Q_0) \le  
+      \wcoverage(C^{(q_n^\text{sup}(v))}, \mc{R}_v,
+      \delta_{n}^{-}(t); \, Q_0) 
+      = 1 - \alpha_n^-(t),
+\end{align*}
+simultaneously for all $v \in \mc{V}$, with the second inequality requiring Assumption~\ref{assumption:continuity-scores-v}.
+%  We now relate the coverages~\eqref{eqn:wc-of-inf-sup-quants} to
+%  the coverages with threshold $\what{q}_n$ in the confidence set mapping.
+%  The definition of $\what{q}_n$
+%  immediately implies that
+%  \begin{align*}
+%    1 - \alpha 
+%    \le \inf_{\substack{R \in \mc{R}_v \\ \empQ(X\in R) \ge \delta }}
+%    \empQ \left( \score(X,Y) \le \what{q}_n(v, \delta) \mid X \in R \right) 
+%    \stackrel{(\textup{\ref{assumption:continuity-scores-v}})}{\le}
+%    1- \alpha + \frac{1}{\delta n},
+%  \end{align*}
+%  where the second inequality requires
+%  Assumption~\ref{assumption:continuity-scores-v} and the
+%  distinctness of the scores $\score(X_i, Y_i)$.
+%  With equation~\eqref{eqn:uniform-robust-estimation-cdf}, this implies
+%  \begin{align*}
+%    1 - \alpha - \frac{\varepsilon_n(t)}{\sqrt{\delta}} 
+%    \le 
+%    \inf_{\substack{R \in \mc{R}_v \\ \empQ(X\in R) \ge \delta }} 
+%    Q_0\left( \score(X,Y) \le \what{q}_n(v, \delta)  \mid X \in R \right) 
+%    \stackrel{(\textup{\ref{assumption:continuity-scores-v}})}{\le}
+%    1 - \alpha + \frac{1}{\delta n} +  \frac{\varepsilon_n(t)}{\sqrt{\delta}}
+%    % = 1 - \alpha_n^-(t) + \frac{1}{\delta n}.
+%  \end{align*}
+%  Combining this display with the inequalities~\eqref{eqn:wc-of-inf-sup-quants}
+%  and recalling the definitions
+%  $\alpha_n^{\pm}(t)
+%  = \alpha \pm  \frac{\varepsilon_n(t)}{\sqrt{\delta}}$
+%  in Theorem~\ref{theorem:high-probability-coverage},
+%  the empirical quantile $\what{q}_n(v, \delta)$
+%  satisfies the conclusion~\eqref{eqn:quantile-comparison-over-v}
+%  of the lemma.
+\end{proof}
+
+
+%% Combining both sequences of inequalities (using the first one with $\alpha \in \{ \alpha_n^-(t), \alpha_n^+(t) \}$), we see that for all $v \in \mc{V}$,
+%% \begin{align}
+%% \label{eqn:quantile-comparison}
+%% \begin{split}
+%% &q_n^\text{inf}(v) \defeq \sup_{\substack{R \in \mc{R}_v \\Q_0( X \in R) \ge \delta^+_n(t)}} \Quantile(1-\alpha^+_n(t); P_0( \cdot \mid X \in R)) \\
+%% &\le
+%% \what{q}_n(v, \delta) \\
+%% &\le 
+%% \sup_{\substack{R \in \mc{R}_v \\Q_0( X \in R) \ge \delta^-_n(t)}} \Quantile(1-\alpha^-_n(t); P_0( \cdot \mid X \in R)) \eqdef q_n^\text{sup}(v),
+%% \end{split}
+%% \end{align}
+%% where, thanks to Assumption~\ref{assumption:continuity-scores-v}, $q_n^\text{inf}(v)$ and $q_n^\text{sup}(v)$ satisfy respectively, for all $v \in \mc{V}$,
+%% \begin{align*}
+%% \wcoverage(C^{(q_n^\text{sup}(v))}, \mc{R}_v, \delta_{n}^{+}(t); \, Q_0) = 1 - \alpha_{n}^{+}(t),
+%% \text{ and }
+%% \wcoverage(C^{(q_n^\text{inf}(v))}, \mc{R}_v, \delta_n^{-}(t); \, Q_0) = 1 - \alpha_{n}^{-}(t).
+%% \end{align*}
+%% As a result, the empirical quantity $\what{q}_n(v, \delta)$ verifies,
+
+
+Recall that $\what{q}_\delta$ in
+Algorithm~\ref{alg:rho-selection-procedure} is the $(1-\levelv)$-empirical
+quantile of $\{\what{q}_n(v_i, \delta)\}_{i = 1}^k$.  Then
+inequalities~\eqref{eqn:quantile-comparison-over-v} in
+Lemmma~\ref{lemma:empirical-q-once-coverage} and that $\wcoverage(C^{(q)},
+\mc{R}_v, \delta; \, Q_0)$ is non-decreasing in $q$ imply
+\begin{align*}
+  \Pvemp\left[ 
+    \wcoverage(C^{( \what q_\delta)}, \mc{R}_v, \delta^{+}_n(t); \, Q_0) 
+    \ge 1 - \alpha^{+}_{n}(t) 
+    \right] 
+  \ge 
+  \Pvemp \left[ \what q_\delta \ge \what{q}_n(v_i, \delta) \right] 
+  \ge 1-\levelv,
+\end{align*}
+while under Assumption~\ref{assumption:continuity-scores-v},
+we have the converse lower bound
+\begin{align*}
+  \Pvemp\left[ 
+    \wcoverage(C^{( \what q_\delta)}, \mc{R}_v, \delta^{-}_n(t); \, Q_0) 
+    \le 1 - \alpha^{-}_{n}(t) \right]
+  \ge
+  \Pvemp\left[\what{q}_\delta \le \what{q}_n(v, \delta)\right]
+  \ge \levelv - \frac{1}{k},
+\end{align*}
+using the second inequality of Lemma~\ref{lemma:empirical-q-once-coverage}.
+
+%% We also have the converse upper bound:
+%% \begin{lemma}
+%%   \label{lemma:get-right-wc-lower-bound}
+%%   Let the second of inequalities~\eqref{eqn:quantile-comparison-over-v} hold.
+%%   Then
+%%   \begin{equation*}
+%%     \Pvemp\left[
+%%       \wcoverage(C^{(\what{q}_\delta)}, \mc{R}_v, \delta^+_n(t); Q_0)
+%%       \le 1 - \alpha_n^+(t) + \frac{1}{\delta n}\right]
+%%     \ge 1 - \levelv.
+%%   \end{equation*}
+%% \end{lemma}
+%% \begin{proof}
+%%   Let $\alpha \in (0, 1)$, and let $w(q, v) =
+%%   \wcoverage(C^{(q)}, \mc{R}_v, \delta; Q_0)$ and $q_i = \what{q}_n(v_i,
+%%   \delta)$ for shorthand, where we assume without loss of generality that
+%%   $q_1 \le q_2 \le \cdots \le q_k$.
+%%   For any vector $v$, if
+%%   $w(\what{q}_\delta, v) > 1 - \alpha$,
+%%   because $w(q, v)$ is nondecreasing in $q$, then
+%%   at least an $\levelv$ fraction of $q_1, \ldots, q_k$
+%%   satisfy $w(q_i, v) > 1 - \alpha$ by definition
+%%   of $\what{q}_\delta$ as the $1 - \levelv$ quantile of
+%%   the $q_i$. Consequently, $w(q_{\ceil{(1 - \levelv) k}}, v) > 1 - \alpha$.
+%%   Thus, if
+%%   \begin{equation*}
+%%     \Pvemp[w(\what{q}_\delta, v) > 1 - \alpha] > \levelv,
+%%   \end{equation*}
+%%   we must have that
+%%   $w(q_{\ceil{\levelv k}}, v_j) > 1 - \alpha$ for at least
+%%   $\ceil{k \levelv}$ indices $j$. In particular,
+%%   there is an index $j \ge \ceil{k \levelv}$ such that
+%%   \begin{equation*}
+%%     1 - \alpha <
+%%     w(q_{\ceil{\levelv k}}, v_j)
+%%     \le w(q_j, v_j).
+%%   \end{equation*}
+%%   This contradicts
+%%   inequality~\eqref{eqn:quantile-comparison-over-v}
+%%   with $v = v_j$ and $\alpha = \alpha_n^+(t) - \frac{1}{\delta n}$.
+%% \end{proof}
+%% and, under Assumption~\ref{assumption:continuity-scores-v},
+
+For $q \in \R$, define the functions $f^+_q(v) \defeq
+\indic{\wcoverage(C^{(q)}, \mc{R}_v, \delta_n^{+}(t); \, Q_0) \geq 1-
+  \alpha_n^{+}(t)} \in \{ 0, 1\}$ for all $q \in \R$.  The set of functions
+$\{ f_q^+ \}_{q \in \R}$ is uniformly bounded (by $1$) and each is
+non-decreasing in $q \in \R$ so that its VC-dimension cannot exceed 1.
+Thus, there exists a universal constant $C < \infty$ such that, with
+probability $1- 4^{-1}e^{-t}$~\cite[e.g.][Thm.~4.10,
+  Ex.~5.24]{Wainwright19},
+\begin{align*}
+  \sup_{q \in \R} \left| \Pvemp f^{+}_q - \Pv f^{+}_q \right| 
+  \le C\sqrt{\frac{1+t}{k}}.
+\end{align*}
+Similarly, if we define $f^-_q(v) \defeq \indic{\wcoverage(C^{(q)},
+  \mc{R}_v, \delta_n^{-}(t); \, Q_0) \le 1- \alpha_n^{-}(t)} \in \{ 0, 1\}$, then with probability at least $1-4^{-1}e^{-t}$,
+we have $\sup_{q \in \R} | \Pvemp f^{-}_q - \Pv f^{-}_q| \le
+C\sqrt{\frac{1+t}{k}}$.  Combining the statements, we see that with
+probability $1-e^{-t}$ over the
+draw $(X_i,Y_i)_{i=1}^n \simiid Q_0$ and $\{v_i \}_{i=1}^k \simiid \Pv$,
+we have
+\begin{align*}
+  \Pv f^{+}_{\what q_\delta} = \Pv \left[
+    \wcoverage(C^{(\what q_\delta)}, \mc{R}_v, \delta^{+}_n(t); \, Q_0)
+    \ge 1- \alpha^{+}_{n}(t) \right]
+  \ge 1- \levelv - C\sqrt{\frac{1+t}{k}},
+\end{align*}
+and under Assumption~\ref{assumption:continuity-scores-v},
+\begin{align*}
+  \Pv f^{-}_{\what q_\delta}  = \Pv \left[
+    \wcoverage(C^{(\what q_\delta)}, \mc{R}_v, \delta^{-}_n(t); \, Q_0)
+    \le 1- \alpha^{-}_{n}(t)
+       \right]
+  \stackrel{(\textup{\ref{assumption:continuity-scores-v}})}{\ge}
+  \levelv - \frac{1}{k} - C\sqrt{\frac{1+t}{k}}.
+\end{align*}
+
+\subsection{Proof of Lemma~\ref{lemma:equivalence-rho-threshold}}
+\label{sec:proof-equivalence-rho-threshold}
+
+Let $\scorerv_i = \score(X_i, Y_i)$ for shorthand, and assume
+w.l.o.g.\ that $\scorerv_1 \le \cdots \le \scorerv_n$.
+We will show that if $\what{q} \in \{\scorerv_i\}_{i \ge
+  \ceil{n(1 - \alpha)}}$, then if
+\begin{equation}
+  \label{eqn:equivalence-rho-threshold}
+  \what{\rho} = \rho_{f,\alpha}(\what{q}; \empP)
+  ~~ \mbox{then} ~~
+  \what{q} = \WCQuantile_{f,\what{\rho}}(1 - \alpha; \empP).
+\end{equation}
+Evidently this implies that $C^{(\what{q})}(x) = C_{f,\what{\rho}}(x;
+\empP)$ for all $x \in \mc{X}$, giving the lemma, so for the remainder, we
+show the equivalence~\eqref{eqn:equivalence-rho-threshold}.
+
+Recall the definition $g_{f,\rho}^{-1}(\tau) = \sup\{\beta \in [\tau, 1]
+\mid \beta f(\frac{\tau}{\beta}) + (1 - \beta) f(\frac{1 - \tau}{1 -
+  \beta}) \le \rho\}$ in the discussion following
+Proposition~\ref{proposition:rho-vs-alpha}.  Suppose that $\what{q} =
+\scorerv_j$, where $j \in [n]$, which immediately implies that, for all
+$(j - 1) / n < \beta \le j / n$, $\what{q} = \Quantile(\beta; \empP)$. By
+Proposition~\ref{proposition:rho-vs-alpha}, we therefore see that if $\rho
+\ge 0$ satisfies $(j - 1) / n <
+g_{f,\rho}^{-1}(1-\alpha) \le j / n$,
+then
+\begin{align*}
+  \WCQuantile_{f, \rho}(1-\alpha; \hat P_n) = \what q.
+\end{align*}
+In addition, as the scores $\scorerv_i$ are all distinct, $\WCQuantile_{f,
+  \rho}(1-\alpha; \hat P_n) > \what{q}$ if $g_{f,\rho}^{-1}(1-\alpha) >
+j / n$, making $\rho_{f,\alpha}$ in this case equal to
+\begin{align*}
+  \rho_{f,\alpha}(\what{q} ; \empP)
+  = \sup\{ \rho \ge 0 \mid g_{f,\rho}^{-1}(1-\alpha) \le j/n \}.
+\end{align*}
+
+The mapping $\rho \mapsto g_{f,\rho}^{-1}(\tau)$ is concave and
+nonnegative.  As $f$ is $1$-coercive by assumption, we also have that it
+is defined on $\R_+$, and it is continuous strictly increasing on
+$\R_{++}$.  Its inverse (as a function of $\rho$) is therefore continuous,
+which implies in particular that $g_{f,\rho_{f,\alpha}(\what{q}
+  ;\empP)}^{-1}(1-\alpha) = j/n$, and hence
+equality~\eqref{eqn:equivalence-rho-threshold} holds.
+

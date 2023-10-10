@@ -1,0 +1,404 @@
+% -*- Mode: latex -*- %
+
+\section{Robust predictive inference}
+\label{sec:robustpredinference}
+
+Of course, standard cross validation and conformalization methodology makes
+no claims of validity without exchangeability~\cite{VovkGaSh05,
+  BarberCaRaTi19a}, so their potential failure even under simple
+covariate shifts is not completely surprising.  The
+coverage~\eqref{eqn:exchangeable-coverage} relies on the exchangeability
+assumption between the training and test data and can quickly
+collapse when the test distribution violates that assumption, as
+Section~\ref{sec:motivation-exp} shows.  These observations thus call for a
+notion of confidence more robust to potential future shifts.
+
+%% Precisely, we desire our confidence sets to remain valid even when the
+%% distribution of the new example $(X_{n+1},Y_{n+1})$ shifts away from $Q_0$
+%% and from exchangeability.
+
+Assume as usual that we have a score function $\score: \mc{X} \times \mc{Y}
+\to \R$, and observe data $\{(X_i, Y_i) \}_{i=1}^n$ such that $\{
+\scorerv_i\}_{i=1}^n \defeq \{ \score(X_i, Y_i) \}_{i=1}^n \simiid P_0$,
+so that $P_0$ is the push-forward of $(X, Y) \sim Q_0$ under $\score(X, Y)$.
+For a set $\mc{P}(P_0)$ of potential future \emph{score} distributions on
+$\R$, our goal is to achieve
+coverage~\eqref{eqn:uniform-coverage} for all distributions
+$Q$ on pairs $(X,Y)$ that induce a distribution $P$ on $\score(X, Y)$
+such that $P \in \mc{P}(P_0)$, that is,
+\begin{align*}
+  Q \in \mc{Q}(\score, \mc{P}(P_0)) \defeq \left\{ Q
+  ~ \mbox{s.t.~for}~
+  (X,Y) \sim Q, \mbox{the score}~ \score(X,Y) \sim P \in \mc{P}(P_0) \right\}. 
+\end{align*}
+Our focus is exclusively on validating our predictive model, not changing
+it, so we follow standard practice~\cite{VovkGaSh05,
+  BarberCaRaTi19a} and use confidence sets $\what{C}(x)$ to be of the form
+$\what{C}(x) = \{y \in \mc{Y} \mid \score(x,y) \le t \}$ for a threshold $t \in
+\R$.  
+For such confidence sets, the choice $t \defeq \max_{P \in
+  \mc{P}(P_0)} \Quantile(1-\alpha,P) $ is the smallest $q \in \R$ such that
+$P(\scorerv \le q) \ge 1-\alpha$ for every distribution $P \in \mc{P}(P_0)$
+of the scores.  Our general problem to achieve
+coverage~\eqref{eqn:uniform-coverage} with uncertainty set $\mc{Q}(\score,
+\mc{P}(P_0))$ thus reduces to the optimization problem
+\begin{equation}
+\label{eqn:robust-quantile-prob}
+% \begin{split}
+\maximize ~ \Quantile( 1-\alpha; \, P ) ~~~
+\subjectto ~ P \in \mc{P}(P_0).
+% \end{split}
+\end{equation}
+In the next section, we characterize solutions to this problem,
+showing in Section~\ref{sec:get-coverage-for-divs} how
+to use the characterizations to achieve coverage on future data.
+
+\subsection{Characterizing and computing
+  quantiles over $f$-divergence balls}
+\label{sec:robust-coverage-div-balls}
+
+It remains to specify a set of distributions $\mc{P}(P_0)$ that makes
+problem~\eqref{eqn:robust-quantile-prob} computationally tractable and
+statistically meaningful. We thus consider various restrictions on the
+likelihood ratio $dP / dP_0$ for $P \in \mc{P}(P_0)$. Following the
+distributionally robust optimization literature
+(DRO)~\cite{ BlanchetMu19,
+  DuchiNa21}, we consider $f$-divergence
+balls. Given a closed convex function $f: \R \to \R$
+satisfying $f(1)=0$ and $f(t) = +\infty$ for $t<0$,
+the $f$-divergence~\cite{Csiszar67} between probability distributions
+$P$ and $Q$ on a set $\mc{Z}$ is
+\begin{equation*}
+  \fdiv{P}{Q} \defeq \int_{z \in \mc{Z}} f\left( \frac{dP(z)}{dQ(z)}
+  \right) dQ(z).
+\end{equation*}
+Jensen's inequality guarantees that $\fdiv{P}{Q} \ge 0$ always, and
+familiar examples include $f(z) = z \log z$, which induces the KL-divergence,
+and $f(t) = \half (t - 1)^2$, which gives the $\chi^2$-divergence.
+We study problem~\eqref{eqn:robust-quantile-prob} in the case where
+$\mc{P}(P_0)$ is an $f$-divergence ball
+of radius $\rho$ around $P_0$:
+\begin{align}
+  \label{eqn:P-constraint-set}
+  \mc{P}_{f,\rho}(P_0) \defeq \left\{ P ~\mbox{s.t.}~
+  \fdiv{P}{P_0}  \le \rho \right\}.
+\end{align}
+Unlike most work in the DRO literature, instead of trying to build a
+model minimizing a DRO-type loss, we assume we already have a model and wish
+to robustly validate it: to
+provide predictive confidence sets that are valid and robust to distribution
+shifts no matter the model's form.
+%\begin{remark}
+  By the data processing inequality, all distributions $Q$ on $(X,Y)$
+  satisfying $\fdivs{Q}{Q_0} \le \rho$ induce a
+  distribution $P$ on $\score(X, Y)$ satisfying $\fdivs{P}{P_0} \le \rho$,
+  so solving
+  problem~\eqref{eqn:robust-quantile-prob} with $\mc{P}_{f,\rho}(P_0)$
+  provides coverage for all sufficiently small shifts on
+  $(X, Y) \sim Q_0$.
+  %% $Q_0$ on $\mc{X} \times \mc{Y}$.
+%\end{remark}
+
+We show how to solve problem~\eqref{eqn:robust-quantile-prob} for fixed
+$f$ and $\rho$ defining the constraint~\eqref{eqn:P-constraint-set} by
+characterizing worst-case quantiles, essentially reducing the problem to
+a one-parameter (Bernoulli) problem. The choice of $f$ and $\rho$ determine
+plausible amounts of shift---appropriate choices are a longstanding
+problem~\cite{DuchiNa21}---and we defer approaches for selecting them to the
+sequel.
+For $\alpha \in (0, 1)$ and any distribution $P$ on the real line,
+we define the $(\alpha, \rho, f)$-worst-case quantile
+\begin{equation}
+  \label{eqn:wc-quantile}
+  \WCQuantile_{f,\rho}(\alpha; P) \defeq 
+  \sup_{\fdivs{P_1}{P} \le \rho} \Quantile(\alpha; \, P_1).
+\end{equation}
+Key to our results on valid coverage in
+Section~\ref{sec:get-coverage-for-divs} is that this worst-case quantile is
+a standard quantile of $P$ at a  level that
+depends only on $f, \rho$, and $\alpha$, but not on $P$.
+\begin{proposition} 
+  \label{proposition:rho-vs-alpha}
+  Define the function $g_{f, \rho} : [0, 1] \to [0, 1]$ by
+  \begin{equation*}
+    g_{f,\rho}(\beta) \defeq \inf\left\{z \in [0, 1]
+    : \beta f\left(\frac{z}{\beta}\right) + (1 - \beta) f\left(\frac{1 - z}{
+      1 - \beta}\right) \le \rho \right\}.
+  \end{equation*}
+  Then the inverse
+  \begin{equation*}
+    g_{f,\rho}^{-1}(\tau) = \sup\{ \beta \in [0, 1] : g_{f,\rho}(\beta) \le \tau\}
+  \end{equation*}
+  guarantees that for all distributions $P$ on $\R$ and $\alpha \in (0, 1)$,
+  \begin{align*}
+    \WCQuantile_{f,\rho}(\alpha; P) =
+    \Quantile (g_{f,\rho}^{-1}(\alpha); P ).
+  \end{align*}
+%% Moreover, $g_{f,\rho}^{-1}$ is the left-continuous inverse of the function
+%% \begin{align}
+%% \label{eqn:defn-robust-cdf-fctn}
+%% g_{f,\rho}: \beta \in (0,1) \mapsto \inf \Bigg\{ z \in [0,1] : \beta f \Big( \frac{z}{\beta} \Big) + (1-\beta) f \Big( \frac{1-z}{1-\beta} \Big) \leq \rho \Bigg\}.
+%% \end{align}
+\end{proposition}
+\noindent
+See Appendix~\ref{sec:proof-rho-vs-alpha} for a proof of the proposition.
+
+Proposition~\ref{proposition:rho-vs-alpha} shows that it is easy to compute
+$g_{f,\rho}$ and $g_{f,\rho}^{-1}$, as they are both solutions to
+one-dimensional convex optimization problems and therefore admit efficient
+binary search procedures. In some cases, we have closed forms; for example
+ $f(t) = (t - 1)^2$ gives $g_{f,\rho}(\beta) = \hinges{\beta - \sqrt{2
+    \rho \beta(1 - \beta)}}$, while $f(t) = \left|t-1\right|$ yields $g_{f,\rho}(\beta) = (\beta - \rho/2)_+$.
+Another example:
+
+\begin{example}[Total variation distances]
+  \label{example:tv-distances}
+  The total variation distance $\tvnorm{P - Q}$ corresponds
+  to the choice $f(t) = |t - 1|$ via the identity
+  $2 \tvnorm{P - Q} = \fdiv{P}{Q}$. For this case, we see
+  immediately that $g_{f,\rho}^{-1}(\tau) = \min\{\tau + \frac{\rho}{2},
+  1\}$, and then $g_{f,\rho}(\beta) = \hinge{\beta - \rho/2}$.
+\end{example}
+\noindent
+Letting $g = g_{f,\rho}$ for shorthand,
+we sketch how to compute $g^{-1}$ efficiently in more generality.
+%% First, note that it is no loss of generality to assume
+%% that $f'(1) = 0$ and $f \ge 0$, as we may replace
+%% $f$ with $f(t) + f'(1)(t - 1)$ and generate the same $f$-divergence.
+Computing the inverse $g^{-1}(\tau)$ is equivalent to solving the
+optimization problem
+\begin{align*}
+  \maximize_{0 \le \beta, z \le 1} ~ \beta
+  ~~~ \subjectto ~ z \le \tau, ~~
+  \beta f\left(\frac{z}{\beta}\right) + (1 - \beta) f\left(\frac{1 - z}{
+    1 - \beta}\right) \le \rho.
+\end{align*}
+We seek the largest $\beta \ge \tau$ feasible for this problem (as $\beta =
+\tau$ is feasible); because $h(\beta, z) = \beta f(z/\beta) + (1 -
+\beta) f((1 - z) / (1 - \beta))$ is convex and minimized at any $z = \beta$
+with $h(z,z) = 0$,
+for $\beta \ge \tau$ it is evident that
+$\inf_{0 \le z \le \tau} h(\beta, z) = h(\beta, \tau)$. Thus
+may equivalently write
+\begin{align*}
+  g^{-1}_{f,\rho}(\tau)
+  = \sup\left\{\beta \in [\tau, 1] \mid
+  \beta f\left(\frac{\tau}{\beta}\right) + (1 - \beta)
+  f\left(\frac{1 - \tau}{1 - \beta}\right) \le \rho \right\},
+\end{align*}
+which a binary search over feasible $\beta \in [\tau, 1]$ solves
+to accuracy $\epsilon$ in time $\log \frac{1 - \tau}{\epsilon}$.
+
+\subsection{Achieving coverage with empirical estimates}
+\label{sec:get-coverage-for-divs}
+
+With the characterization of $\WCQuantile$, we can define
+the corresponding prediction set
+\begin{align}
+  \label{eqn:robust-prediction-set}
+  C_{f,\rho}(x; P)
+  \defeq \{ y \in \mc{Y} \mid \score(x,y) \le \WCQuantile_{f,\rho}(1-\alpha; P)
+  \}.
+\end{align}
+As we observe only a sample $\{\scorerv_i\}_{i=1}^n \simiid P_0$, we
+use the empirical plug-in to develop confidence
+sets~\eqref{eqn:robust-prediction-set} (and therefore in
+problem~\eqref{eqn:robust-quantile-prob}), considering
+$\what{C}_{n,f,\rho}(x) \defeq C_{f,\rho}(x; \empP)$.  By doing this,
+Proposition~\ref{proposition:rho-vs-alpha} allows us to derive guarantees
+for the prediction set~\eqref{eqn:robust-prediction-set} from standard
+quantile statistics.  In particular, the next proposition, whose proof we
+give in Appendix~\ref{sec:proof-cvg-only-test}, lower bounds future coverage
+conditionally on the validation set $\{(X_i,Y_i)\}_{i=1}^n$ and relates
+future test coverage to the amount of shift.
+\begin{proposition}
+  \label{proposition:cvg-only-test}
+  Let $\scorerv_{n+1} = \score(X_{n+1}, Y_{n+1}) \sim P_{\textup{test}}$ be
+  independent of $\{\scorerv_i\}_{i=1}^n \simiid P_0$, and let $\rho\opt =
+  \fdivs{P_{\textup{test}}}{P_0} \in \openright{0}{\infty}$.  Let $F_0$ be
+  the c.d.f.\ of $P_0$.  Then the confidence set $\what{C}_{n,f,
+    \rho}(x) \defeq C_{f,\rho}(x; \empP)$ satisfies
+  \begin{align*}
+    \P \left( Y_{n+1} \in \what{C}_{n,f, \rho}(X_{n+1}) \mid
+    \{(X_i,Y_i)\}_{i=1}^n \right)
+    & \geq
+    g_{f,\rho^\star} \left( F_0 \big( \WCQuantile_{f,\rho}(1-\alpha; \hat P_n) \big) \right) \\
+    & =  g_{f,\rho^\star} \left( F_0 \big( \Quantile ( g_{f,\rho}^{-1}(1-\alpha); \hat P_n ) \big) \right).
+  \end{align*}
+\end{proposition}
+
+With the two preceding propositions, we turn to the main coverage
+theorem and a few corollaries, which provide the
+validity of coverage as long as the true shift between $P_0$ and
+$P_{\textup{test}}$ is no more than our guess.
+We provide the proof of the theorem in
+Appendix~\ref{sec:proof-robust-coverage-marginal}.
+\begin{theorem}
+  \label{theorem:robust-coverage-marginal}
+  Assume that $\scorerv_{n+1} = \score(X_{n+1}, Y_{n+1}) \sim \Ptest$ is
+  independent of $\{S_i\}_{i=1}^n \simiid P_0$, and let $\rho\opt
+  = \fdivs{\Ptest}{P_0} < \infty$.
+  Then
+  \begin{equation*}
+    \P\left(Y_{n + 1} \in \what{C}_{n,f,\rho}(X_{n+1})\right)
+    \ge g_{f,\rho\opt}\left(\frac{\ceil{n g_{f,\rho}^{-1}(1 - \alpha)}}{n+1}
+    \right).
+  \end{equation*}
+\end{theorem}
+
+The theorem as stated is a bit unwieldy, so we develop a few
+corollaries, whose proofs we provide in
+Appendix~\ref{sec:proof-alpha-coverages}. In each, we assume that the
+$\rho$ we use to construct the confidence
+sets~\eqref{eqn:robust-prediction-set} satisfies $\rho \ge \rho\opt =
+\fdivs{\Ptest}{P_0}$, which guarantees validity.
+\begin{corollary}
+  \label{corollary:almost-alpha-coverage}
+  Let the conditions of Theorem~\ref{theorem:robust-coverage-marginal}
+  hold, but additionally assume that
+  $\rho\opt = \fdivs{\Ptest}{P_0} \le \rho$. Then
+  for $c_{\alpha,\rho,f} \defeq g_{f,\rho}^{-1}(1 - \alpha) g_{f,\rho}'(
+  g_{f,\rho}^{-1}(1 - \alpha)) < \infty$, we have
+  \begin{equation*}
+    \P\left(Y_{ n +1} \in \what{C}_{n,f,\rho}(X_{n+1})\right)
+    \ge 1 - \alpha - \frac{c_{\alpha,\rho,f}}{n + 1}.
+  \end{equation*}
+\end{corollary}
+\noindent
+If instead
+we replace $\alpha$ in the definition~\eqref{eqn:robust-prediction-set}
+of the confidence set $C_{f,\rho}(x; P)$ with
+\begin{equation*}
+  \alpha_n \defeq 1 - g_{f,\rho}\left((1 + 1/n) g_{f,\rho}^{-1}(1 - \alpha)
+  \right)
+  = \alpha - O(1/n),
+\end{equation*}
+we can construct the corrected empirical confidence set
+\begin{equation*}
+  \what{C}_{n,f,\rho}^{\textup{corr}}(x)
+  \defeq \left\{y \in \mc{Y} \mid \score(x, y)
+  \le \WCQuantile_{f,\rho}(1 - \alpha_n; \empP) \right\}.
+\end{equation*}
+We then have the correct level $\alpha$ coverage:
+\begin{corollary}
+  \label{corollary:corrected-alpha-coverage}
+  Let the conditions of Corollary~\ref{corollary:almost-alpha-coverage}
+  hold. Then
+  \begin{equation*}
+    \P\left(Y_{n + 1} \in \what{C}_{n,f,\rho}^{\textup{corr}}(X_{n + 1})\right)
+    \ge 1 - \alpha.
+  \end{equation*}
+\end{corollary}
+\noindent
+An easier corollary is immediate via Example~\ref{example:tv-distances},
+which shows that when the data distribution changes in variation
+distance by at most $\rho$, we have (nearly) correct coverage by
+an identical increase in the choice of quantile level:
+\begin{corollary} \label{corollary:total-variation}
+  Let $f(t) = |t - 1|$. Then
+  \begin{equation*}
+    \what{C}_{n,f,\rho}(x) \defeq
+    \left\{y \in \mc{Y} \mid \score(x, y) \le
+    \Quantile\left(1 - \alpha + \frac{\rho}{2}; \hat{P}_n\right)\right\}
+  \end{equation*}
+  and if $2 \tvnorm{\Ptest - P_0} \le \rho$, then
+  \begin{equation*}
+    \P\left(Y_{n + 1} \in \what{C}_{n,f,\rho}(X_{n+1})\right)
+    \ge 1 - \alpha - \frac{1}{n}.
+  \end{equation*}
+\end{corollary}
+
+Summarizing, the empirical prediction sets $\what{C}_{n,f,\rho}$ and
+$\what{C}^{\textup{corr}}_{n,f,\rho}$ achieve nearly or better than
+$1-\alpha$ coverage if the $f$-divergence between the new distribution
+$\Ptest$ and the current distribution $P_0$ remains below $\rho$. When this
+fails, Theorem~\ref{theorem:robust-coverage-marginal} shows graceful
+degradation in coverage as long as the divergence between $\Ptest$ and the
+validation population $P_0$ is not too large.
+
+\ifdefined\removenotes
+\else
+\subsection{Towards more general uncertainty sets}
+We now provide an alternative characterization of $\WCQuantile$ that also adapts to other types of uncertainty sets.  
+Our jumping off point is the quantile definition~\eqref{eqn:wc-quantile}: for any continuous distribution $P$,  observe that
+\begin{align}
+    \sup_{\fdivs{P_1}{P} \le \rho} \Quantile(1-\alpha; \, P_1) & = \sup_{\fdivs{P_1}{P} \le \rho} \inf_{t \in \R} \Bigg\{ t : P_1(s(X,Y) \leq t) \geq 1-\alpha \Bigg\} \notag \\
+    & \overset{(i)}= \sup_{\fdivs{P_1}{P} \le \rho} \sup_{t \in \R} \Bigg\{ t : P_1(s(X,Y) > t) > \alpha \Bigg\} \notag \\
+    & = \sup_{t \in \R} \Bigg\{ t : \sup_{\fdivs{P_1}{P} \le \rho} \Big\{ \mathbb{E}_{P_1} \big[ \indic{s(X,Y) > t} \big] \Big\} > \alpha \Bigg\}, \label{eqn:wc-quantile-simple}
+\end{align}
+where equality $(i)$ follows from the fact that for all $t \in \R$,  $t < \Quantile(1-\alpha, P)$ if and only if $P( \scorerv \le t) < 1-\alpha$, i.e.\ if and only if $P( \scorerv > t) > \alpha$.
+%\paragraph{Efficient computation for power divergences.}  Now, for convenience in what follows, let us focus on the family of power divergences, i.e., for $k \in (1,\infty)$ and $t \in \R$, let us define
+%% $k^* = k/(k-1)$ 
+%\[
+%    f_k(t) =
+%    \begin{cases}
+%        \frac{t^k - kt + k - 1}{k(k-1)}, & t \geq 0, \\
+%        \infty, & \textrm{otherwise}.
+%    \end{cases}
+%\]
+%% k \in \R \setminus \{0,1\}
+%% and set $f = f_k$.
+%(We may simply use the continuous extension of $f_k$ to handle the values $k \in \{0,1\}$.)  Then, Lemma 1 from \citet{DuchiNa21} (or Equation 3.19 from \citet{Shapiro17}) to \eqref{eqn:wc-quantile-simple}---essentially a duality argument leveraging the power divergences in order to put the inner supremum in \eqref{eqn:wc-quantile-simple} into a more useful form---immediately yields the following result.
+%
+%\begin{proposition} 
+%    \label{proposition:wc-quantile-cvar}
+%    Assume the distribution $P$ of the scores is continuous.  Fix $\alpha \in (0,1)$, $\rho > 0$, and $k \in (1,\infty)$.  Define the constants $k^* = k/(k-1)$, and $c_k(\rho) = (1 + k(k-1)\rho)^{1/k}$.  Then, the following equality holds:
+%    \begin{equation}
+%        \label{eqn:wc-quantile-cvar}
+%        \WCQuantile_{f_k,\rho}(1-\alpha; P) = \sup_{\gamma \in \R} \Bigg\{ \gamma : \inf_{\eta \in \mathbb{R}} \Bigg\{ c_k(\rho) \cdot \Big( \mathbb{E}_P \big[ \big( \ones\{s(X,Y) > \gamma\} - \eta \big)_+^{k_*} \big] \Big)^{1/k_*} + \eta \Bigg\} > \alpha \Bigg\}.
+%    \end{equation}
+%\end{proposition}
+%\noindent
+%Therefore, roughly speaking, we see that computing the worst-case quantile is equivalent to computing a (higher-order) conditional value-at-risk (with the indicators) of the scores.  Also, we point out that we may use the bisection method to compute \eqref{eqn:wc-quantile-cvar} relatively efficiently; therefore, in finite samples, the inner minimization in \eqref{eqn:wc-quantile-cvar} boils down to solving the following one-dimensional convex program:
+%\begin{equation}
+%    \begin{array}{ll}
+%        \underset{\eta \in \R}{\minimize} & c_k(\rho) \cdot \Big( (1/n) \cdot \sum_{i=1}^n \big( \ones\{s(X,Y) > \gamma\} - \eta \big)_+^{k_*} \Big)^{1/k_*} + \eta.
+%    \end{array}
+%\end{equation}
+
+\textbf{Efficient computation for Wasserstein balls.}  This simple duality result~\eqref{eqn:wc-quantile-simple} gives us an avenue for computing the worst-case quantile w.r.t.~different uncertainty sets.  For example, if we replace the $f$-divergence ball $\fdivs{P_1}{P}$ appearing in our derivations above with the $p$-Wasserstein distance ball $W_p(P_1, P)$, then we need only replace the above inner maximization problem in~\eqref{eqn:wc-quantile-simple} with
+\begin{align}
+\label{eqn:wasserstein-inner-max}
+\maximize_{W_p(P_1, P) \le \rho} ~ P_1\left[ \scorerv > t \right],
+\end{align}
+and we can then still perform the outer maximization via bisection. 
+Problem~\eqref{eqn:wasserstein-inner-max} aims to transport as much mass as possible to $t+ \varepsilon$ for some infinitesimal $\varepsilon>0$, and hence is equivalent to the maximization program
+\begin{align*}
+\maximize_{w : \R \to [0,1]} ~ \E_P\left[ w(S) \right] ~ \subjectto ~ \E_P \left[ (t - S)_+^p w(S)\right] \le \rho^p.
+\end{align*}
+Letting $t^\star \in \R \cup \{ - \infty\}$ and $w \in [0,1]$ solve the equation
+\begin{align*}
+\E_P\left[ (t - S)_+^p \left( \indic{S > t^\star} + w \indic{S = t^\star} \right) \right] = \rho^p,
+\end{align*}
+we see that the solution is $w^\star(s) \defeq \indic{s > t^\star}$ for $s \neq t^\star$ and $w^\star(t^\star) = w$. 
+
+%\maxcomment{Does it? Why would $P_1$ have the same support as $\what P_n$?}
+%\begin{equation}
+%    \begin{array}{ll}
+%        \underset{p \in \R^n, \, P \in \R^{n \times n}}{\maximize} & \sum_{i=1}^n p_i \cdot \ones\{s(X_i,Y_i) > t \} \\
+%        \subjectto & \tr(P^T C) \leq \rho, \quad P \ones = p, \quad P^T \ones = \hat p, \quad P \geq 0 \\
+%        & \ones^T p = 1, \quad p \geq 0.
+%    \end{array}
+%\end{equation}
+%Of course, here $C \in \R^{n \times n}_+$ is fixed and denotes the usual transportation cost matrix, while $\hat p = (1/n) \cdot \ones$.
+
+%See \texttt{code/Alternative viewpoint sims.ipynb}, for a few numerical examples.
+
+%\paragraph{Towards simpler theory?}  Finally, the arguments leading up to Proposition 11 in \citet{Shapiro17} immediately tell us that, for some (larger) quantile level $\alpha_{f,\rho} \in (0,1)$, which is properly defined in Shapiro's paper but depends on $f$ and $\rho$, we have the equality:
+%\begin{equation*}
+%    \WCQuantile_{f,\rho}(\alpha; P) = \Quantile(\alpha_{f,\rho}; P).
+%\end{equation*}
+%In other words, we once again see that the worst-case quantile is the usual quantile just computed at an increased level (of course, obtaining an explicit representation for the new quantile level $\alpha_{f,\rho}$ may not be easy).
+
+% \AATODO{use this last statement to prove that we get valid coverage; it shouldn't be hard.  BTW, in case anyone reading this is wondering: what's the point of all this?  Well, I think one implication is that we don't really need all the calculations done in appendix A.  Everything can just be a lot simpler.  I.e., just a few lines of math (which is what I suspect the proof of this result is going to be) should suffice.  Of course, the calculations in appendix A are still interesting/useful in their own right ...}
+
+% \begin{proposition} 
+%     \label{proposition:wc-quantile-simple}
+%     Define the constants $c_k(\rho)$, $k^*$ just as in John's paper that we cited above.  Then, for any continuous distribution $P$, we have that
+%     \begin{equation}
+%         \label{eqn:wc-quantile-simple}
+%         \WCQuantile_{f,\rho}(\alpha; P) = \sup \Bigg\{ \gamma : \inf_{\eta \in \mathbb{R}} \Bigg\{ c_k(\rho) \cdot \Big( \mathbb{E}_P \big[ (\ones\{s(X,Y) > \gamma\} - \eta)_+^{k_*} \big] \Big)^{1/k_*} + \eta \Bigg\} \geq \alpha \Bigg\}.
+%     \end{equation}
+% \end{proposition}
+% \noindent
+\fi

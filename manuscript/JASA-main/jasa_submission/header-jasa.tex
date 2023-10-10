@@ -1,0 +1,84 @@
+%%% Robust CV stuff %%%
+
+
+\usepackage{jcd}
+\usepackage[numbers]{natbib} % Handling bibliography
+\usepackage{authblk} %Nice Author Format
+\usepackage{xspace}
+\usepackage{overpic}
+\usepackage{tikz}
+\usepackage{algorithm,algorithmic}
+
+%\usemedgeometry
+\bluehyperref
+
+\newcommand\Suyash[1]{{\color{blue}Suyash: ``#1''}}
+\newcommand{\maxcomment}[1]{{
+    \begin{minipage}{.9\textwidth}
+      \red{\bf Max Comment:} {#1}
+  \end{minipage}} \\
+}
+
+
+\newcommand{\VC}{\textup{VC}}
+\newcommand{\WCQuantile}{\textup{Quantile}^\wc}
+\newcommand{\Quantile}{\textup{Quantile}}
+\newcommand{\WCC}{\textrm{WCC}}
+\newcommand{\cdfrob}{F^\wc}
+
+\newcommand{\kl}{\textrm{kl}}
+\newcommand{\score}{s}  % Score function
+\newcommand{\scorerv}{S}  % Score random variable
+\newcommand{\scoreest}{\score_n}  % Estimated score functional
+\newcommand{\wcoverage}{\textup{WC}}
+\newcommand{\wc}{\wcoverage}
+\newcommand{\stocuo}{\succeq_{\textup{uo}}}
+\newcommand{\stoclo}{\succeq_{\textup{lo}}}
+
+\newcommand{\eqdist}{\stackrel{\textup{dist}}{=}}
+
+\newcommand{\levelv}{\alpha_{\mathsf{v}}} % Level of randomized v things
+\newcommand{\Pv}{\P_{\mathsf{v}}} % probability of randomized v things
+\newcommand{\Pvemp}{\hat{\P}_{\mathsf{v},k}} % empirical probability of
+                                             % randomized v things
+
+\newcommand{\empP}{\hat{P}_n}  % Empirical P distribution
+\newcommand{\empQ}{\hat{Q}_n}  % Empirical Q distribution
+
+
+\newcommand{\vvar}{v_{\textup{var}}}  % Shift variance direction
+\newcommand{\empPone}{\hat{P}_{n_1}}  % More empirical distributions
+\newcommand{\empPtwo}{\hat{P}_{n_2}}
+\newcommand{\empQone}{\hat{Q}_{n_1}}
+\newcommand{\empQtwo}{\hat{Q}_{n_2}}
+\newcommand{\law}{\mc{L}}
+
+% Function norms
+\newcommand{\ltwopx}[1]{\norm{#1}_{L^2(Q_0)}}
+\newcommand{\ltwopxs}[1]{\norm{#1}_{L^2(Q_0)}}
+\newcommand{\ltwop}[1]{\norm{#1}_{L^2(P)}}
+\newcommand{\lonep}[1]{\norm{#1}_{L^1(P)}}
+\newcommand{\linfp}[1]{\norm{#1}_{L^{\infty}(P)}}
+
+\newcommand{\train}{\textrm{train}}
+\newcommand{\val}{\textrm{val}}
+\newcommand{\test}{\textrm{test}}
+\newcommand{\Ptest}{P_{\textup{test}}}
+\providecommand{\toto}{\rightrightarrows}
+  
+\def\ie{i.e.}
+\def\eg{e.g.}
+\def\cf{cf.}
+
+%\newcommand{\opt}{^\star}
+%\newcommand{\subopt}{_\star}
+\newcommand{\noise}{\varepsilon}
+
+\DeclareMathOperator*{\esssup}{ess\,sup}
+\DeclareMathOperator*{\SF}{SF}
+\DeclareMathOperator*{\MC}{M}
+
+\renewcommand{\theassumption}{A\arabic{assumption}}
+
+\newcommand\AATODO[1]{{\red{\bf AA TODO:} #1}}
+

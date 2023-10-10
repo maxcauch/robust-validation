@@ -1,0 +1,254 @@
+\begin{thebibliography}{}
+
+\bibitem[Arnold et~al., 2021]{ArnoldBiBrCoFaGrMaReTi21}
+Arnold, T., Bien, J., Brooks, L., Colquhoun, S., Farrow, D., Grabman, J.,
+  Maynard-Zhang, P., Reinhart, A., and Tibshirani, R. (2021).
+\newblock {\em {covidcast}: Client for {D}elphi's {COVID}cast Epidata {API}}.
+\newblock R package version 0.4.2.
+
+\bibitem[Barber et~al., 2021]{BarberCaRaTi19a}
+Barber, R.~F., Cand\`{e}s, E.~J., Ramdas, A., and Tibshirani, R.~J. (2021).
+\newblock The limits of distribution-free conditional predictive inference.
+\newblock {\em Information and Inference}, 10(2):455--482.
+
+\bibitem[Bertsimas et~al., 2018]{BertsimasGuKa18}
+Bertsimas, D., Gupta, V., and Kallus, N. (2018).
+\newblock Data-driven robust optimization.
+\newblock {\em Mathematical Programming, Series A}, 167(2):235--292.
+
+\bibitem[Blanchet et~al., 2019]{BlanchetKaMu19}
+Blanchet, J., Kang, Y., and Murthy, K. (2019).
+\newblock Robust {W}asserstein profile inference and applications to machine
+  learning.
+\newblock {\em Journal of Applied Probability}, 56(3):830--857.
+
+\bibitem[Blanchet and Murthy, 2019]{BlanchetMu19}
+Blanchet, J. and Murthy, K. (2019).
+\newblock Quantifying distributional model risk via optimal transport.
+\newblock {\em Mathematics of Operations Research}, 44(2):565--600.
+
+\bibitem[Cauchois et~al., 2021]{CauchoisGuDu21}
+Cauchois, M., Gupta, S., and Duchi, J. (2021).
+\newblock Knowing what you know: valid and validated confidence sets in
+  multiclass and multilabel prediction.
+\newblock {\em Journal of Machine Learning Research}, 22(81):1--42.
+
+\bibitem[Chernozhukov et~al., 2018a]{ChernozhukovChDeDuHaNeRo16}
+Chernozhukov, V., Chetverikov, D., Demirer, M., Duflo, E., Hansen, C., Newey,
+  W., and Robins, J. (2018a).
+\newblock Double/debiased machine learning for treatment and structural
+  parameters.
+\newblock {\em The Econometrics Journal}, 21(1):C1--C68.
+
+\bibitem[Chernozhukov et~al., 2018b]{ChernozhukovWuZh18}
+Chernozhukov, V., Wuthrich, K., and Zhu, Y. (2018b).
+\newblock Exact and robust conformal inference methods for predictive machine
+  learning with dependent data.
+\newblock {\em arXiv:1802.06300 [stat.ML]}.
+
+\bibitem[Cl\'emen\c{c}on et~al., 2008]{ClemenconLuVa08}
+Cl\'emen\c{c}on, S., Lugosi, G., and Vayatis, N. (2008).
+\newblock Ranking and empirical minimization of {$U$}-statistics.
+\newblock {\em Annals of Statistics}, 36(2):844--874.
+
+\bibitem[Csisz\'ar, 1967]{Csiszar67}
+Csisz\'ar, I. (1967).
+\newblock Information-type measures of difference of probability distributions
+  and indirect observation.
+\newblock {\em Studia Scientifica Mathematica Hungary}, 2:299--318.
+
+\bibitem[Dua and Graff, 2017]{DuaGr17}
+Dua, D. and Graff, C. (2017).
+\newblock {UCI} machine learning repository.
+
+\bibitem[Duchi et~al., 2013]{DuchiMaJo13}
+Duchi, J.~C., Mackey, L., and Jordan, M.~I. (2013).
+\newblock The asymptotics of ranking algorithms.
+\newblock {\em Annals of Statistics}, 41(5):2292--2323.
+
+\bibitem[Duchi and Namkoong, 2021]{DuchiNa21}
+Duchi, J.~C. and Namkoong, H. (2021).
+\newblock Learning models with uniform performance via distributionally robust
+  optimization.
+\newblock {\em Annals of Statistics}, 49(3):1378--1406.
+
+\bibitem[Gupta and Rothenh{\"a}usler, 2021]{GuptaRo21}
+Gupta, S. and Rothenh{\"a}usler, D. (2021).
+\newblock The s-value: evaluating stability with respect to distributional
+  shifts.
+\newblock {\em arXiv:2105.03067 [stat.ME]}.
+
+\bibitem[Hastie et~al., 2009]{HastieTiFr09}
+Hastie, T., Tibshirani, R., and Friedman, J. (2009).
+\newblock {\em The Elements of Statistical Learning}.
+\newblock Springer, second edition.
+
+\bibitem[He et~al., 2016]{HeZhReSu16}
+He, K., Zhang, X., Ren, S., and Sun, J. (2016).
+\newblock Deep residual learning for image recognition.
+\newblock In {\em Proceedings of the IEEE Conference on Computer Vision and
+  Pattern Recognition}, pages 770--778.
+
+\bibitem[Hiriart-Urruty and Lemar\'echal, 1993]{HiriartUrrutyLe93}
+Hiriart-Urruty, J. and Lemar\'echal, C. (1993).
+\newblock {\em Convex Analysis and Minimization Algorithms {I}}.
+\newblock Springer, New York.
+
+\bibitem[Hsu and Small, 2013]{HsuSm13}
+Hsu, J.~Y. and Small, D.~S. (2013).
+\newblock Calibrating sensitivity analyses to observed covariates in
+  observational studies.
+\newblock {\em Biometrics}, 69(4):803--811.
+
+\bibitem[Imbens, 2003]{Imbens03}
+Imbens, G. (2003).
+\newblock Sensitivity to exogeneity assumptions in program evaluation.
+\newblock {\em The American Economic Review}, 93(2):126--132.
+
+\bibitem[Jeong and Namkoong, 2020]{JeongNa20}
+Jeong, S. and Namkoong, H. (2020).
+\newblock Robust causal inference under covariate shift via worst-case
+  subpopulation treatment effects.
+\newblock {\em arXiv:2007.02411 [stat.ML]}.
+
+\bibitem[Jordan, 2019]{Jordan19}
+Jordan, M.~I. (2019).
+\newblock Artificial intelligence---the revolution hasn’t happened yet.
+\newblock {\em Harvard Data Science Review}, 1(1).
+
+\bibitem[Krizhevsky and Hinton, 2009]{KrizhevskyHi09}
+Krizhevsky, A. and Hinton, G. (2009).
+\newblock Learning multiple layers of features from tiny images.
+\newblock Technical report, University of Toronto.
+
+\bibitem[LeCun et~al., 1998]{LeCunCoBu98}
+LeCun, Y., Cortes, C., and Burges, C. (1998).
+\newblock {MNIST} handwritten digit database.
+\newblock ATT Labs [Online].
+
+\bibitem[Lei et~al., 2018]{LeiGSRiTiWa18}
+Lei, J., {G'S}ell, M., Rinaldo, A., Tibshirani, R.~J., and Wasserman, L.
+  (2018).
+\newblock Distribution-free predictive inference for regression.
+\newblock {\em Journal of the American Statistical Association},
+  113(523):1094--1111.
+
+\bibitem[Liese and Vajda, 2006]{LieseVa06}
+Liese, F. and Vajda, I. (2006).
+\newblock On divergences and informations in statistics and information theory.
+\newblock {\em IEEE Transactions on Information Theory}, 52(10):4394--4412.
+
+\bibitem[min Chung and Lu, 2003]{ChungLu03}
+min Chung, K. and Lu, H.-I. (2003).
+\newblock An optimal algorithm for the maximum-density segment problem.
+\newblock In {\em Proceedings of the 11th Annual European Symposium on
+  Algorithms}.
+
+\bibitem[Nguyen et~al., 2010]{NguyenWaJo10}
+Nguyen, X., Wainwright, M.~J., and Jordan, M.~I. (2010).
+\newblock Estimating divergence functionals and the likelihood ratio by convex
+  risk minimization.
+\newblock {\em IEEE Transactions on Information Theory}, 56(11):5847--5861.
+
+\bibitem[Quionero-Candela et~al., 2009]{Quionero-CandelaSuSc09}
+Quionero-Candela, J., Sugiyama, M., Schwaighofer, A., and Lawrence, N.~D.
+  (2009).
+\newblock {\em Dataset Shift in Machine Learning}.
+\newblock The MIT Press.
+
+\bibitem[Recht et~al., 2019]{RechtRoScSh19}
+Recht, B., Roelofs, R., Schmidt, L., and Shankar, V. (2019).
+\newblock Do {I}mage{N}et classifiers generalize to {I}mage{N}et?
+\newblock In {\em Proceedings of the 36th International Conference on Machine
+  Learning}.
+
+\bibitem[Rockafellar and Uryasev, 2000]{RockafellarUr00}
+Rockafellar, R.~T. and Uryasev, S. (2000).
+\newblock Optimization of conditional value-at-risk.
+\newblock {\em Journal of Risk}, 2:21--42.
+
+\bibitem[Russakovsky et~al., 2015]{RussakovskyDeSuKrSaMaHuKaKhBeBeFe15}
+Russakovsky, O., Deng, J., Su, H., Krause, J., Satheesh, S., Ma, S., Huang, Z.,
+  Karpathy, A., Khosla, A., Bernstein, M., Berg, A.~C., and Fei-Fei, L. (2015).
+\newblock Image{N}et large scale visual recognition challenge.
+\newblock {\em International Journal of Computer Vision}, 115(3):211--252.
+
+\bibitem[Sagawa et~al., 2020]{SagawaKoHaLi20}
+Sagawa, S., Koh, P.~W., Hashimoto, T.~B., and Liang, P. (2020).
+\newblock Distributionally robust neural networks for group shifts: On the
+  importance of regularization for worst-case generalization.
+\newblock In {\em Proceedings of the Eighth International Conference on
+  Learning Representations}.
+
+\bibitem[Shaked and Shanthikumar, 2007]{ShakedSh07}
+Shaked, M. and Shanthikumar, J.~G. (2007).
+\newblock {\em Stochastic Orders}.
+\newblock Springer Series in Statistics. Springer.
+
+\bibitem[Sherman, 1994]{Sherman94}
+Sherman, R.~P. (1994).
+\newblock {Maximal Inequalities for Degenerate $U$-Processes with Applications
+  to Optimization Estimators}.
+\newblock {\em Annals of Statistics}, 22(1):439--459.
+
+\bibitem[Steinwart and Christmann, 2008]{SteinwartCh08}
+Steinwart, I. and Christmann, A. (2008).
+\newblock {\em Support Vector Machines}.
+\newblock Springer Publishing Company, Incorporated, 1st edition.
+
+\bibitem[Subbaswamy et~al., 2021]{SubbaswamyAdSa21}
+Subbaswamy, A., Adams, R., and Saria, S. (2021).
+\newblock Evaluating model robustness to dataset shift.
+\newblock In {\em Proceedings of the 24th International Conference on
+  Artificial Intelligence and Statistics}.
+
+\bibitem[Sugiyama et~al., 2007]{SugiyamaKrMu07}
+Sugiyama, M., Krauledat, M., and M\"uller, K.-R. (2007).
+\newblock Covariate shift adaptation by importance weighted cross validation.
+\newblock {\em Journal of Machine Learning Research}, 8:985--1005.
+
+\bibitem[Taori et~al., 2020]{TaoriDaShCaReSc19}
+Taori, R., Dave, A., Shankar, V., Carlini, N., Recht, B., and Schmidt, L.
+  (2020).
+\newblock When robustness doesn't promote robustness: Synthetic vs.\ natural
+  distribution shifts on {I}mage{N}et.
+\newblock under review.
+
+\bibitem[Tibshirani, 2020]{Tibshirani20}
+Tibshirani, R.~J. (2020).
+\newblock Can symptoms surveys improve {COVID-19} forecasts?
+
+\bibitem[Tibshirani et~al., 2019]{TibshiraniBaCaRa19}
+Tibshirani, R.~J., Barber, R.~F., Cand\`{e}s, E.~J., and Ramdas, A. (2019).
+\newblock Conformal prediction under covariate shift.
+\newblock In {\em Advances in Neural Information Processing Systems 32}.
+
+\bibitem[van~der Vaart, 1998]{VanDerVaart98}
+van~der Vaart, A.~W. (1998).
+\newblock {\em Asymptotic Statistics}.
+\newblock Cambridge Series in Statistical and Probabilistic Mathematics.
+  Cambridge University Press.
+
+\bibitem[Veitch and Zaveri, 2020]{VeitchZa20}
+Veitch, V. and Zaveri, A. (2020).
+\newblock Sense and sensitivity analysis: Simple post-hoc analysis of bias due
+  to unobserved confounding.
+\newblock In {\em Advances in Neural Information Processing Systems 33},
+  volume~33, pages 10999--11009.
+
+\bibitem[Vovk et~al., 2005]{VovkGaSh05}
+Vovk, V., Grammerman, A., and Shafer, G. (2005).
+\newblock {\em Algorithmic Learning in a Random World}.
+\newblock Springer.
+
+\bibitem[Wainwright, 2019]{Wainwright19}
+Wainwright, M.~J. (2019).
+\newblock {\em High-Dimensional Statistics: A Non-Asymptotic Viewpoint}.
+\newblock Cambridge University Press.
+
+\bibitem[Yadav and Bottou, 2019]{YadavBo19}
+Yadav, C. and Bottou, L. (2019).
+\newblock Cold case: The lost {MNIST} digits.
+\newblock In {\em Advances in Neural Information Processing Systems 32}.
+
+\end{thebibliography}

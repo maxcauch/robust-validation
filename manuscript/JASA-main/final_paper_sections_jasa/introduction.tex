@@ -1,0 +1,197 @@
+% -*- Mode: latex -*- %
+
+\section{Introduction}
+\label{sec:intro}
+
+The central conceit of statistical machine learning is that data comes from a
+population, and that a model fit on a training set and validated on a held-out
+validation set will generalize to future data.  Yet this conceit is at
+best debatable: indeed, \citet*{RechtRoScSh19} create new test sets
+for the central image recognition CIFAR-10 and ImageNet benchmarks, and
+they observe
+that published accuracies drop by between 3--15\% on CIFAR and more than 11\% on
+ImageNet (increases in error rate of 50--100\%), even though the authors follow
+the original dataset creation processes. Given this drop in accuracy---even in
+carefully reproduced experiments---shift in the data generating distribution is
+inevitable, and should be an essential focus, given the growing applications of
+machine learning.
+
+To address such distribution shifts and related challenges, a growing
+literature advocates fitting predictive models that adapt to changes in the
+data generating distribution. For example, researchers suggest reweighting
+data to match new test distributions when covariates
+shift~\cite{SugiyamaKrMu07}, while work
+on distributional robustness~\cite{BertsimasGuKa18,
+  DuchiNa21} considers fitting models
+that optimize losses under worst-case distribution changes.  Yet the
+resulting models often are conservative, appear to sacrifice
+accuracy for robustness, and even more, they may not be robust to
+natural distribution shifts~\cite{TaoriDaShCaReSc19}. The models also come
+with few tools for validating their performance on new data.
+
+Instead of seeking robust models, we instead advocate focusing on models
+that provide \emph{validity} in their predictions: a model
+should be able to provide some calibrated notion of its confidence, even in
+the face of distribution shift. Consequently, in this paper we revisit cross
+validation, validity, and conformal inference~\cite{VovkGaSh05} from the
+perspective of robustness, advocating for more robust approaches to cross
+validation and equipping predictors with valid confidence sets. We present a
+method for robust predictive inference under distributional shifts,
+borrowing tools both from conformal inference~\cite{VovkGaSh05} and
+distributional robustness. Our method can allow valid inferences even when
+training and test distributions are distinct, and we provide a (in our view
+well-motivated, but still heuristic) methodology to estimate plausible
+amounts of shift to which we should be robust.
+
+To formalize, consider a supervised learning problem of predicting
+labels $y \in \mc{Y}$ from data $x \in \mc{X}$, where we assume we have a
+putative predictive model that outputs scores $\score(x, y)$ measuring
+error (so that $\score(x, y) < \score(x, y')$ means that the
+model assigns higher likelihood to $y$ than $y'$ given $x$). For example,
+for a probabilistic model $p(y \mid x)$, a typical choice is the negative
+log likelihood $\score(x, y) = -\log(p(y \mid x))$. For a distribution $Q_0$
+on $\mc{X} \times \mc{Y}$,\footnote{We always write
+  $Q$ for a probability on $\mc{X} \times \mc{Y}$ and $P$ for the induced
+  distribution on $\score(X, Y)$ for $(X, Y) \sim Q$.}  we observe $(X_i,
+Y_i)_{i = 1}^n \simiid Q_0$. Future data may come from $Q_0$ or a
+distribution $Q$ near---in some appropriate sense, deriving from distribution
+shift---to $Q_0$, and we wish to
+output valid predictions for future instances $(X, Y) \sim Q$, where $Q$ is
+unknown.
+The goal of this paper is twofold: first, given a level $\alpha
+\in (0, 1)$ and an uncertainty set
+$\mc{Q}$ of plausible shifted distributions, we wish to construct
+\emph{uniformly valid} confidence set mappings
+$\what{C} : \mc{X} \toto \mc{Y}$ of the form
+$\what{C}(x) = \{y \in \mc{Y} \mid \score(x, y) \le q\}$ for
+a threshold $q$, which provide $1 - \alpha$ coverage, satisfying
+\begin{equation}
+  \label{eqn:uniform-coverage}
+  Q(Y \in \what{C}(X)) \ge 1 - \alpha
+  ~~ \mbox{for~all~} Q \in \mc{Q}.
+\end{equation}
+Second, we propose a methodology for finding a collection $\mc{Q}$ of
+plausible shifts, providing convergence theory and a
+concomitant empirical validiation on real distribution shift problems. Further, we propose methodology to study sensitivity of coverage under various covariate shifts. This helps the user identify the type of shifts, the coverage is sensitive to as protecting against all possible shifts may lead to very conservative predictive sets.
+
+%% In mathematical terms, our problem is as follows: consider a supervised learning problem on $\mc{X} \times \mc{Y}$, for which we presently observe $\{(X_i, Y_i ) \}_{i=1}^n \simiid Q_0$, and even potentially have already trained a predictive model $\mc{M}$, whose output is a scoring function $S:  \mc{X} \times \mc{Y} \to \R$---if not, we use part of the present data to fit one. We want to output valid predictions for future instances $(X,Y) \in \mc{X} \times \mc{Y} \sim Q \in \mc{Q}$; here $Q$ is unknown, precisely because of some future---unpredictable---distribution shift, but the set of potential distributions $\mc{Q}$ still bears some connection to the present data distribution $Q_0$. The goal of the paper is precisely to construct \emph{uniformly valid} confidence sets $\hat C : \mc{X} \rightrightarrows \mc{Y}$, which depend on the existing model $S$ and validation data, and provide coverage at the $1-\alpha$ level, \ie, satisfy
+%% \begin{align}
+%% \label{eqn: coverageuniformindistribution}
+%% Q( Y \in \hat C(X)) \ge 1-\alpha \text{ for all } Q  \in \mc{Q}.
+%% \end{align}
+
+\subsection{Background: split conformal
+  inference under exchangeability}
+\label{sec:split-conformal-intro}
+
+To set the stage, we review conformal predictive
+inference~\cite{VovkGaSh05, LeiGSRiTiWa18}.
+The setting here is a supervised learning problem where we have exchangeable
+data $\{ (X_i, Y_i) \}_{i = 1}^{n+1} \subset \mc{X} \times \mc{Y}$, and for
+a given confidence level $1-\alpha \in (0, 1)$ we wish to provide a confidence
+set $\what{C}(X_{n+1})$ such that $\P(Y_{n + 1} \in \what{C}(X_{n+1})) \ge 1 -
+\alpha$. Standard properties of quantiles make such a construction
+possible. Indeed, assume that $S_1, \ldots, S_{n+1} \in \R$ are exchangeable
+random variables; then, the rank $\rank(S_j)$ of any $S_j$ among
+$\{S_i\}_{i=1}^{n+1}$---its position if we sort the values of the $S_i$---is
+evidently uniform on $\{1, \ldots, n+1\}$, assuming ties are broken
+randomly.  Thus, for probability distributions $P$ on $\R$, defining the
+familiar quantile
+\begin{equation}
+  \Quantile(\beta; P)
+  \defeq \inf \big\{ s \in \R : P(S \leq s) \geq \beta \big\},
+  \label{eqn:quantile-defn}
+\end{equation}
+and $\Quantile(\beta; \{S_i\}_{i=1}^n)$ to be the corresponding
+empirical quantile on $\{S_i\}_{i=1}^n$, we have
+\begin{equation*}
+\P\left(S_{n+1} \le \Quantile\left(\left(1 + n^{-1}\right)
+(1 - \alpha), \{S_i\}_{i=1}^n\right)\right)  \ge \P( \rank(S_{n+1}) \le  \ceil{(n+1)(1-\alpha)}) \ge 1 - \alpha.
+\end{equation*}
+
+Using this idea to provide confidence sets is now
+straightforward~\cite{VovkGaSh05, LeiGSRiTiWa18}.  Let $\{ (X_i, Y_i)
+\}_{i=1}^n$ be a validation set---we assume here and throughout that we have
+already fit a model on training data independent of the validation set
+$\{(X_i, Y_i)\}_{i=1}^n$---and assume we have a scoring function $\score :
+\mc{X} \times \mc{Y} \to \R$, where a large value of $\score(x, y)$
+indicates that the point $(x, y)$ is \emph{non-conforming}. In typical
+supervised learning tasks, such a function is easy to construct. Indeed,
+assume we have a predictor function $\mu$ (fit on an independent training
+set); in the case of regression, $\mu : \mc{X} \to \R$ predicts $\E[Y \mid
+  X]$, while for a multiclass classification problem $\mu : \mc{X} \to
+\R^k$, and $\mu_y(x)$ is large when the model predicts class $y$ to be
+likely given $x$. Then natural nonconformity scores are $\score(x, y) =
+|\mu(x) - y|$ for regression and $\score(x, y) = -\mu_y(x)$ for
+classification. As long as $\{(X_i, Y_i)\}_{i=1}^{n+1}$ are
+exchangeable, if we define $\what{\mc{Q}}_{n,1-\alpha} \defeq
+\Quantile\left((1 + n^{-1})(1- \alpha); \{\score(X_i, Y_i)\}_{i=1}^n\right)$,
+the confidence set
+\begin{equation}
+  \label{eqn:confidence-set}
+  \what{C}_n(x) \defeq \left\{y \in \mc{Y} \mid \score(x, y) \le
+ \what{\mc{Q}}_{n,1-\alpha}
+  \right\},
+\end{equation}
+immediately satisfies
+\begin{equation}
+ \P(Y_{n + 1} \in \what{C}_n(X_{n+1}))
+    = \P\left(\score(X_{n+1}, Y_{n+1}) \le
+   \what{\mc{Q}}_{n,1-\alpha}
+    \right) \ge 1 - \alpha,
+ \label{eqn:exchangeable-coverage}
+\end{equation}
+whatever the scoring function $\score$ and distribution on $(X_i,
+Y_i)$~\cite{VovkGaSh05, LeiGSRiTiWa18}.  The coverage
+statement~\eqref{eqn:exchangeable-coverage} depends critically (as we shall
+see) on the exchangeability of the samples, failing if even the marginal
+distribution over $X$ changes, and it does not imply conditional coverage:
+we have no guarantee that $\P(Y \in \what{C}(X) \mid X) \ge 1 - \alpha$.
+
+\subsection{Related work}
+\label{sec:related}
+
+The machine learning community has long identified distribution shift as a
+challenge, with domain adaptation strategies and covariate shift two
+major foci~\cite{SugiyamaKrMu07, Quionero-CandelaSuSc09}, though much of this work
+focuses on model estimation and selection strategies, and one often assumes
+access to data (or at least likelihood ratios) of data from the new
+distribution. We argue that a model should instead provide robust and valid
+estimates of its confidence rather than simply predictions that may or may
+not be robust. There is a growing body of work on distributionally
+robust optimization (DRO), which considers worst-case dataset shifts in
+neighborhoods of the training distribution; these have been
+important in finance and operations research, where one wishes to guard
+against catastrophic losses~\cite{RockafellarUr00,
+  BertsimasGuKa18}. In DRO in statistical
+learning~\cite{BlanchetMu19, DuchiNa21}, the focus has also been on improving
+estimators rather than inferential predictive tasks.  We extend
+this distributional robustness to apply in predictive
+inference.
+
+\citet{VovkGaSh05}'s conformal inference provides an important tool for
+valid predictions.  The growing applications of machine learning and
+predictive analytics have renewed interest in predictive validity, and
+recent papers attempt to move beyond the standard exchangeability
+assumptions upon which conformalization reposes~\cite{TibshiraniBaCaRa19,
+  ChernozhukovWuZh18}, though this typically requires some additional
+assumptions for strict validity.  Of particular relevance to our setting is
+\citeauthor{TibshiraniBaCaRa19}'s work~\cite{TibshiraniBaCaRa19}, which
+considers conformal inference under covariate shift, where the marginal over
+$X$ changes while $P(Y \mid X)$ remains fixed. Validity in this setting
+requires knowing a likelihood ratio of the shift, which in high dimensions
+is challenging.  In addition, as \citet{Jordan19} argues, in typical
+practice covariate shifts are no more plausible than other (more general)
+shifts, especially in situations with unobserved confounders. For this
+reason, we take a more general approach and do not restrict to specific
+structured shifts.
+
+In the existing literature on sensitivity analysis in causal inference \citep{Imbens03,VeitchZa20,HsuSm13}, researchers use the sensitivity parameter to gauge the influence of unobserved confounders on treatment allocation and outcomes. One essence is that the odds of receiving treatment, considering both observed covariates and the confounder U, can differ by a factor of some constant $\Gamma$ when juxtaposed against odds based solely on observed covariates, with a value near 1 indicating minimal influence. Mirroring this, we employ f-divergence, especially the expected log-likelihood ratio in KL divergence offset by a factor $\rho$, to understand distribution shifts between training and test distributions, comparable to the odds ratio in causal inference. Our study in Section 4 assesses the intensity of such shifts and hints at calibrating $\rho$, reminiscent of using observed covariates to adjust $\Gamma$ in causal inference.
+
+
+
+%In the existing literature on sensitivity analysis in causal inference \citep{Imbens03,VeitchZa20,HsuSm13}, researchers use the sensitivity parameter to gauge the influence of unobserved confounders on treatment allocation and outcomes. One essence is that the odds of receiving treatment, considering both observed covariates and the confounder U, can differ by a factor of some constant $\Gamma$ when juxtaposed against odds based solely on observed covariates. A $\Gamma$ value near 1 implies minimal influence from U. Conversely, as $\Gamma$ rises above 1, it indicates increasing influence of hidden biases. Drawing parallels in our domain, we discern distribution shifts using the expected value of (some function of) the likelihood ratio between the training and the test distributions, termed as f-divergence. This can be likened to the odds ratio comparison in causal inference. Specifically, for KL divergence, the expected log-likelihood ratio is offset by a factor of $\rho$, analogously to the role $\Gamma$ plays in causal inference. In essence, our analysis probes the intensity of distributional shifts required to diminish the marginal coverage below a set threshold, as explored in Section 4, knowledge from which can be used to roughly calibrate $\rho$ similar to the idea of using observed covariates to calibrate the sensitivity parameter in causal inference.
+
+%In the existing literature on sensitivity analysis in causal inference \citep{Imbens03,VeitchZa20,HsuSm13}, researchers use the sensitivity parameter, often denoted to gauge the influence of unobserved confounders on treatment allocation and outcomes. Similarly, in our work, we focus on understanding distribution shifts, using f-divergence and other metrics like $\rho$ as analogs to $\Gamma$. Both fields share the approach of calibrating sensitivity parameters through observed covariates. Our methods, detailed in Section 4, allow us to identify and quantify distribution shifts that could compromise coverage, particularly when data is available for sensitive covariate subsets from the test distribution.
+
+

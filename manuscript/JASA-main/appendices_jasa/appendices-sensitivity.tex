@@ -1,0 +1,431 @@
+ % -*- Mode: latex -*- %
+\section{Proofs related to sensitivity of coverage}
+\label{sensitivity-proofs}
+
+\subsection{Proof of Theorem~\ref{thm:unif-conv-sens}}
+\label{sec:proof-of-unif-conv-sens}
+
+Fix a compact set $K \subset \R_+$.
+We first need to introduce some notation. 
+In this proof, we omit the superscript $(q)$ for simplicity of notation,  define $\mc{X} \defeq \R^I$, and for any function $m : \mc{X} \to [0,1]$, $\eta : K \to \R$ and $\rho>0$, we set
+\begin{align*}
+\Phi_{m, \eta, \rho} (x,  s) \defeq e^\rho \left[ m(x) - \eta(\rho) \right]_+ + \eta(\rho) + e^\rho \indic{ m(x) > \eta(\rho)} \left[ \indic{s > q} - m(x) \right].
+\end{align*}
+For any integrable function $f : \mc{X} \times \R \to \R$,  we define respectively
+\begin{align*}
+P_n f = \frac{1}{n} \sum_{i=1}^n f(X_{I,i}, S_i), ~ P f = \E_{(X,S) \sim P_{0,I}} \left[ f(X,S) \right],  ~ \text{ and } ~ \mathbb{G}_n f = \sqrt{n} \left( \what P_n - P \right) f.
+\end{align*}
+Additionally, for every $m \in [M]$, we set
+\begin{align*}
+P_{n,m} f = \frac{1}{n/M} \sum_{i \in \mc{I}_m} f(X_{I,i}, S_i) ~ \text{ and } \mathbb{G}_{n,m}f = \sqrt{n/M} \left(P_{n,m} - P \right) f.
+\end{align*}
+
+We have by definition of $\what{\SF}^{(q)}_n(\rho)$ and $ \SFcov(\rho))$ that
+\begin{align*}
+\what{\SF}^{(q)}_n(\rho) = \frac{1}{M} \sum_{m=1}^M P_{n,m} \Phi_{\what \MC_m, \what \eta_m, \rho} ~ \text{ and } \SFcov(\rho))= P \Phi_{\MC, \eta, \rho},
+\end{align*}
+which directly implies that,  letting
+\begin{align*}
+R_{n, \rho} \defeq \sum_{m=1}^M \sqrt{n} \left( P_{n,m} \Phi_{\what \MC_m, \what \eta_m, \rho} - P_{n,m} \Phi_{\MC,  \eta, \rho} \right),
+\end{align*}
+our empirical process is
+\begin{align*}
+\sqrt{n} \left( \what{\SF}^{(q)}_n(\rho) - \SFcov(\rho)) \right) = \mathbb{G}_n \Phi_{\MC, \eta, \rho} + R_{n, \rho}.
+\end{align*}
+Slutsky's lemma ends the proof of the theorem once we apply Lemmas~\ref{lem:donsker-family-rho} and~\ref{lem:uniform-bound-remainder}.
+%\end{proof}
+\begin{lemma}
+\label{lem:donsker-family-rho}
+The collection $\{ \Phi_{\MC, \eta, \rho} \}_{\rho \in K}$ is Donsker, i.e.\, there exists a Gaussian process $\mathbb{G}_K$ on $\ell^\infty(K)$ such that
+\begin{align*}
+\{\mathbb{G}_n \Phi_{\MC, \eta, \rho} \}_{\rho \in K} \underset{n \to \infty}{\overset{d}{\to}} \mathbb{G}_K.
+\end{align*}
+\end{lemma}
+\begin{proof}
+This is an immediate consequence of Lemma~\ref{lem:uniform-covering-number} applied to $\mc{F}_{\MC, \eta}^K$,  and~\citet[Thm 19.14]{VanDerVaart98}.
+\end{proof}
+
+\begin{lemma}
+\label{lem:uniform-bound-remainder}
+For each $m \in [M]$, we have
+\begin{align*}
+\sup_{\rho \in K} \left|  \sqrt{n/m} \left( P_{n,m} \Phi_{\what \MC_m, \what \eta_m, \rho} - P_{n,m} \Phi_{\MC,  \eta, \rho} \right) \right| = o_p(1),
+\end{align*}
+i.e.\ $\sup_{\rho \in K} |R_{n,\rho}| = o_p(1)$.
+\end{lemma}
+\begin{proof}
+The lemma immediately follows from Lemmas~\ref{lem:uniform-empiricalprocess-remainder} and~\ref{lem:uniform-expectation-remainder} below, since for each $m \in M$ we can observe that
+\begin{align*}
+\begin{split}
+\sqrt{n/m} \left( P_{n,m} \Phi_{\what \MC_m, \what \eta_m, \rho} - P_{n,m} \Phi_{\MC,  \eta, \rho} \right) 
+= \mathbb{G}_{n,m}&\left( \Phi_{\what \MC_m, \what \eta_m, \rho} - \Phi_{\MC,  \eta, \rho} \right) \\ +& \sqrt{n/M}\left(P\Phi_{\MC,  \eta, \rho} - P \Phi_{\what \MC_m, \what \eta_m, \rho} \right).
+\end{split} 
+\end{align*}
+
+\begin{lemma}
+\label{lem:uniform-empiricalprocess-remainder}
+Let $\mc{F}_{n,-m} \defeq \sigma \left\{ (\scorerv_i , X_{I,i})_{i \in [n] \setminus \mc{I}_m} \right\} $. 
+For each $m \in [M]$, we have
+\begin{align*}
+\E\left[ \sup_{\rho \in K} \left|  \mathbb{G}_{n,m}\left( \Phi_{\what \MC_m, \what \eta_m, \rho} - \Phi_{\MC,  \eta, \rho} \right) \right| \mid \mc{F}_{n,-m} \right] = o_p(1).
+\end{align*}
+\end{lemma}
+
+\begin{lemma}
+\label{lem:uniform-expectation-remainder}
+For each $m \in [M]$, we have
+\begin{align*}
+\sqrt{n/M}\sup_{\rho \in K} \left|P\Phi_{\MC,  \eta, \rho} - P \Phi_{\what \MC_m, \what \eta_m, \rho} \right| = o_p(1).
+\end{align*}
+\end{lemma}
+We provide the proof of these two lemmas in Appendix~\ref{sec:technical-lemmas}. 
+Our lemma is then an immediate consequence of~\citet[Lemma 6.1]{ChernozhukovChDeDuHaNeRo16}, which states that conditional convergence implies unconditional convergence, meaning that we have
+\begin{align*}
+ \sup_{\rho \in K} \left|  \mathbb{G}_{n,m}\left( \Phi_{\what \MC_m, \what \eta_m, \rho} - \Phi_{\MC,  \eta, \rho} \right) \right|  = o_p(1).
+\end{align*}
+\end{proof}
+
+\subsection{Proof of technical lemmas}
+\label{sec:technical-lemmas}
+We first need this technical lemma. 
+For each $m : \mc{X} \to \R$, $\eta: K \to [0,1]$ and $\rho \in K$, let $h_{m,\eta, \rho}(x) \defeq \indic{ m(x) > \eta(\rho)}$. 
+The following lemmas will be useful to us.
+\begin{lemma}
+\label{lem:quantile-infty-norm}
+Let $X$ and $Y$ be two bounded random variables on the same probability space, and, for any $\alpha \in [0,1]$, let $\mc{Q}_{\alpha}(X)$ and $\mc{Q}_{\alpha}(Y)$ be their respective $1-\alpha$-quantiles.  We have, for any $\alpha \in [0,1]$,
+\begin{align*}
+\left| \mc{Q}_{\alpha}(X) - \mc{Q}_{\alpha}(Y)\right| \le \norm{X-Y}_\infty.
+\end{align*}
+\end{lemma}
+\begin{proof}
+This is an immediate consequence of the fact that, for any $t \in \R$ we have
+\begin{align*}
+\P( X \le t - \norm{X-Y}_\infty ) \le \P(Y \le t) \le \P(X \le t + \norm{X-Y}_\infty),
+\end{align*}
+the left inequality implying that
+$
+\mc{Q}_\alpha(Y) - \norm{X-Y}_\infty \ge \mc{Q}_\alpha(X) 
+$
+and the right one that
+$
+\mc{Q}_\alpha(X) \le \mc{Q}_\alpha(Y) + \norm{X-Y}_\infty.
+$
+\end{proof}
+As a consequence of this lemma, we have the following result.
+
+\begin{lemma}
+\label{lem:bound-h-indicator}
+For any $m \in M$, we almost surely have
+\begin{align*}
+\norm{ h_{\what \MC_m, \what \eta_m, \rho} - h_{\MC, \eta, \rho}}_{L^1(P_{0,I})} \lesssim \left| \what \eta_m(\rho) - \eta^\star(\what{\MC}_m, \rho) \right| + \norm{\what{\MC}_m - \MC}_{L^\infty(P_{0,I})},
+\end{align*}
+where $\lesssim$ hides a constant depending only on $\norm{f_{\MC}}_\infty$.
+\end{lemma}
+\begin{proof}
+By Lemma~\ref{lem:quantile-infty-norm}, we have, almost surely for every $\rho > 0$,
+\begin{align*}
+\left| \eta^\star( \what \MC_m, \rho ) - \eta(\rho) \right| \le \norm{ \what \MC_m - \MC}_{L^\infty(P_{0,I})}.
+\end{align*}
+On the other hand, a direct computation shows that
+\begin{align*}
+\begin{split}
+\norm{ h_{\what \MC_m, \what \eta_m, \rho} - h_{\MC, \eta, \rho}}_{L^1(P_{0,1})} = \P_{X \sim Q_{0,I}} &\left[ \MC(X) > \eta(\rho), \what \MC_m(X) \le \what \eta_m(\rho) \right] \\
+&+ \P_{X \sim Q_{0,I}}\left[ \MC(X) \le \eta(\rho), \what \MC_m(X) > \what \eta_m(\rho) \right].
+\end{split}
+\end{align*}
+We show how to bound the first term, as the second is similar.
+For every $c \ge 0$, we have
+\begin{align*}
+\P_{X \sim Q_{0,I}} &\left[ \MC(X) > \eta(\rho), \what \MC_m(X) \le \what \eta_m(\rho) \right] \\
+&\le
+ \P_{X \sim Q_{0,I}} \left[ \eta(\rho) < \MC(X) \le \eta(\rho) + c \right]
+ +  \P_{X \sim Q_{0,I}}\left[ \MC(X) > \eta(\rho) + c, 
+\what \MC_m(X) \le \what \eta_m(\rho) \right] 
+\\
+&\le \norm{f_{\MC}}_\infty c +  \P_{X \sim Q_{0,I}}\left[ \MC(X) - \what \MC_m(X) > \eta(\rho) - \what \eta_m(\rho) + c \right].
+\end{align*}
+Consider $c \defeq (\what \eta_m(\rho) - \eta(\rho))_+ +  \norm{ \what \MC_m - \MC}_{L^\infty(P_{0,I})}$,  then the second term becomes $0$, so that
+\begin{align*}
+\P_{X \sim Q_{0,I}} &\left( \MC(X) > \eta(\rho), \what \MC_m(X) \le \what \eta_m(\rho) \right]  \\
+&\le \norm{f_{\MC}}_\infty \left[  \norm{ \what \MC_m - \MC}_{L^\infty(P_{0,I})} + \left|\what \eta_m(\rho) - \eta(\rho) \right| \right) \\
+&\le \norm{f_{\MC}}_\infty \left( 2\norm{ \what \MC_m - \MC}_{L^\infty(P_{0,I})} + \left|\what \eta_m(\rho) - \eta^\star(\what \MC_m, \rho) \right| \right).
+\end{align*}
+\end{proof}
+
+We can now proceed with the proofs of Lemmas~\ref{lem:uniform-empiricalprocess-remainder} and~\ref{lem:uniform-expectation-remainder}.
+
+\subsubsection{Proof of Lemma~\ref{lem:uniform-empiricalprocess-remainder}}
+
+We first need to bound the second moment of each $\Phi_{\what \MC_m, \what \eta_m, \rho} - \Phi_{\MC,  \eta, \rho}$ individually, which is what the following lemma does.
+Let $\what \sigma_m^2(\rho) \defeq  P \left( \Phi_{\what \MC_m, \what \eta_m, \rho} - \Phi_{\MC,  \eta, \rho} \right)^2$. 
+\begin{lemma}
+\label{lem:uniform-second-moment}
+We have
+\begin{align*}
+\what \sigma_{m,K}^2 \defeq \max\left( \sup_{\rho \in K} \what \sigma^2_m(\rho), n^{-1/2} \right) = o_p(n^{-1/3}).
+\end{align*}
+\end{lemma}
+\begin{proof}
+For any $(x, s) \in \mc{X} \times \R$, we have
+\begin{align*}
+&\left| \Phi_{\what \MC_m, \what \eta_m, \rho}(x,s) - \Phi_{\MC,  \eta, \rho}(x,s)  \right| \\
+&\le e^\rho \left( \indic{ s > q} \left| h_{\what \MC_m, \what \eta_m, \rho}(x) - h_{\MC, \eta, \rho}(x) \right| + \left|\what \eta_m(\rho)h_{\what \MC_m, \what \eta_m, \rho}(x) - \eta(\rho) h_{\MC, \eta, \rho}(x)\right| + \left| \what \eta_m(\rho) - \eta(\rho)\right| \right) \\
+&\le 2e^\rho \left( \left| h_{\what \MC_m, \what \eta_m, \rho}(x) - h_{\MC, \eta, \rho}(x) \right| + \left| \what \eta_m(\rho) - \eta(\rho) \right|  \right),
+\end{align*}
+where we used the fact that $\left| \eta(\rho) \right| \le 1$ in the last line.
+Since $h_{\what \MC_m, \what \eta_m, \rho} - h_{\MC, \eta, \rho} \in \{0,1\}$, it is immediate that $\norm{ h_{\what \MC_m, \what \eta_m, \rho} - h_{\MC, \eta, \rho}}_{L^2(P_{0,I})}^2= \norm{ h_{\what \MC_m, \what \eta_m, \rho} - h_{\MC, \eta, \rho}}_{L^1(P_{0,I})}$ and hence that
+\begin{align*}
+\what \sigma_m^2(\rho) &\lesssim e^{2\rho} \left( \norm{ h_{\what \MC_m, \what \eta_m, \rho} - h_{\MC, \eta, \rho}}_{L^1(P_{0,I})} + \left| \what{\eta}_m(\rho) - \eta(\rho) \right|^2 
+\right) \\
+&\lesssim e^{2\rho} \left( \left| \what{\eta}_m(\rho) - \eta(\rho) \right|^2  + \left| \what \eta_m(\rho) - \eta^\star(\what{\MC}_m, \rho) \right| + \norm{\what{\MC}_m - \MC}_{L^\infty(P_{0,I})} \right) \\
+&\lesssim e^{2\rho} \left( \psi\left( \norm{\what{\MC}_m - \MC}_{L^\infty(P_{0,I})} \right) +  \psi\left( \left|\what \eta_m(\rho) - \eta^\star(\what{\MC}_m, \rho) \right| \right) \right),
+\end{align*}
+where $\psi(t) \defeq \max(t,t^2)$ for all $t \in \R$.
+By Assumptions~\ref{ass:miscov-estimator-consistent} and~\ref{ass:miscov-quantile-estimator-consistent}, we can conclude that
+\begin{align*}
+\sup_{\rho \in K} \what \sigma_m^2(\rho) = o_p(n^{-1/3}).
+\end{align*}
+\end{proof}
+The proof of Lemma~\ref{lem:uniform-empiricalprocess-remainder} then follows from an application of~\citet[Lemma 6.2]{ChernozhukovChDeDuHaNeRo16} to the family of functions
+\begin{align*}
+\what{\mc{F}}_m^K \defeq \left\{ \Phi_{\what \MC_m, \what \eta_m, \rho} - \Phi_{\MC,  \eta, \rho} \mid \rho \in K \right\}.
+\end{align*}
+We use as envelope function the constant function $(x,s) \mapsto 4\sup_{\rho\in K} e^\rho$, since $\max\left(\norm{\what \eta_m}_\infty, \norm{\eta}_\infty \right) \le 1$, and we bound the uniform covering number of $\what{\mc{F}}_m^K$ using the following lemma.
+
+\begin{lemma}
+\label{lem:uniform-covering-number}
+Let $m_0 : \mc{X} \to [0,1]$ be a measurable function,  $\eta_0: K \to [0,1]$ be a non-decreasing function, and define
+\begin{align*}
+\mc{F}_{m_0, \eta_0}^K \defeq \left\{ \Phi_{m_0,  \eta_0, \rho} \mid \rho \in K \right\}.
+\end{align*}
+Then there exist a constant $c_K$ depending only on $\text{diam}(K)$ such that, for every $\varepsilon \in (0,1]$, we have
+\begin{align*}
+\log \sup_Q \mc{N} \left(4 \varepsilon \sup_{\rho \in K} e^{\rho},  \mc{F}_{m_0,\eta_0}^K, \norm{\cdot}_{Q,2} \right) \le \log(c_K/\varepsilon).
+\end{align*}
+\end{lemma}
+\begin{proof}
+Let $Q$ be a distribution for $X$, and set $a_K \defeq \sup_{\rho \in K} e^\rho$, and let $F_{Q,0}$ be the c.d.f. of $m_0(X)$ under $Q$.
+For any $\rho_1< \rho_2 \in K$, we have
+\begin{align*}
+\big| \Phi_{m_0,  \eta_0, \rho_1}(x,s) &- \Phi_{m_0,  \eta_0, \rho_2}(x,s)\big| \\
+&\le 2 a_K \left( \left| \rho_2 - \rho_1 \right| + \indic{ \eta(\rho_1) < m(X) \le \eta(\rho_2)} + \left| \eta(\rho_2) - \eta(\rho_1) \right| \right),
+\end{align*}
+implying that, for some universal constant $C$, 
+\begin{align*}
+\norm{\Phi_{m_0,  \eta_0, \rho_1}(x,s) - \Phi_{m_0,  \eta_0, \rho_2}}_{Q,2} \le C a_K \left( \rho_2 - \rho_1 + \eta(\rho_2) - \eta(\rho_1) + F_{Q,0}(\eta(\rho_2)) - F_{Q,0}(\eta(\rho_1)) \right).
+\end{align*}
+We can thus construct a $3C a_K \varepsilon$-packing by choosing $\rho_1 \defeq \inf K \le \dots \le \rho_N$ such that for each $i \in \{1, \dots N-1\}$ we have
+\begin{align*}
+\rho_{i+1} = \inf \biggr\{ \rho \in K ~ \text{s.t} ~  \rho - \rho_{i} \ge \varepsilon ~\text{or} ~ \eta(\rho) - \eta(\rho_i)\ge \varepsilon  ~ \text{ or } F_{Q,0}(\eta(\rho)) - F_{Q,0}(\eta(\rho_i)) \ge \varepsilon \biggr\}.
+\end{align*}
+
+By convention, if $\rho_{i+1} = \rho_i$,  meaning that $\lim_{\rho \to \rho_i^+} \eta(\rho) > \eta(\rho_i)$,  we choose instead any $\rho_{i+1} > \rho_i$ such that
+\begin{align*}
+\eta(\rho)\le \lim_{\rho \to \rho_i^+} \eta(\rho) + \varepsilon 
+~\text{and} ~
+F_{Q,0}(\eta(\rho)) \le \lim_{\rho \to \rho_i^+} F_{Q,0}(\eta(\rho)) + \varepsilon.
+\end{align*}
+This covering can then contain at most $(2+ \textrm{diam}(K)) / \varepsilon$ such elements,  
+since
+\begin{align*}
+2+ \textrm{diam}(K) &\ge \rho_N - \rho_1 + \eta(\rho_{N}) - \eta(\rho_1) + F_{Q,0}(\eta(\rho_{N})) - F_{Q,0}(\eta(\rho_1))  \\
+&\ge 
+\sum_{i=1}^{N-1} \big\{
+\rho_{i+1} - \rho_i + \eta(\rho_{i+1}) - \eta(\rho_i) + F_{Q,0}(\eta(\rho_{i+1})) - F_{Q,0}(\eta(\rho_i)) \big\} \\
+&\ge (N-1)\varepsilon,
+\end{align*}
+ which means that
+\begin{align*}
+\mc{N} \left(3Ca_K \varepsilon,  \mc{F}_{m_0,\eta_0}^K, \norm{\cdot}_{Q,2} \right) \le 1+\frac{2+ \textrm{diam}(K))}{ \varepsilon},
+\end{align*}
+and concludes the proof.
+\end{proof}
+An immediate consequence of the lemma is that for all $\varepsilon \in (0,1]$,
+\begin{align*}
+\log \sup_Q \mc{N} \left(4 \varepsilon \sup_{\rho \in K} e^{\rho},  \what{\mc{F}}_m^K,  \norm{\cdot}_{Q,2} \right) \le 2 \log(2c_K/\varepsilon),
+\end{align*}
+since both $\what \MC_m$, $\what \eta_m$ and $\MC$, $\eta$ satisfy the conditions of application of Lemma~\ref{lem:uniform-covering-number}.
+Applying Lemma 6.2 in~\citet{ChernozhukovChDeDuHaNeRo16},  and letting $a_K \defeq \sup_{\rho\in K} e^\rho$,  we therefore have
+\begin{align*}
+\E\left[ \sup_{\rho \in K} \left|  \mathbb{G}_{n,m}\left( \Phi_{\what \MC_m, \what \eta_m, \rho} - \Phi_{\MC,  \eta, \rho} \right) \right| \mid \mc{F}_{n,-m} \right] \lesssim \what \sigma_{m,K}\sqrt{\log \frac{a_K}{\what \sigma_{m,K}}} + \frac{a_K}{\sqrt{n/M}}\log \frac{a_K}{\what \sigma_{m,K}},
+\end{align*}
+which is $o_p(n^{-1/6}\log(n)) = o_p(1)$ by Lemma~\ref{lem:uniform-second-moment}.
+
+\subsubsection{Proof of Lemma~\ref{lem:uniform-expectation-remainder}}
+Only in the proof of Lemma~\ref{lem:uniform-expectation-remainder} does the benefit of augmenting the estimator finally appear, as we shall see that the difference between the population averages of $\Phi_{\what \MC_m, \what \eta_m, \rho}$  and $\Phi_{\MC,  \eta, \rho}$ is actually smaller than $n^{-1/2}$ instead of the more naive $n^{-1/3}$.
+
+For any measurable function $m_0 \in L^\infty(Q_{0,I})$,  $\eta_0 \in \R$ and $\rho > 0$, define
+\begin{align*}
+\Psi_\rho(m_0, \eta_0) \defeq e^\rho \E_{X_I \sim Q_{0,I}} \left( m_0(X_I) - \eta\right)_+ + \eta.
+\end{align*}
+It is straightforward to check that $\Psi_\rho$ is Gateaux differentiable at any $(m_0, \eta_0)$ such 
+\begin{align*}
+P_{0,I}\left[ m_0(X_I) = \eta_0 \right] =0,
+\end{align*}
+in which case for all $h=(m_h, \eta_h) \in  L^\infty(Q_{0,I}) \times \R$, we have
+\begin{align*}
+d\Psi_\rho(m_0,\eta_0)\left[m_h, \eta_h \right] = e^\rho \E_{X_I \sim Q_{0,I}} \left[ \indic{ m_0(X) > \eta_0 } \left( m_h(X_I) - \eta_h \right) \right] + \eta_h.
+\end{align*}
+Now, observe that, since $\E_{(S,X_I) \sim P_{0,I}} \left[ \indic{S > q} \mid X_I \right] = \MC(X_I)$, we have 
+\begin{align*}
+P \Phi_{m_0,  \eta_0, \rho} = e^\rho \E_{X \sim Q_{0,I}} \left[ \indic{m_0(X) > \eta_0(\rho)} \left( \MC(X) - \eta(\rho)\right) \right] + \eta_0(\rho)
+\end{align*}
+for any functions $m_0 \in L^\infty(Q_{0,I})$ and $\eta_0: K \to \R$.
+As a result, some rearranging shows that
+\begin{align*}
+P \Phi_{\what \MC_m, \what \eta_m, \rho} - P\Phi_{\MC,  \eta, \rho} = \Psi_\rho \left( \what \MC_m, \what \eta_m(\rho) \right) - \Psi_\rho \left( \MC,  \eta(\rho) \right) - P \left[ h_{\what \MC_m,  \what \eta_m, \rho}\left( \what \MC_m - \MC \right) \right]
+\end{align*}
+Assumption~\ref{ass:miscov-no-atom} ensures that, with probability $1-o(1)$, the function $\hat \Psi_{m,\rho}(r)  \defeq  \Psi_\rho( r \what \MC_m + (1-r) \MC,  r \what \eta_m(\rho) + (1-r) \eta(\rho))$ is differentiable almost everywhere on $[0,1]$ for all $\rho \in K$, and
+\begin{align*}
+&\hat \Psi_{m,\rho}'(r) \\
+&= e^\rho P\left[ h_{r \what \MC_m + (1-r) \MC,  r \what \eta_m + (1-r) \eta, \rho} \left(\what \MC_m - \what \eta_m(\rho) - (\MC - \eta(\rho)) \right) \right] + \what \eta_m(\rho) - \eta(\rho) \\
+&= \left(\what \eta_m(\rho) - \eta(\rho) \right) \left[1 - e^\rho P h_{r \what \MC_m + (1-r) \MC,  r \what \eta_m + (1-r) \eta, \rho}\right] + e^\rho P\left[ h_{r \what \MC_m + (1-r) \MC,  r \what \eta_m + (1-r) \eta, \rho} \left(\what \MC_m - \MC \right) \right].
+\end{align*}
+We now observe that, by definition of $\eta(\rho)$ and the fact that $\MC(X_I)$ has a continuous distribution, we have $P h_{\MC,  \eta, \rho} = e^{-\rho}$,  which entails that
+\begin{align*}
+&\sup_{r \in [0,1]} \left| \Psi_{m, \rho}'(r) - P \left[ h_{\what \MC_m,  \what \eta_m, \rho}\left( \what \MC_m - \MC \right) \right] \right| \\
+&\lesssim e^\rho \sup_{r \in [0,1]} \norm{h_{r \what \MC_m + (1-r) \MC,  r \what \eta_m + (1-r) \eta, \rho} - h_{\MC,  \eta, \rho}}_{L^1(P_{0,I}} \left( \left| \what \eta_m(\rho)  - \eta(\rho) \right| + \norm{\what \MC_m - \MC}_{\infty} \right) \\
+&\lesssim e^\rho \norm{h_{ \what \MC_m,  \eta_m \rho} - h_{\MC,  \eta, \rho}}_{L^1(P_{0,I}} \left( \left| \what \eta_m(\rho)  - \eta(\rho) \right| + \norm{\what \MC_m - \MC}_{\infty} \right)
+\end{align*}
+As a result, we can conclude that, with probability $1-o(1)$, 
+\begin{align*}
+\sup_{\rho \in K} \left|P \Phi_{\what \MC_m, \what \eta_m, \rho} - P\Phi_{\MC,  \eta, \rho} \right| \lesssim \sup_{\rho \in K} \biggr\{ e^\rho \norm{h_{ \what \MC_m, \what \eta_m \rho} - h_{\MC,  \eta, \rho}}_{L^1(P_{0,I})} \left( \left| \what \eta_m(\rho)  - \eta(\rho) \right| + \norm{\what \MC_m - \MC}_{\infty} \right) \biggr\},
+\end{align*}
+where the right-hand side is $o_p(n^{-1/2})$ by Lemma~\ref{lem:bound-h-indicator} and Assumptions~\ref{ass:miscov-estimator-consistent} and~\ref{ass:miscov-quantile-estimator-consistent}.
+
+
+%By Assumption~\ref{ass:sens1}, 
+%there exist sequences $\delta_n$ and $\Delta_n$ of positive constants approaching $0$ such that  with probability at least $1-\Delta_n$, for all $m \in M$, we have
+%\begin{align*}
+% \norm{\what {\MC}^{(q)}_m- {\MC}^{(q)}}_{L^\infty(P_{0,I})} \leq \delta_n n^{-1/3}, \text{ and }  \left|\what \eta_m^{(q)}(\what {\MC}^{(q)}_m,\rho) -  \eta^{(q)}(\what {\MC}^{(q)}_m,\rho) \right| \leq \delta_n n^{-1/3}.
+%\end{align*}
+%
+%Now, it is enough to show that for any $\rho \in \R$
+%
+%\begin{align}
+%\sqrt{n}(\what{\SF}^{(q)}_{m,n}(\rho)  -\SFcov(\rho))=\frac{1}{\sqrt{n}}\sum_{i=1}^n \psi((S_i,X_{I,i}),\SFcov(\rho)),\rho, {\MC}^{(q)},\eta^*) +\sqrt{n}R_n(\rho)
+%\end{align}
+%where 
+%\begin{align*}
+%\psi((S,X_I),\SFcov(\rho)),\rho, {\MC}^{(q)},\eta^*) &= e^{\rho}[( {\MC}^{(q)}(X_I)-\eta^*(\rho))_{+}] +\eta^*(\rho) + \\&h^*(\rho,X_I)\left(\indic{S>Q}- {\MC}^{(q)}(X_I)\right) -\SFcov(\rho))
+%\end{align*}
+%and  $\sup_{\rho \in K} |R_n(\rho)| \overset{P}{\to}0$. Then the proof follows from Donsker's theorem.
+%
+%Let $E_{N,m} \psi((S,X_I),\rho,\what {\MC}^{(q)}_m,\what \eta_m^{(q)}) =\frac{1}{N}\sum_{i \in I_m} \psi((S_i,X_{I,i}),\rho,\what {\MC}^{(q)}_m,\what \eta_m^{(q)})$, then $R_n(\rho)$ is given by 
+%
+%\begin{align}
+%R_n(\rho)=\frac{1}{M}\sum_{i=1}^M E_{N,m}[\psi((S,X_I),\rho,\what {\MC}^{(q)}_m,\what \eta_m^{(q)})]-\frac{1}{n}\sum_{i=1}^n \psi((S_i,X_{I,i}),\rho, {\MC}^{(q)},\eta^{(q)}).
+%\end{align}
+%We next show that for some sequence $\gamma_n \to 0$, we have $\sup_{\rho \in C} |\sqrt{n} R_n(\rho)| \leq \gamma_n$ with probability $1-o(1)$.
+%Since $M$ is a fixed integer, which is independent of $n$, it suffices to show that for any $m \in M$
+%\begin{align*}
+%\sup_{\rho \in C} \sqrt{n} \bigg|E_{N,m} \psi((S,X_I),\rho,\what {\MC}^{(q)}_m,\what \eta_m^{(q)})-\frac{1}{N}\sum_{i\in I_m} \psi((S_i,X_{I,i}),\rho, {\MC}^{(q)},\eta^{(q)})\bigg| \leq \gamma_n
+%\end{align*}
+%with probability $1-o(1)$.
+%
+%Fix any $m \in [M]$ and we introduce the following empirical process
+%\begin{align*}
+%G_{N,m}[\phi(S,X_I)]=\frac{1}{\sqrt{N}}\sum_{i\in I_m}\phi((S_i,X_{I,i}))-\int \phi((s,e))dP(s,e)
+%\end{align*}
+%where $\phi$ is any $P$-integrable function.
+%Then following the proof of Theorem 3.1 from \citep{ChernozhukovChDeDuHaNeRo16} (see Equation A.16), by triangle inequality, we have
+%
+%\begin{align*}
+%\bigg|E_{N,m} \psi((S,X_I),\rho,\what {\MC}^{(q)}_m,\what \eta_m^{(q)})-\frac{1}{N}\sum_{i\in I_m} \psi((S_i,X_{I,i}),\rho, {\MC}^{(q)},\eta^{(q)})\bigg| \leq \frac{I_{1,m}(\rho)+I_{2,m}(\rho)}{\sqrt{N}}
+%\end{align*}
+%where 
+%\begin{align*}
+%I_{1,m}(\rho)&=\bigg|G_{N,m}[\psi((S,X_I),\rho,\what {\MC}^{(q)}_m,\what \eta_m^{(q)})]-G_{N,m}[\psi((S_i,X_{I,i}),\rho, {\MC}^{(q)},\eta^{(q)})]\bigg|,\\
+%I_{2,m}(\rho)&=\sqrt{N}\bigg| E_{P}[\psi((S,X_I),\rho,\what {\MC}^{(q)}_m,\what \eta_m^{(q)}) \mid \{(S_i,X_{I,i})\}_{i \in I_m^c}]-E_{P}[\psi((S_i,X_{I,i}),\rho, {\MC}^{(q)},\eta^{(q)})]\bigg|.
+%\end{align*}
+%
+%Following proof of Theorem 1 of \citep{SubbaswamyAdSa21aistats} (see equations 37--46), we have for a numerical constant $B,$
+%
+%\begin{align*}
+%|I_{1,m}(\rho)| &\leq B(\norm{\what h^{(q)}_m(\rho, X_I)-h^*(\rho,X_I)}_{P,1}+|\what \eta_m^{(q)}(\what {\MC}^{(q)}_m,\rho)-\eta^{(q)}({\MC}^{(q)},\rho)|), \text{and}\\
+%|I_{2,m}(\rho)|&\leq \sqrt{n}e^{\rho}\norm{\what h^{(q)}_m(\rho, X_I)-h^*(\rho,X_I)}_{P,1}|(|\what \eta_m^{(q)}(\what {\MC}^{(q)}_m,\rho)-\eta^{(q)}({\MC}^{(q)},\rho)|+3 \norm{\what {\MC}^{(q)}_m - {\MC}^{(q)}}_{P,\infty}).
+%\end{align*}
+%
+%From Lemmas~\ref{lem:unif-quantiles} and \ref{lem:unif-indic-quantiles}, we have
+%\begin{align*}
+%\sup_{\rho \in C} \norm{\what h^{(q)}_m(\rho, X_I)-h^*(\rho,X_I)}_{P,1} &\leq B_1 \delta_n n^{-1/6},\\
+%\sup_{\rho \in C} |\eta^{(q)}(\what {\MC}^{(q)}_m,\rho)-\eta^{(q)}({\MC}^{(q)},\rho)| &\leq B_2 \delta_n n^{-1/3}
+%\end{align*}
+%for some numerical constants $B_1$ and $B_2$ with high probability.
+%Since, 
+%
+%\begin{align*}
+%|\what \eta_m^{(q)}(\what {\MC}^{(q)}_m,\rho)-\eta^{(q)}({\MC}^{(q)},\rho)| \leq |\what \eta_m^{(q)}(\what {\MC}^{(q)}_m,\rho)-\eta^{(q)}(\what {\MC}^{(q)}_m,\rho)|+|\eta^{(q)}(\what {\MC}^{(q)}_m,\rho)-\eta^{(q)}({\MC}^{(q)},\rho)|,
+%\end{align*}
+%we have the proof under the given assumptions.
+%
+%
+%\begin{lemma}
+%\label{lem:unif-quantiles}
+%For some numerical constant $B_2$, we have $\sup_{\rho \in K} |\eta^{(q)}(\what {\MC}^{(q)}_m,\rho)-\eta^{(q)}({\MC}^{(q)},\rho)| \leq B_2 \delta_n n^{-1/3}$ with a high probability.
+%\end{lemma}
+%\begin{proof}
+%First note that $\eta^{(q)}({\MC}^{(q)},\rho)=\eta^{(q)}({\MC}^{(q)},\rho)$.
+%Consider the sequence $\epsilon_n=\linfp{\what {\MC}^{(q)}_m- {\MC}^{(q)}}=O(\delta_n n^{-1/3})$ with a high probability. 
+%
+%Now, with a high probability, we have by Assumption~\ref{ass:unif-sens2},
+%\begin{align*}
+%F_1(\eta^{(q)}(\what {\MC}^{(q)}_m,\rho)) &\leq F_{0}(\eta^{(q)}(\what {\MC}^{(q)}_m,\rho) +\epsilon_n) \leq F_{0}(\eta^{(q)}(\what {\MC}^{(q)}_m,\rho) +A \epsilon_n \text{ and }\\
+%F_1(\eta^{(q)}(\what {\MC}^{(q)}_m,\rho)) &\geq F_{0}(\eta^{(q)}(\what {\MC}^{(q)}_m,\rho) -\epsilon_n) \geq F_{0}(\eta^{(q)}(\what {\MC}^{(q)}_m,\rho) -A \epsilon_n
+%\end{align*}
+%
+%
+%
+%
+%%\begin{align*}
+%%F_1(P^{-1}_{e^{-\rho}}( \what {\MC}^{(q)}_m))=F_{0}(P^{-1}_{e^{-\rho}}( \what {\MC}^{(q)}_m))+(F_1-F_0)(P^{-1}_{e^{-\rho}}( \what {\MC}^{(q)}_m)).
+%%\end{align*}
+%%Since, $\norm{\what {\MC}^{(q)}_m- {\MC}^{(q)}}_{P_0,\infty} \leq \delta_n n^{-1/3}$ with a high probability, we have
+%%
+%%\begin{align}
+%%\label{eqn:bound1}
+%%&|(F_1-F_0)(P^{-1}_{e^{-\rho}}( \what {\MC}^{(q)}_m))| \\
+%%&\leq F_1(P^{-1}_{e^{-\rho}}( \what {\MC}^{(q)}_m)+\norm{\what {\MC}^{(q)}_m- {\MC}^{(q)}}_{P_0,\infty})-F_1(P^{-1}_{e^{-\rho}}( \what {\MC}^{(q)}_m)-\norm{\what {\MC}^{(q)}_m- {\MC}^{(q)}}_{P_0,\infty})\\
+%%&\leq 2A \norm{\what {\MC}^{(q)}_m- {\MC}^{(q)}}_{P_0,\infty}.
+%%\end{align}
+%Hence, we have
+%\begin{align*}
+%1-\alpha=F_1(\eta^{(q)}(\what {\MC}^{(q)}_m,\rho)) \leq F_0(\eta^{(q)}(\what {\MC}^{(q)}_m,\rho))+A\epsilon_n.
+%\end{align*}
+%Following similar argument as above, we also have,
+%\begin{align}
+%\label{eqn:bound2}
+%1-\alpha\geq F_1(\eta^{(q)}(\what {\MC}^{(q)}_m,\rho)-\epsilon_n) \geq F_0(\eta^{(q)}(\what {\MC}^{(q)}_m,\rho)-\epsilon_n)-A \epsilon_n.
+%\end{align}
+%Now by Taylor's expansion,
+%
+%\begin{align*}
+%F_{0}(\eta^{(q)}(\what {\MC}^{(q)}_m,\rho)-\epsilon_n)=(1-\alpha)+f_{0,p}(\hat q) (\eta^{(q)}(\what {\MC}^{(q)}_m,\rho)-\epsilon_n-\eta^{(q)}({\MC}^{(q)},\rho)
+%\end{align*}
+%for some $\hat q$ in between $\eta^{(q)}(\what {\MC}^{(q)}_m,\rho)-\epsilon_n$ and $\eta^{(q)}({\MC}^{(q)},\rho)$.
+%Hence, using \eqref{eqn:bound2}, we have
+%\begin{align*}
+%\eta^{(q)}(\what {\MC}^{(q)}_m,\rho)-\eta^{(q)}({\MC}^{(q)},\rho) \leq \frac{A \epsilon_n}{f_0(\hat q)}+\epsilon_n \leq  \frac{A\epsilon_n}{a}+\epsilon_n.
+%\end{align*}
+%Similarly, we have
+%\begin{align*}
+%\eta^{(q)}(\what {\MC}^{(q)}_m,\rho)-\eta^{(q)}({\MC}^{(q)},\rho) \geq -\frac{A \epsilon_n}{f_0(\hat q)} \geq -\frac{A \epsilon_n}{a} .
+%\end{align*}
+%Hence, the lemma follows since $\epsilon_n \leq \delta_n n^{-1/3}$ with a high probability.
+%\end{proof}
+%
+%
+%\begin{lemma}
+%\label{lem:unif-indic-quantiles}
+%For some numerical constant $B_1$, we have $\sup_{\rho \in K} |\what h^{(q)}_m(\rho, X_I)-h^*(\rho,X_I)| \leq B_1 \delta_n n^{-1/2}$ with a high probability.
+%\end{lemma}
+%
+%\begin{proof}
+%From, Lemma 14 of \citep{JeongNa20}, we have with a high probability, for some numerical constant $B_3$,
+%\begin{align*}
+%\begin{split}
+%|\what h^{(q)}_m(\rho, X_I)-h^*(\rho,X_I)| & \leq B_3 n^{1/6} \linfp{\what {\MC}^{(q)}_m- {\MC}^{(q)}}+ \\ & B_3 n^{1/6} \left|\eta^{(q)}(\what {\MC}^{(q)}_m,\rho)-\eta^{(q)}({\MC}^{(q)},\rho)\right|+B_3 n^{1/6} \left|\what \eta_m^{(q)}(\what {\MC}^{(q)}_m,\rho)-\eta^{(q)}(\what {\MC}^{(q)}_m,\rho)\right|.
+%\end{split}
+%\end{align*}
+%Hence, the result follows from Assumption~\ref{ass:sens1} and Lemma~\ref{lem:unif-quantiles}.
+%\end{proof}

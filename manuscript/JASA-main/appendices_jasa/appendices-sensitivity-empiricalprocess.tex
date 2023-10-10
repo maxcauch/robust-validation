@@ -1,0 +1,361 @@
+ % -*- Mode: latex -*- %
+\section{Proof of Theorem~\ref{thm:unif-conv-sens}}
+\label{proof-thm-unif-conv-sens}
+
+Recall that our goal is to prove that
+there exists a Gaussian process $\mathbb{G}$ such that
+for every compact $K \subset \R_+$, we have
+\begin{equation}
+  \label{goal:uniform-convergence}
+  \{ \sqrt{n}(\what{\SF}^{(\predsetthresh)}_n(\rho)- \SFcov(\rho)) \}_{\rho \in K}
+  \cd \{\mathbb{G}(\rho)\}_{\rho \in K}.
+\end{equation}
+as elements in $L^\infty(K)$. Fix a compact set $K \subset \R_+$.  We first
+set notation.  For simplicity, we omit the threshold superscripts $t$ on
+$\MC^{(\predsetthresh)}$, $\qfunc^{(\predsetthresh)}$ and
+$h^{(\predsetthresh)}$ as the threshold $\predsetthresh$ remains fixed
+throughout.  For shorthand, let $\mc{X} \defeq \R^I$, and for any functions
+$m : \mc{X} \to [0,1]$ and $q : K \to [0,1]$ and scalar $\rho>0$, we define
+the integrand (recall the expansion~\eqref{eqn:intuition-for-augmentation})
+\begin{align*}
+  \Phi_{m, q, \rho} (x,  s) \defeq e^\rho \hinge{m(x) - q(\rho)}
+  + q(\rho) + e^\rho \indic{ m(x) > q(\rho)} \left[ \indic{s > \predsetthresh}
+    - m(x) \right].
+\end{align*}
+For any $P_{0,I}$-integrable function $f : \mc{X} \times \R \to \R$, we
+define the empirical process shorthands
+\begin{align*}
+  P_n f \defeq \frac{1}{n} \sum_{i=1}^n f(X_{I,i}, S_i), ~ P f = \E_{(X,S) \sim P_{0,I}} \left[ f(X,S) \right],  ~ \text{ and } ~ \mathbb{G}_n f \defeq \sqrt{n} \left( P_n - P \right) f.
+\end{align*}
+Additionally, for every $\batch \in [\nBatch]$, we
+define the subsampled quantities
+\begin{align*}
+  P_{n,\batch} f \defeq \frac{1}{n/\nBatch} \sum_{i \in \mc{I}_\batch} f(X_{I,i}, S_i) ~ \text{ and } \mathbb{G}_{n,\batch}f \defeq \sqrt{n/\nBatch} \left(P_{n,\batch} - P \right) f.
+\end{align*}
+
+By definition of $\what{\SF}^{(\predsetthresh)}_n(\rho)$ and $
+\SFcov(\rho)$, we have
+\begin{align*}
+  \what{\SF}^{(\predsetthresh)}_n(\rho) = \frac{1}{\nBatch} \sum_{\batch=1}^\nBatch P_{n,\batch} \Phi_{\what \MC_\batch, \what \qfunc_\batch, \rho} ~ \text{ and } \SFcov(\rho) = P \Phi_{\MC, \qfunc, \rho},
+\end{align*}
+so if we define the remainder 
+\begin{align*}
+  R_{n, \rho} \defeq \frac{1}{\sqrt{\nBatch}}\sum_{\batch=1}^\nBatch \sqrt{n/\nBatch} \left( P_{n,\batch} \Phi_{\what \MC_\batch, \what \qfunc_\batch, \rho} - P_{n,\batch} \Phi_{\MC,  \qfunc, \rho} \right),
+\end{align*}
+then our empirical process is
+\begin{align*}
+  \sqrt{n} \left( \what{\SF}^{(\predsetthresh)}_n(\rho) - \SFcov(\rho) \right)
+  = \mathbb{G}_n \Phi_{\MC, \qfunc, \rho} + R_{n, \rho}.
+\end{align*}
+By Slutsky's lemma, it thus suffices to prove that that the collection
+$\mc{F}_{\MC, \qfunc}^K \defeq \{ \Phi_{\MC, \qfunc, \rho} \}_{\rho \in K}$
+is Donsker, i.e., that there exists a Gaussian process $\mathbb{G}_K$ on
+$L^\infty(K)$ such that
+\begin{align*}
+  \{\mathbb{G}_n \Phi_{\MC, \qfunc, \rho} \}_{\rho \in K}
+  \cd \mathbb{G}_K
+  ~~ \mbox{in~} L^\infty(K)
+\end{align*}
+and that the remainder is uniformly negligible, satisfying $\sup_{\rho \in
+  K} |R_{n,\rho}| = o_P(1)$.
+We now argue that each of these hold.
+
+\paragraph{Donsker properties of $\mc{F}$}:
+We first show that $\mc{P}_{\MC, \qfunc}^K$ is Donsker, an immediate
+consequence of the following lemma and~\citet[Thm 19.14]{VanDerVaart98}.  In
+the statement of the lemma, recall that for a collection of functions
+$\mc{F}$, the $L^2(Q)$-covering number $N(\epsilon, \mc{F},
+\norm{\cdot}_{L^2(Q)})$ is the size of the smallest $\epsilon$-cover for
+$\mc{F}$ in $L^2(Q)$ norm, that is, the smallest $N$ for which there exist
+$h_1, \ldots, h_N$ satisfying $\min_{i \le N} \norm{f - h_i}_{L^2(Q)} \le
+\epsilon$ for all $f \in \mc{F}$.
+\begin{lemma}
+  \label{lem:uniform-covering-number}
+  Let $m : \mc{X} \to [0,1]$ be measurable and $q : K \to [0,1]$
+  non-decreasing. Define
+  \begin{align*}
+    \mc{F}_{m, q}^K \defeq \left\{ \Phi_{m,  q, \rho} \mid \rho \in K \right\}.
+  \end{align*}
+  Then there exists a constant $c_K \lesssim 1 + \textup{diam}(K)$ such
+  that, for $0<\varepsilon \le 1$, we have
+  \begin{align*}
+    \sup_Q \log N\left(\varepsilon \sup_{\rho \in K} e^{\rho},  \mc{F}_{m,q}^K, \norm{\cdot}_{L^2(Q)} \right) \le \log(c_K/\varepsilon^2).
+  \end{align*}
+\end{lemma}
+\begin{proof}
+  Let $Q$ be a distribution for $X$, and set $a_K \defeq \sup_{\rho \in K}
+  e^\rho$, and let $F_{Q}$ be the c.d.f. of $m(X)$ under $Q$.  For any
+  $\rho_1 < \rho_2 \in K$, we have
+  \begin{align*}
+    \big| \Phi_{m,  q, \rho_1}(x,s) &- \Phi_{m,  q, \rho_2}(x,s)\big| \\
+    &\le 2 a_K \left( \left| \rho_2 - \rho_1 \right| + \left| q(\rho_2) - q(\rho_1) \right|  + \indic{ q(\rho_1) < m(X) \le q(\rho_2)}\right),
+  \end{align*}
+  implying that, for some universal constant $C$, 
+  \begin{align*}
+    \norm{\Phi_{m,  q, \rho_1} - \Phi_{m,  q, \rho_2}}_{L^2(Q)}
+    \le C a_K \left( \rho_2 - \rho_1 + q(\rho_2) - q(\rho_1) + \sqrt{F_{Q}(q(\rho_2)) - F_{Q}(q(\rho_1))} \right),
+  \end{align*}
+  where we used the bound $(a+b+c)^2 \le 3(a^2 + b^2 + c^2)$ for all $a,b,c
+  \in \R$.
+
+%\jcdcomment{I am here and slightly confused. Why is it $F_Q$ and
+%  $F_{Q,0}$ above, and why are those not in a $\sqrt{\cdot}$ I also don't
+%  understand the display above this one very well: is that for
+%  each $x$ and $s$, and what happened to the
+%  terms $e^\rho \indic{(x) > q(\rho)} \indic{s > t}$
+%  in the definition of $\Phi$? Shouldn't those give
+%  $[e^{\rho_1 } \indic{m(x) > q(\rho_1)}
+%    - e^{\rho_2} \indic{m(x) > q(\rho_2)} ](\indic{s > t} - m(x))$?
+%}
+
+We can then construct a $3C a_K \varepsilon$-cover of $\mc{F}_{m, q}^K$ by choosing $\rho_1 \defeq \inf K \le \dots \le \rho_N$ such that for each $i \in \{1, \dots N-1\}$ we have
+\begin{align*}
+\rho_{i+1} = \inf \biggr\{ \rho \in K ~ \text{s.t} ~  \rho - \rho_{i} \ge \varepsilon ~\text{or} ~ q(\rho) - q(\rho_i)\ge \varepsilon  ~ \text{ or } F_{Q}(q(\rho)) - F_{Q}(q(\rho_i)) \ge \varepsilon^2 \biggr\}.
+\end{align*}
+By convention, if $\rho_{i+1} = \rho_i$,  meaning that $\lim_{\rho \downarrow \rho_i} q(\rho) > q(\rho_i)$,  we choose instead any $\rho_{i+1} > \rho_i$ such that
+$
+q(\rho_{i+1})\le \lim_{\rho \downarrow \rho_i} q(\rho) + \varepsilon 
+~\text{and} ~
+F_{Q}(q(\rho_{i+1})) \le \lim_{\rho \downarrow \rho_i} F_{Q}(q(\rho)) + \varepsilon^2,
+$
+which exists as $F_Q$ is right-continuous and $q$ is non-decreasing.
+
+This cover contains at most $1+ \frac{2+ \textrm{diam}(K)}{ \varepsilon^2}$ such elements,  
+since
+\begin{align*}
+2+ \textrm{diam}(K) &\ge \rho_N - \rho_1 + q(\rho_{N}) - q(\rho_1) + F_{Q}(q(\rho_{N})) - F_{Q,0}(q(\rho_1))  \\
+&\ge 
+\sum_{i=1}^{N-1} \big\{
+\rho_{i+1} - \rho_i + q(\rho_{i+1}) - q(\rho_i) + F_{Q}(q(\rho_{i+1})) - F_{Q}(q(\rho_i)) \big\} \\
+&\ge (N-1)(\varepsilon \wedge \varepsilon^2) = (N-1)\varepsilon^2,
+\end{align*}
+ which then implies that
+\begin{align*}
+N \left(3Ca_K \varepsilon,  \mc{F}_{m,\eta}^K, \norm{\cdot}_{L^2(Q)} \right) \le 1+\frac{2+ \textrm{diam}(K)}{ \varepsilon^2},
+\end{align*}
+and concludes the proof.
+\end{proof}
+
+It remains to bound the remainder term $R_{n,\rho}$.  To that end,  observe that, for each $b \in \nBatch$, we have
+\begin{align*}
+\begin{split}
+\sqrt{n/\nBatch} \left( P_{n,\batch} \Phi_{\what \MC_\batch, \what \qfunc_\batch, \rho} - P_{n,\batch} \Phi_{\MC,  \qfunc, \rho} \right) 
+= \mathbb{G}_{n,\batch}& \left( \Phi_{\what \MC_\batch, \what \qfunc_\batch, \rho} - \Phi_{\MC,  \qfunc, \rho} \right) \\ +& \sqrt{n/\nBatch}\left(P\Phi_{\MC,  \qfunc, \rho} - P \Phi_{\what \MC_\batch, \what \qfunc_\batch, \rho} \right),
+\end{split} 
+\end{align*}
+which motivates Lemmas~\ref{lem:uniform-empiricalprocess-remainder} and~\ref{lem:uniform-expectation-remainder} below. 
+The proof of these two lemmas is quite technical, which is why we defer them to Appendix~\ref{sec:technical-lemmas}. 
+\begin{lemma}
+\label{lem:uniform-empiricalprocess-remainder}
+Let $\mc{F}_{n,-\batch} \defeq \sigma \left\{ (\scorerv_i , X_{I,i})_{i \in [n] \setminus \mc{I}_\batch} \right\} $. 
+For each $\batch \in [\nBatch]$, we have
+\begin{align*}
+\E\left[ \sup_{\rho \in K} \left|  \mathbb{G}_{n,\batch}\left( \Phi_{\what \MC_\batch, \what \qfunc_\batch, \rho} - \Phi_{\MC,  \qfunc, \rho} \right) \right| \mid \mc{F}_{n,-\batch} \right] = o_p(1).
+\end{align*}
+\end{lemma}
+
+\begin{lemma}
+\label{lem:uniform-expectation-remainder}
+For each $\batch \in [\nBatch]$, we have
+\begin{align*}
+\sup_{\rho \in K} \left|P(\Phi_{\what \MC_\batch, \what \qfunc_\batch, \rho} - \Phi_{\MC,  \qfunc, \rho}) \right| = o_p(n^{-1/2}).
+\end{align*}
+\end{lemma}
+Lemma~\ref{lem:uniform-empiricalprocess-remainder} provides a bound, conditionally on $(\scorerv_i , X_{I,i})_{i \in [n] \setminus \mc{I}_\batch}$, on the supremum of the empirical process $\left\{ \mathbb{G}_{n,\batch}\left( \Phi_{\what \MC_\batch, \what \qfunc_\batch, \rho} - \Phi_{\MC,  \qfunc, \rho} \right) \right\}_{\rho \in K}$. 
+Since conditional convergence in probability implies convergence in probability (see e.g.\ \citet[Lemma 6.1]{ChernozhukovChDeDuHaNeRo16}), an immediate consequence of this lemma is
+\begin{align*}
+ \sup_{\rho \in K} \left|  \mathbb{G}_{n,\batch}\left( \Phi_{\what \MC_\batch, \what \qfunc_\batch, \rho} - \Phi_{\MC,  \qfunc, \rho} \right) \right|  = o_p(1).
+\end{align*}
+Combined with Lemma~\ref{lem:uniform-expectation-remainder}, which uniformly controls the difference between the expectations under $P$, this concludes the proof of the theorem since 
+\begin{align*}
+\sup_{\rho \in K} |R_n(\rho)| &\le B^{-1/2}\sum_{b \in \nBatch} \left[  \sup_{\rho \in K} \left|  \mathbb{G}_{n,\batch}\left( \Phi_{\what \MC_\batch, \what \qfunc_\batch, \rho} - \Phi_{\MC,  \qfunc, \rho} \right) \right| 
++ \sqrt{n/\nBatch}\sup_{\rho \in K} \left|P(\Phi_{\what \MC_\batch, \what \qfunc_\batch, \rho} - \Phi_{\MC,  \qfunc, \rho}) \right|  \right] \\
+&= o_p(1).
+\end{align*}
+
+
+\subsection{Proof of technical lemmas}
+\label{sec:technical-lemmas}
+Before proving Lemmas~\ref{lem:uniform-empiricalprocess-remainder} and~\ref{lem:uniform-expectation-remainder}, we first need to introduce two auxiliary lemmas. 
+\begin{lemma}
+\label{lem:quantile-infty-norm}
+Let $X$ and $Y$ be two bounded random variables on the same probability space, and, for any $\alpha \in [0,1]$, let $\mc{Q}_{\alpha}(X)$ and $\mc{Q}_{\alpha}(Y)$ be their respective $1-\alpha$-quantiles.  We have, for any $\alpha \in [0,1]$,
+\begin{align*}
+\left| \mc{Q}_{\alpha}(X) - \mc{Q}_{\alpha}(Y)\right| \le \norm{X-Y}_\infty.
+\end{align*}
+\end{lemma}
+\begin{proof}
+This is an immediate consequence of the fact that, for any $t \in \R$ we have
+\begin{align*}
+\P( X \le t - \norm{X-Y}_\infty ) \le \P(Y \le t) \le \P(X \le t + \norm{X-Y}_\infty),
+\end{align*}
+the left inequality implying that
+$
+\mc{Q}_\alpha(Y) - \norm{X-Y}_\infty \ge \mc{Q}_\alpha(X) 
+$
+and the right one that
+$
+\mc{Q}_\alpha(X) \le \mc{Q}_\alpha(Y) + \norm{X-Y}_\infty.
+$
+\end{proof}
+
+In particular, this simple lemma yields the following result.
+For each $m : \mc{X} \to \R$, $q: K \to [0,1]$ and $\rho \in K$, let $h_{m,q, \rho}(x) \defeq \indic{ m(x) > q(\rho)}$. 
+\begin{lemma}
+\label{lem:bound-h-indicator}
+For any $\batch \in [\nBatch]$, we have
+\begin{align*}
+\norm{ h_{\what \MC_\batch, \what \qfunc_\batch, \rho} - h_{\MC, \qfunc, \rho}}_{L^1(P_{0,I})} \le O(1)\norm{f_{\MC}}_\infty\left(  \left| \what \qfunc_\batch(\rho) - \qfunc_0(\what{\MC}_\batch, \rho) \right| + \norm{\what{\MC}_\batch - \MC}_{L^\infty(P_{0,I})} \right).
+\end{align*}
+\end{lemma}
+\begin{proof} 
+A direction computation shows that
+\begin{align*}
+\begin{split}
+\norm{ h_{\what \MC_\batch, \what \qfunc_b, \rho} - h_{\MC, \eta, \rho}}_{L^1(P_{0,1})} = \P_X&\left[ \MC(X) > \qfunc(\rho), \what \MC_\batch(X) \le \what \qfunc_\batch(\rho) \right] \\
+&+ \P_X\left[ \MC(X) \le \qfunc(\rho), \what \MC_\batch(X) > \what \qfunc_\batch(\rho) \right].
+\end{split}
+\end{align*}
+We show how to bound the first term, as the second is similar.
+For every $c \ge 0$, we have
+\begin{align*}
+\P_X &\left[ \MC(X) > \eta(\rho), \what \MC_\batch(X) \le \what \qfunc_\batch(\rho) \right] \\
+&\le
+ \P_{X} \left[ \qfunc(\rho) < \MC(X) \le \qfunc(\rho) + c \right]
+ +  \P_{X} \left[ \MC(X) > \qfunc(\rho) + c, 
+\what \MC_\batch(X) \le \what \qfunc_\batch(\rho) \right] 
+\\
+&\le \norm{f_{\MC}}_\infty c +  \P_{X}\left[ \MC(X) - \what \MC_\batch(X) > \qfunc(\rho) - \what \qfunc_\batch(\rho) + c \right].
+\end{align*}
+Consider then $c \defeq (\what \qfunc_\batch(\rho) - \qfunc(\rho))_+ +  \norm{ \what \MC_\batch - \MC}_{L^\infty(P_{0,I})}$: the second term becomes $0$,  thus
+\begin{align*}
+\P_{X} &\left( \MC(X) > \qfunc(\rho),  \what \MC_\batch(X) \le \what \qfunc_\batch(\rho) \right]  \\
+&\le \norm{f_{\MC}}_\infty \left[  \norm{ \what \MC_\batch - \MC}_{\infty} + \left|\what \qfunc_\batch(\rho) - \qfunc(\rho) \right| \right) \\
+&\le \norm{f_{\MC}}_\infty \left( 2\norm{ \what \MC_\batch - \MC}_{\infty} + \left|\what \qfunc_\batch(\rho) - \qfunc_0(\what \MC_\batch, \rho) \right| \right),
+\end{align*}
+where the last inequality comes from an application of Lemma~\ref{lem:quantile-infty-norm},  which ensures that for every $\rho > 0$,
+\begin{align*}
+\left|\what \qfunc_\batch(\rho) - \qfunc(\rho) \right| 
+&\le \left|\what \qfunc_\batch(\rho) - \qfunc_0(\what \MC_\batch, \rho) \right| + \left| \qfunc_0( \what \MC_\batch, \rho ) - \qfunc(\rho) \right| \\
+&=\left|\what \qfunc_\batch(\rho) - \qfunc_0(\what \MC_\batch, \rho) \right| + \left| \qfunc_0( \what \MC_\batch, \rho ) - \qfunc_0(\MC, \rho) \right| \\ &\le \left|\what \qfunc_\batch(\rho) - \qfunc_0(\what \MC_\batch, \rho) \right| + \norm{ \what \MC_\batch - \MC}_{L^\infty(P_{0,I})},
+\end{align*}
+as $\qfunc_0(m, \rho )$ is the $1-e^{-\rho}$ population quantile of $m(X)$ for any function $m : \mc{X} \to \R$.
+\end{proof}
+
+\subsubsection{Proof of Lemma~\ref{lem:uniform-empiricalprocess-remainder}}
+
+We first need to bound the second moment of each $\Phi_{\what \MC_m, \what \qfunc_\batch, \rho} - \Phi_{\MC,  \qfunc, \rho}$ individually, which is what the following lemma does.
+Let $\what \sigma_\batch^2(\rho) \defeq  P\left[ \big( \Phi_{\what \MC_\batch, \what \qfunc_\batch, \rho} - \Phi_{\MC,  \qfunc, \rho} \big)^2 \right]$. 
+\begin{lemma}
+\label{lem:uniform-second-moment}
+We have
+\begin{align*}
+\what \sigma_{\batch,K}^2 \defeq \max\left( \sup_{\rho \in K} \what \sigma^2_\batch(\rho), n^{-1/2} \right) = o_p(n^{-1/4}).
+\end{align*}
+\end{lemma}
+\begin{proof}
+For any $(x, s) \in \mc{X} \times \R$, we have
+\begin{align*}
+&\left| \Phi_{\what \MC_\batch, \what \qfunc_\batch, \rho}(x,s) - \Phi_{\MC,  \eta, \rho}(x,s)  \right| \\
+&\le e^\rho \left( \indic{ s > q} \left| h_{\what \MC_\batch, \what \qfunc_\batch, \rho}(x) - h_{\MC, \qfunc, \rho}(x) \right| 
++ \left|\what \qfunc_\batch(\rho)h_{\what \MC_\batch, \what \qfunc_\batch, \rho}(x) - \qfunc(\rho) h_{\MC, \qfunc, \rho}(x)\right| + \left| \what \qfunc_\batch(\rho) - \qfunc(\rho)\right| \right) \\
+&\le 2e^\rho \left( \left| h_{\what \MC_\batch, \what \qfunc_\batch, \rho}(x) - h_{\MC, \qfunc, \rho}(x) \right|  + \left| \what \qfunc_\batch(\rho) - \qfunc(\rho) \right|  \right),
+\end{align*}
+where we used the fact that $\left| \qfunc(\rho) \right| \le 1$ in the last line.
+
+Since $h_{\what \MC_\batch, \what \qfunc_\batch, \rho} - h_{\MC, \qfunc, \rho} \in \{-1, 0,1\}$, it is immediate that $\norm{ h_{\what \MC_\batch, \what \qfunc_\batch, \rho} - h_{\MC, \qfunc, \rho}}_{L^2(P_{0,I})}^2= \norm{ h_{\what \MC_\batch, \what \qfunc_\batch, \rho} - h_{\MC, \qfunc, \rho}}_{L^1(P_{0,I})}$ and hence that
+\begin{align*}
+\what \sigma_\batch^2(\rho) &\lesssim e^{2\rho} \left( \norm{ h_{\what \MC_\batch, \what \qfunc_\batch, \rho} - h_{\MC, \qfunc, \rho}}_{L^1(P_{0,I})} + \left| \what \qfunc_\batch(\rho) - \qfunc(\rho) \right|^2 
+\right) \\
+&\lesssim e^{2\rho} \left( \left| \what \qfunc_\batch(\rho) - \qfunc(\rho) \right|^2  + \left| \what \qfunc_\batch(\rho) - \qfunc_0(\what{\MC}_\batch, \rho) \right| + \norm{\what{\MC}_\batch - \MC}_{L^\infty(P_{0,I})} \right) \\
+&\lesssim e^{2\rho} \biggr\{ \psi\left( \norm{\what{\MC}_\batch - \MC}_{L^\infty(P_{0,I})} \right) +  \psi\left( \left|\what \qfunc_\batch(\rho) - \qfunc_0(\what{\MC}_\batch, \rho) \right| \right) \biggr\},
+\end{align*}
+where $\psi(t) \defeq \max(t,t^2)$ for all $t \in \R$.
+By Assumptions~\ref{ass:miscov-estimator-consistent} and~\ref{ass:miscov-quantile-estimator-consistent}, we can conclude that
+\begin{align*}
+\sup_{\rho \in K} \what \sigma_\batch^2(\rho) = o_p(n^{-1/4}).
+\end{align*}
+\end{proof}
+The proof of Lemma~\ref{lem:uniform-empiricalprocess-remainder} then follows from an application of~\citet[Lemma 6.2]{ChernozhukovChDeDuHaNeRo16}, which we recall below,  to the family of functions
+\begin{align*}
+\what{\mc{F}}_\batch^K \defeq \left\{ \Phi_{\what \MC_\batch, \what \qfunc_\batch, \rho} - \Phi_{\MC,  \qfunc, \rho} \mid \rho \in K \right\},
+\end{align*}
+using as envelope function the constant function $(x,s) \mapsto 4\sup_{\rho\in K} e^\rho$, since $\max\left(\norm{\what \qfunc_\batch}_\infty, \norm{\qfunc}_\infty \right) \le 1$, and bounding the uniform covering number of $\what{\mc{F}}_\batch^K$ thanks to Lemma~\ref{lem:uniform-covering-number}.
+
+\begin{lemma}[\citet{ChernozhukovChDeDuHaNeRo16}]
+\label{lem:chernozhukov-lemma}
+Let $\mc{F} \subset \{ \mc{X} \to \R \}$ be a collection of measurable functions with envelope function $F \ge \sup_{f \in \mc{F}} |f|$ satisfying $\norm{F}_{L^2(P)} < \infty$. Let $\sigma^2 >0$ be any positive constant such that $\sup_{f \in \mc{F}} Pf^2  \le \sigma^2 \le PF^2$, and $M \defeq \max_{1\le i \le n} F(X_{I,i})$.
+If there exists constants $a \ge e$ and $v \ge 1$ such that for all $0<\varepsilon \le 1$,
+\begin{align*}
+\sup_Q \log N \left( \varepsilon \norm{F}_{L^2(Q)},  \mc{F},  \norm{\cdot}_{L^2(Q)} \right) \le v \log(a/\varepsilon),
+\end{align*}
+then we have
+\begin{align*}
+\E_P\left[ \sup_{f \in \mc{F}} \mathbb{G}_n f \right] \le O(1)\left( \sqrt{v \sigma^2 \log \left( \frac{a \norm{F}_{L^2(P)}}{\sigma} \right)} + \frac{v \norm{M}_{2}}{\sqrt{n}}\log \left( \frac{a \norm{F}_{L^2(P)}}{\sigma} \right)   \right) .
+\end{align*}
+\end{lemma}
+By Lemma~\ref{lem:uniform-covering-number},  for all $0< \varepsilon \le 1$, we have 
+\begin{align*}
+\sup_Q \log N \left(4 \varepsilon \sup_{\rho \in K} e^{\rho},  \what{\mc{F}}_\batch^K,  \norm{\cdot}_{L^2(Q)} \right) \le 2 \log(2c_K/\varepsilon),
+\end{align*}
+since both pairs $(\what \MC_\batch, \what \qfunc_\batch)$ and $(\MC, \qfunc)$ satisfy its conditions of application, allowing us to construct an $\varepsilon$-cover from respective $\varepsilon/2$-covers for $\mc{F}^K_{\what \MC_\batch, \what \qfunc_\batch}$ and $\mc{F}^K_{\MC, \qfunc}$.
+Applying Lemma~\ref{lem:chernozhukov-lemma} conditionally on $\mc{F}_{n,-\batch}$,  and letting $a_K \defeq \sup_{\rho\in K} e^\rho$,  we therefore have
+\begin{align*}
+\E\left[ \sup_{\rho \in K} \left|  \mathbb{G}_{n,\batch}\left( \Phi_{\what \MC_\batch, \what \qfunc_\batch, \rho} - \Phi_{\MC,  \qfunc, \rho} \right) \right| \mid \mc{F}_{n,-\batch} \right] \lesssim \what \sigma_{\batch,K}\sqrt{\log \frac{a_K}{\what \sigma_{\batch,K}}} + \frac{a_K}{\sqrt{n/\nBatch}}\log \frac{a_K}{\what \sigma_{\batch,K}},
+\end{align*}
+which is $o_p(n^{-1/8}\log(n)) = o_p(1)$ by Lemma~\ref{lem:uniform-second-moment}.
+
+\subsubsection{Proof of Lemma~\ref{lem:uniform-expectation-remainder}}
+Only in the proof of Lemma~\ref{lem:uniform-expectation-remainder} does the benefit of augmenting the estimator finally appear, as we shall see that the difference between the population averages of $\Phi_{\what \MC_\batch, \what \qfunc_\batch, \rho}$  and $\Phi_{\MC,  \qfunc, \rho}$ is actually smaller than $n^{-1/2}$ instead of the more naive $n^{-1/4}$.
+
+For any measurable function $m \in L^\infty(Q_{0,I})$,  $\eta \in \R$ and $\rho > 0$, define
+\begin{align*}
+\Psi_\rho(m, \eta) \defeq e^\rho \E_{X_I \sim Q_{0,I}} \left[ \left( m(X_I) - \eta \right)_+ \right] + \eta.
+\end{align*}
+First observe that for all $x,y \in \R$,   the function $t \mapsto (x + t(y-x))_+$ is absolutely continuous on $[0,1]$, hence
+\begin{align*}
+y_+ - x_+ = (y-x) \int_0^1 \indic{ r y + (1-r) x > 0} dr.
+\end{align*}
+By Fubini's theorem (valid here since every variable is bounded), this implies  that
+\begin{align*}
+\begin{split}
+ \Psi_\rho \left( \what \MC_\batch, \what \qfunc_\batch(\rho) \right) &- \Psi_\rho \left( \MC,  \qfunc(\rho) \right) 
+ = e^\rho \int_{0}^1 P\biggr[ h_{r \what \MC_\batch + (1-r) \MC,  r \what \qfunc_\batch + (1-r) \qfunc, \rho} \big(\what \MC_\batch - \MC \big) \biggr] dr \\
+ & + \left(\what \qfunc_\batch(\rho) - \qfunc(\rho)\right)\left\{ 1 -e^\rho \int_{0}^1  P\biggr[ h_{r \what \MC_\batch + (1-r) \MC,  r \what \qfunc_\batch + (1-r) \qfunc, \rho} \biggr] dr \right\}.
+ \end{split}
+\end{align*}
+%
+%It is straightforward to check that $\Psi_\rho$ is Gateaux differentiable at any $(m_0, \eta_0)$ such 
+%\begin{align*}
+%P_{0,I}\left[ m_0(X_I) = \eta_0 \right] =0,
+%\end{align*}
+%in which case for all $h=(m_h, \eta_h) \in  L^\infty(Q_{0,I}) \times \R$, we have
+%\begin{align*}
+%d\Psi_\rho(m_0,\eta_0)\left[m_h, \eta_h \right] = e^\rho \E_{X_I \sim Q_{0,I}} \left[ \indic{ m_0(X) > \eta_0 } \left( m_h(X_I) - \eta_h \right) \right] + \eta_h.
+%\end{align*}
+%Now, observe that, since $\E_{(S,X_I) \sim P_{0,I}} \left[ \indic{S > q} \mid X_I \right] = \MC(X_I)$, we have 
+%\begin{align*}
+%P \Phi_{m_0  \eta_0, \rho} = e^\rho \E_{X \sim Q_{0,I}} \left[ \indic{m_0(X) > \eta_0(\rho)} \left( \MC(X) - \eta(\rho)\right) \right] + \eta_0(\rho)
+%\end{align*}
+%for any functions $m_0 \in L^\infty(Q_{0,I})$ and $\eta_0: K \to \R$.
+Additionally,  using the fact that $\E \left[ \indic{\scorerv > \predsetthresh} \mid X_I \right] = \MC(X_I)$,  and that $P h_{\MC, \qfunc, \rho} = e^{-rho}$ (since $\qfunc(\rho)$ is the $1-e^{\rho}$ quantile of $\MC(X)$,  whose distribution is continuous), we have
+\begin{align*}
+P \Phi_{\what \MC_\batch, \what \qfunc_\batch, \rho} &- P\Phi_{\MC,  \qfunc, \rho} \\
+&= \Psi_\rho \left( \what \MC_\batch, \what \qfunc_\batch(\rho) \right) - \Psi_\rho \left( \MC,  \qfunc(\rho) \right) - P \left[ h_{\what \MC_\batch,  \what \qfunc_\batch, \rho}\left( \what \MC_\batch - \MC \right) \right] 
+\\
+\begin{split}
+ &= e^\rho \int_{0}^1 P\biggr[ \left( h_{r \what \MC_\batch + (1-r) \MC,  r \what \qfunc_\batch + (1-r) \qfunc, \rho} -  h_{\what \MC_\batch,  \what \qfunc_\batch, \rho} \right) \big(\what \MC_\batch - \MC \big) \biggr] dr \\
+ & \qquad - e^\rho \left(\what \qfunc_\batch(\rho) - \qfunc(\rho)\right) \int_{0}^1  P\biggr[ \left( h_{r \what \MC_\batch + (1-r) \MC,  r \what \qfunc_\batch + (1-r) \qfunc, \rho} - h_{\MC, \qfunc, \rho} \right) \biggr] dr.
+ \end{split}
+\end{align*}
+Observing that $\left|h_{r \what \MC_\batch + (1-r) \MC,  r \what \qfunc_\batch + (1-r) \qfunc, \rho} - h_{\MC, \qfunc, \rho}\right| \le \left| h_{\what \MC_\batch, \what \eta_\batch, \rho} - h_{\MC, \qfunc, \rho}\right|$, this equality implies that
+\begin{align*}
+\left| P \Phi_{\what \MC_\batch, \what \qfunc_\batch, \rho} - P\Phi_{\MC,  \qfunc, \rho} \right| 
+\le  e^\rho \norm{h_{ \what \MC_\batch,  \qfunc_\batch, \rho} - h_{\MC,  \qfunc, \rho}}_{L^1(P_{0,I})} \left( \left| \what \qfunc_\batch(\rho)  - \qfunc(\rho) \right| + \norm{\what \MC_\batch - \MC}_{\infty} \right).
+\end{align*}
+As a result, we can conclude that
+\begin{align*}
+\sup_{\rho \in K} \left|P \Phi_{\what \MC_\batch, \what \qfunc_\batch, \rho} - P\Phi_{\MC,  \qfunc, \rho} \right| &\le \sup_{\rho \in K} \biggr\{ e^\rho \norm{h_{ \what \MC_\batch, \what \qfunc_\batch, \rho} - h_{\MC,  \qfunc, \rho}}_{L^1(P_{0,I})} \left( \left| \what \qfunc_\batch(\rho)  - \qfunc(\rho) \right| + \norm{\what \MC_\batch - \MC}_{\infty} \right) \biggr\}  \\
+&\le O(a_K \norm{f_{\MC}}_\infty) \left( \sup_{\rho \in K} \left| \what \qfunc_\batch(\rho)  - \qfunc(\what \MC_\batch, \rho) \right| + \norm{\what \MC_\batch - \MC}_{\infty} \right)^2,
+\end{align*}
+which is $o_p(n^{-1/2})$ by Assumptions~\ref{ass:miscov-estimator-consistent} and~\ref{ass:miscov-quantile-estimator-consistent}.

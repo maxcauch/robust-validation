@@ -1,0 +1,406 @@
+\section{Theoretical developments on procedures for estimating future distribution shift}
+
+\subsection{High-probability coverage over specific classes of shifts}
+\label{sec:adaptive_procedure_shifts_high_prob_coverage}
+
+\begin{assumption}[Score continuity]
+  \label{assumption:continuity-scores-v}
+  The distribution of the scores under $P_0$ is continuous.
+\end{assumption}
+
+%\begin{assumption}[Continuity of the worst coverage]
+%\label{assumption:continuity-worst-coverage-v}
+%For every $\delta \in (0,1)$ and $v \in \mc{V}$, the function $t \in \R \mapsto \wcoverage(C^{(t)}, \mc{R}_v, \delta; \, Q_0)$ is continuous.
+%\end{assumption}
+\begin{theorem}
+  \label{theorem:high-probability-coverage}
+  Let $\what C$ be the prediction set
+  Alg.~\ref{alg:rho-selection-procedure} returns. Assume
+  that $\mc{R} = \bigcup_{v
+    \in \mc{V}} \mc{R}_v$ has VC-dimension $\VC(\mc{R}) < \infty$.
+  Then there exists a universal constant $c < \infty$ such that the
+  following holds. For
+  all $t > 0$, defining
+  \begin{equation*}
+    \alpha_{t,n}^\pm \defeq \alpha \pm c
+    \sqrt{\frac{\VC(\mc{R}) \log n + t}{\delta n}},
+    \; \textrm{ and }\;
+    \delta_{t,n}^\pm = \delta \pm c \sqrt{\frac{\VC(\mc{R}) \log n + t}{n}},
+  \end{equation*}
+  then with probability at least $1 - e^{-t}$ over
+  $\{X_i, Y_i\}_{i = 1}^n \simiid Q_0$ and
+  $\{v_i\}_{i = 1}^k \simiid \Pv$,
+  \begin{equation*}
+    \Pv \Big( \wcoverage(\what C, \mc{R}_v, \delta_{t,n}^+; \, Q_0)
+    \ge 1 - \alpha_{t,n}^+ \Big) \ge 1 - \levelv - c \sqrt{\frac{1 + t}{k}}.
+  \end{equation*}
+  If additionally Assumption~\ref{assumption:continuity-scores-v}
+  holds, then
+  \begin{align*}
+    \Pv  \Big( \wcoverage(\what C, \mc{R}_v, \delta_{t,n}^-; \, Q_0)
+    \le 1 - \alpha_{t,n}^-  \Big)
+    \ge \levelv - \frac{1}{k} - c\sqrt{\frac{1 + t}{k}}.
+  \end{align*}
+\end{theorem}
+\noindent
+See Appendix~\ref{sec:proof-high-probability-coverage} for a proof of
+the theorem.
+
+Theorem~\ref{theorem:high-probability-coverage} shows that
+Procedure~\ref{alg:rho-selection-procedure} approaches uniform $1-\alpha$
+coverage if the subsets in $\mc{R}$ have finite VC-dimension. More
+precisely, the estimate $\hat{\rho}_\delta$ almost achieves the randomized
+worst-case coverage~\eqref{eqn:worst-quantiled-coverage}: with probability
+nearly $1-\levelv$ over the direction $v \sim \Pv$, $\what{C}$ provides
+coverage at level $1-\alpha - O(1/\sqrt{n})$ for all shifts $Q_R$ (as in
+Eq.~\eqref{eqn:distribution-shifts-covariate}) satisfying $R \in \mc{R}_v$
+and $Q_0(X \in R) \ge \delta$. The second statement in the theorem
+is an insurance against drastic overcoverage:
+while we cannot guarantee that the
+worst coverage is always no more than $1 - \alpha$, we can guarantee
+that---if the scores are continuous---then the empirical set $\what{C}$
+has worst coverage \emph{no more} than $1 - \alpha + O(1/\sqrt{n})$
+for at least a fraction $\levelv$ of directions $v \sim \Pv$.
+In a sense, this is unimprovable: if the worst coverage
+$W = \wcoverage(C, \mc{R}_v, \delta; Q_0)$ is continuous
+in $v$, the best we could expect is that
+$\Pv(W \ge 1 - \alpha) = 1 - \levelv$ while
+$\Pv(W < 1 - \alpha) = \levelv$.
+
+As a last remark, we note that when the scores are distinct,
+there is a complete equivalence between thresholds $q$ and
+divergence levels $\rho$ in Algorithm~\ref{alg:rho-selection-procedure};
+see Appendix~\ref{sec:proof-equivalence-rho-threshold} for a proof.
+\begin{lemma}
+  \label{lemma:equivalence-rho-threshold}
+  Assume that the scores $\score(X_i, Y_i)$ are all distinct.
+  Define $\rho_{f, \alpha}(q; P) \defeq \sup\{\rho \ge 0 \mid
+  \WCQuantile_{f,\rho}(1 - \alpha; P) \le q\}$ and let
+  $\what{\rho}_\delta = \rho_{f,\alpha}(\what{q}_\delta, \empP)$. Then
+  $C^{(\what{q}_\delta)} = C_{f, \what{\rho}_\delta}(\cdot; \empP)$.
+\end{lemma}
+
+\subsection{Population-level consistency of the worst direction}
+\label{subsec:population-level-consistency}
+The consistency of Algorithm~\ref{alg:worst-direction-validation} with the adequate worst-direction estimation procedure $\mc{M}$ requires strong
+assumptions, somewhat oppositional to the distribution-free coverage we seek
+(though again we still have the distributionally robust protections).  Yet
+it is still of interest to understand conditions under which Alg.~\ref{alg:worst-direction-validation} is consistent; as we show here,
+in examples such as heteroskedastic regression
+(Ex.~\ref{example:heterogeneous-regression}), this holds.
+We turn to our assumptions.
+
+%We restrict ourselves to linear shifts, taking $\mc{V} =
+%\sphere^{d-1} = \{ v \in \R^d \mid \ltwo{v} = 1 \}$, and defining
+%\begin{align*}
+%  \mc{R}_v \defeq \left\{ \{ x \in \R^d \mid v^T x \ge a \}
+%  \right\}_{a \in \R}.
+%\end{align*}
+
+A challenge is that the worst direction $v\subopt(C^{(q,\score)})$ may vary substantially in $q$.  One condition sufficient to ameliorate this reposes on stochastic orders, where for random variables $U$ and $V$ on
+$\R^d$, we say $U$ stochastically dominates in the \emph{upper orthant order} $V$, written $U \stocuo V$,
+if $\P(U \ge t) \ge \P(V \ge t)$ for all $t \in \R^d$ (see~\cite[Ch.~6]{ShakedSh07}, where this is called the
+\emph{usual stochastic order}).  
+Letting $\mc{L}$ denote the law of a random variable, we write $\law(U) \stocuo \law(V)$ if $U \stocuo V$.
+
+\begin{assumption}
+  \label{assumption:stochastic-dominance}
+  There is a direction $v\opt \in \mc{V}$ such that $v\opt(X)$ has a continuous distribution and,  for all $v \in \mc{V}$, 
+  \begin{equation*}
+    \left( \score(X,Y), F_{v\opt}(v\opt(X)) \right) \stocuo  \left( \score(X,Y), F_{v}^-(v(X)) \right).
+  \end{equation*}
+\end{assumption}
+\noindent
+The intuition is that covariate shifts in direction
+$v\opt$ not only increase nonconformity,  but that $v\opt$ is the worst such direction.
+Assumption~\ref{assumption:stochastic-dominance} focuses on the dependence (copula) between $\score(X,Y)$ and $v(X)$, when $v$ ranges over all potential directions of shift in $\mc{V}$, and states that $v\opt(X)$ and $\score(X,Y)$ are more likely to take on larger values together. 
+It only characterizes $v\opt$ up to an increasing transformation,  which is desirable as any such transformation leaves the collection $\mc{R}_v$ of upper-level sets invariant.
+%\begin{assumption}
+%  \label{assumption:stochastic-dominance}
+%  There is a direction $v\opt \in \mc{V}$ such that
+%  \begin{equation*}
+%    \law(\score(X, Y) \mid X^T v\opt \ge \tau)
+%  \end{equation*}
+%  is increasing in the stochastic dominance order as $\tau$ increases.
+%  Moreover, for all $u\in \mc{V}, t \in \R$, with
+%  $\P(X^T u \ge t) \ge \P(X^T v\opt \ge \tau)$,
+%  we have
+%  \begin{equation*}
+%    \law(\score(X, Y) \mid X^T v\opt \ge \tau)
+%    \succeq
+%    \law(\score(X, Y) \mid X^T u \ge t).
+%  \end{equation*}
+%\end{assumption}
+
+Under Assumption~\ref{assumption:stochastic-dominance}, confidence sets share the same worst shift $v\opt$:
+\begin{lemma}
+  \label{lemma:stochastic-domination-direction}
+  Let Assumption~\ref{assumption:stochastic-dominance} hold. Then $v\opt$ is a worst shift~\eqref{eqn:worst-shift-def} for the confidence set~\eqref{eqn:confidence-set-from-score}, i.e. $v\opt \in v\subopt(C^{(q, \score)})$ for all $q \in \R$.
+\end{lemma}
+\noindent
+We present the (nearly immediate) proof of
+Lemma~\ref{lemma:stochastic-domination-direction} in
+Appendix~\ref{sec:proof-stochastic-domination-direction}.
+While Assumption~\ref{assumption:stochastic-dominance}
+is admittedly strong, the next lemma (whose proof we provide in
+Appendix~\ref{sec:proof-heterogeneous-regression-verifies}) shows
+that it holds for linear shifts in the heteroskedastic regression
+case of Example~\ref{example:heterogeneous-regression}.
+\begin{lemma}
+  \label{lemma:heterogeneous-regression-verifies}
+  Assume the regression model of
+  Example~\ref{example:heterogeneous-regression},
+  $Y = \mu\opt(X) + h(X^T \vvar) \noise$,
+  with noncomformity score
+  \begin{equation*}
+    \score(x, y) = (y - \mu\opt(x))^2
+    ~~ \mbox{or} ~~
+    \score(x, y) = |y - \mu\opt(x)|,
+  \end{equation*}
+  and let $\mc{V} = \{ x \mapsto v^T x \mid v \neq 0\}$ be the set
+  of linear functions.  If $v^T X$ has a continuous distribution whenever $v
+  \neq 0$, then $v\opt = \vvar$ satisfies
+  Assumption~\ref{assumption:stochastic-dominance}.
+\end{lemma}
+
+We also suggest potential procedures for identifying the worst direction of
+shift under limited computational and statistical power.  Ideally, a worst
+shift direction should allow ranking examples by difficulty, with larger
+values of $v\opt(X)$ corresponding to larger values of $\score(X,Y)$.  The
+following lemma, whose proof we provide in
+Appendix~\ref{sec:proof-worst-direction-order-consistency}, formalizes this
+intuition, stating that the function $v\opt$ maximizes the correspondence of
+the ranks of $n$ samples $(\scorerv_1, \dots, \scorerv_n)$ and $(v\opt(X_1),
+\dots, v\opt(X_n))$.  For ease of notation, we denote $\scorerv_i \defeq
+\score(X_i,Y_i)$ when appropriate.
+
+\begin{lemma}
+  \label{lemma:worst-direction-order-consistency}
+  Let Assumption~\ref{assumption:stochastic-dominance} hold.  Given three
+  i.i.d.\ samples $(X_1,Y_1)$, $(X_2, Y_2)$ and $(X_3, Y_3)$, the worst
+  direction $v\opt$ satisfies
+  \begin{align}
+    \label{eqn:worst-direction-order-consistency}
+    v\opt \in \argmax_{v \in \mc{V}} \left\{ \P\left( \scorerv_1 \ge \scorerv_2,  v(X_1) > v(X_3) \right) \right\}.
+  \end{align}
+\end{lemma}
+
+While the natural empirical (finite-sample and non-convex) approximation of
+the problem~\eqref{eqn:worst-direction-order-consistency} enjoys
+$\sqrt{n}$-consistency, and \citet{Sherman94} characterizes its asymptotic
+distribution, such statistical consistency often comes at the cost of
+computational tractability, necessitating alternative
+approaches~\cite{ClemenconLuVa08, DuchiMaJo13}.  Thus, we reframe our
+problem as a binary classification problem with label $\indic{\scorerv_1 \ge
+  \scorerv_2} \in \{0,1\}$ and feature vector $X_1 \in \mc{X}$, and consider
+the following least squares problem:
+\begin{align}
+  \label{eqn:penalized-linear-loss-worst-direction-estimator}
+  \minimize_{\substack{v \in \mc{V}}} \left\{  \E\left[ 
+    \left( v(X_1) - \indic{\scorerv_1 \ge \scorerv_2} \right)^2  \right] \right\}.
+\end{align}
+The following lemma, whose proof we provide in
+Appendix~\ref{sec:proof-penalized-linear-loss-expression}, shows that the
+minimization
+problem~\eqref{eqn:penalized-linear-loss-worst-direction-estimator} amounts
+to projecting the function
+\begin{align*}
+  % \label{def:eta-S-compare-scores}
+  \eta_S (x) \defeq \P( \score(x,Y) \ge \score(X',Y') \mid X=x),
+\end{align*}
+where $(X, Y)$ and $(X', Y')$ are independent,
+onto $\mc{V} \subset L^2(Q_{0,X})$.
+
+\begin{lemma}
+  \label{lemma:penalized-linear-loss-expression}
+  The minimization
+  problem~\eqref{eqn:penalized-linear-loss-worst-direction-estimator} is
+  equivalent to
+  \begin{align*}
+    \minimize_{\substack{v \in \mc{V}}} \E\left[ \left( v(X) - \eta_S(X) \right)^2 \right].
+  \end{align*}
+  Additionally, if $\eta_S(X)$ has a continuous distribution, and if
+  $(X_1,Y_1)$, $(X_2, Y_2)$ and $(X_3, Y_3)$ are i.i.d.\ and $\mc{F} = \{ f:
+  \mc{X} \to \R \text{ measurable } \}$, then
+  \begin{align*}
+    \eta_S \in \argmax_{f \in \mc{F}} \left\{\P\left[ \scorerv_1 \ge \scorerv_2,  f(X_1) > f(X_3) \right] \right\} .
+  \end{align*}
+\end{lemma}
+
+The function $\eta_S$ quantifies the ``hardness" of an instance $x \in
+\mc{X}$ by comparing the score $\score(x,Y)$ to an independent sample
+$\scorerv' = \score(X', Y')$: if $F_S$ is the c.d.f.\ of $\scorerv$, then
+$\eta_S(x) = \E \left[ F_{\scorerv}(\score(X,Y)) \mid X=x \right]$.  At the
+same time, it is the nonparametric
+analogue of the the maximizers in
+definition~\eqref{eqn:worst-direction-order-consistency}.
+
+Moving to the finite-sample case, with a sample $\{(X_i,Y_i) \}_{i=1}^n$,  we solve the following convex minimization problem~\eqref{eqn:penalized-linear-loss-finite-sample-worst-direction-estimator} with a penalty $\lambda_n > 0$:
+\begin{align*}
+\hat{v}_{n,  \lambda_n} \defeq \argmin_{v \in \mc{V}} \left\{ \frac{1}{n(n-1)} \sum_{1\le i \neq j \le n} \left( v(X_i) - \indic{\scorerv_i \ge \scorerv_j} \right)^2  + \lambda_n \norm{v}_{\mc{V}}^2 \right\}.
+\end{align*}
+Under appropriate conditions on the RKHS $\mc{V}$, this method is provably consistent, in the sense that $\hat{v}_{n,  \lambda_n}$ converges towards $\eta_S$ as $n \to \infty$.
+This also entails that, if Assumption~\ref{assumption:stochastic-dominance} holds for a vector space $\mc{V}$ sufficiently large,  then $v\opt$ must be a non-decreasing function of $\eta_S$. 
+We summarize these results in the next proposition,  which essentially states that we can asymptotically recover the worst direction up to a non-decreasing function, and whose proof we provide in Appendix~\ref{sec:proof-consistency-worst-direction-rkhs}.
+
+\begin{proposition}
+  \label{prop:consistency-worst-direction-rkhs}
+  Assume that $\mc{X}$ is a closed measurable space, and that $\mc{V}\subset
+  L^2(Q_{0,X})$ is a dense, separable RKHS with a bounded measurable kernel.
+  For any sequence $\lambda_n \to 0$ such that $n^{1/4}\lambda_n \to
+  \infty$, we have
+  \begin{align*}
+    \int_{x \in \mc{X}} \left( \hat{v}_{n,  \lambda_n}(x) - \eta_S(x) \right)^2 dQ_{0,X}(x) \cas 0.
+  \end{align*}
+  Additionally, let Assumption~\ref{assumption:stochastic-dominance} hold
+  and $\eta_S(X)$ have continuous distribution. Then there exists a
+  non-decreasing function $F = F_{v\opt}^{-1} \circ F_{\eta_S}$ such that
+  $v\opt(X)= F(\eta_S(X))$ almost surely.
+\end{proposition}
+
+\subsubsection{Consistency of linear shifts estimators}
+\label{subsec:consistency-linear-shift-estimator}
+
+Even if the parametric approach we adopt in our experiments is more restrictive than the above estimators, we can
+still show that various M-estimators can identify the direction $v\opt$ when
+Assumption~\ref{assumption:stochastic-dominance} holds.  We present one such
+plausible result here, assuming (i)
+Assumption~\ref{assumption:stochastic-dominance} holds for $\mc{V}$
+consisting of linear shifts indexed by unit-norm vectors,
+(ii) that for
+some $\Sigma \succ 0$, $\Sigma^{-1/2} X$ is
+rotationally invariant and has finite second moments,
+and (iii) that
+$\score(X, Y)$ is nonnegative and satisfies
+$\E\left[ \score(X,Y)X\right] \neq 0$, and
+$\E[ \score(X,Y)^2] < \infty$.
+
+\begin{proposition}
+  \label{proposition:vopt-least-squares}
+  Let conditions (i)--(iii) above hold. Then $v\opt$ is proportional to the
+  least-squares solution
+  \begin{align}
+    \label{eqn:vopt-least-sq}
+    v\opt \propto \argmin_{v \in \R^d}
+    \E\left[ \left( \score(X,Y) - v^T X  \right)^2 \right].
+  \end{align} 
+\end{proposition}
+\noindent
+See
+Appendix~\ref{sec:proof-vopt-least-squares} for a proof.
+
+Example~\ref{example:heterogeneous-regression} with $X \sim
+\normal(0,\Sigma)$
+and typical nonconformity scores
+satisfies the conditions of
+Proposition~\ref{proposition:vopt-least-squares}.  While in more general
+models least squares estimation need not find the worst shift
+direction, Proposition~\ref{proposition:vopt-least-squares} suggests
+it may be a reasonable heuristic. We present the asymptotic estimation of the worst direction in Appendix~\ref{sec:asymptotic_est_worst_direction}.
+
+
+
+
+\subsection{Asymptotic estimation of the worst direction}
+\label{sec:asymptotic_est_worst_direction}
+
+To enable our coming
+analysis, we elaborate slightly and modify notation to reflect that the
+scoring function $\score_n$ may change with sample size $n$.  We also refine
+Definition~\ref{def:smallest-rho} of the confidence sets to explicitly
+depend on both the threshold $q$ and score function $\score$.
+
+With the population level recovery guarantees we establish in
+Propositions~\ref{prop:consistency-worst-direction-rkhs} and~\ref{proposition:vopt-least-squares}, it
+is now of interest to understand when we may recover the optimal worst
+direction and corresponding confidence set $C$ using
+Algorithm~\ref{alg:worst-direction-validation}, which has access only to samples from the population $Q_0$.  An immediate corollary of
+Theorem~\ref{theorem:high-probability-coverage} ensures that, under
+the same conditions,
+Algorithm~\ref{alg:worst-direction-validation}
+returns a confidence set mapping $\what{C}_n$ that satisfies, conditionally
+on $\scoreest$ and $\hat{v}_n$ and with probability $1-e^{-t}$ over the second
+half of the validation data,
+\begin{align}
+  \label{eqn:worst-coverage-v-hat}
+  \wc( \what C_n, \mc{R}_{\hat{v}}, \delta_{t,n_2}^+; \, Q_0)
+  \ge 1 - \alpha_{t,n_2}^+ ~ \text{and} ~
+  \wc( \what C_n, \mc{R}_{\hat{v}}, \delta_{t,n_2}^-; \, Q_0)
+  \le 1 - \alpha_{t,n_2}^-.
+\end{align}
+Recalling the definition~\eqref{eqn:worst-global-coverage}, it remains to
+understand how close we can expect the uniform quantity $\wc( \what{C}_n,
+\mc{R},\delta; \, Q_0)$ to be to $1-\alpha$.  By the
+bounds~\eqref{eqn:worst-coverage-v-hat}, if the worst coverage is continuous
+in $v \in \mc{V}$ and $\scoreest$ and $\hat{v}_n$ are appropriately
+consistent, we should expect a uniform $1-\alpha$ coverage guarantee in the
+limit as $n \to \infty$.
+
+To present such a consistency result, we require a few additional
+assumptions.
+\begin{assumption}[Consistency of scores and directions]
+  \label{assumption:consistency-of-scores-and-vhat}
+  As $n \to \infty$, we have
+  \begin{align*}
+    \ltwopxs{\scoreest - \score}^2
+    &\defeq \int_{\mc{X} \times \mc{Y}} \left(\scoreest(x,y) - \score(x,y) \right)^2
+    dQ_0(x,y)  = o_{P}(1)
+    ~~\text{and} ~~
+    \norm{\what{v}_n-v^*}_{L^2(Q_{0,X})}  = o_{P}(1).
+  \end{align*}
+\end{assumption}
+
+\begin{assumption}[Continuous distributions]
+  \label{assumption:continuity-worst-coverage-1}
+  For $(X,Y) \sim Q_0$, the random variables
+  $\score(X,Y)$ and $v\opt(X)$ have continuous
+  distributions. 
+  Additionally,  $\hat v_n(X)$ has a continuous distribution with probability tending to $1$ as $n \to \infty$.
+\end{assumption}
+
+\begin{assumption}[Distinct scores]
+  \label{assumption:estimated-scores-as-distinct}
+  The scores are asymptotically distinct in probability,
+  \begin{align*}
+    Q_{0}^n \left[ \mbox{there~exist} ~ i,j \in [n], i \neq j ~ \mbox{s.t.}
+      ~ \scoreest(X_i,Y_i) = \scoreest(X_j,Y_j) \right] \cp 0.
+  \end{align*}
+\end{assumption}
+\noindent
+Assumption~\ref{assumption:estimated-scores-as-distinct} is a technical
+assumption that will typically hold whenever
+Assumption~\ref{assumption:continuity-worst-coverage-1} holds, for example,
+if $\scoreest$ belongs to a parametric family.
+
+Under these assumptions, Theorem~\ref{theorem:uniform-asymptotic-coverage}
+proves that we asymptotically provide uniform coverage at level $1-\alpha$
+over all shifts $Q_R$, $R \in \mc{R}$.  See
+Appendix~\ref{sec:proof-uniform-asymptotic-coverage} for a proof.
+
+\begin{theorem}
+  \label{theorem:uniform-asymptotic-coverage}
+  Let Assumptions~\ref{assumption:stochastic-dominance},
+  \ref{assumption:consistency-of-scores-and-vhat},
+  and
+  \ref{assumption:continuity-worst-coverage-1} hold.  Then
+  Algorithm~\ref{alg:worst-direction-validation}
+  returns a confidence set mapping $\what{C}_n$ that satisfies
+  \begin{align*}
+    % \label{eqn:uniform-asymptotic-coverage-for-Cn}
+    \wc( \what{C}_n, \mc{R}, \delta; \,  Q_{0}) = 1 - \alpha + u_n +
+    \varepsilon_n
+  \end{align*}
+  where $u_n \ge 0$ and $\varepsilon_n \cp 0$ as $n \to \infty$.
+  If additionally Assumption~\ref{assumption:estimated-scores-as-distinct}
+  holds, then $u_n \cp 0$.
+\end{theorem}
+
+To conclude, we see that the M-estimation-based
+Procedure~\ref{alg:worst-direction-validation} to find the worst shift
+direction can be consistent.  Yet even without the (strong) assumptions
+Theorem~\ref{theorem:uniform-asymptotic-coverage} requires, we contend the
+methodology in Algorithm~\ref{alg:worst-direction-validation} (and
+Alg.~\ref{alg:rho-selection-procedure}) is valuable: it is important to look
+for variation in coverage within a dataset and to protect against
+possible future dataset shifts.
+In particular,  Assumption~\ref{assumption:stochastic-dominance} only ensures that the function $\eta_S$ is the worst shift independently of the threshold $q \in \R$, i.e that $ \wc( C^{(q,\score)}, \mc{R}_{\eta_S}, \delta; \, Q_0) = \wc( C^{(q,\score)},  \mc{R}, \delta; \, Q_0)$ for all $q \in \R$,  but in general, the function $\eta_S$ remains a reasonable estimation target in itself: one can view it as the ``average" worst direction over a random choice of threshold $\scorerv' \sim P_0$.

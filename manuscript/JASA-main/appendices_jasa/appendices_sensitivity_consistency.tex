@@ -1,0 +1,158 @@
+\section{Consistency results for Algorithm~\ref{alg:sensitivity1}}
+
+\subsection{Intuition and sketch proof for the cross-fit augmented estimator~\eqref{eqn:final-sens-aug-estimator}}
+\label{sec:cross-fit-sketch-proof-intuition}
+We develop a debiased cross-fit estimator of $\SFcov$
+using the representation in Lemma~\ref{lemma:cvar-calc}
+and an additional unlabeled sample of covariates $X$, which helps to
+estimate expectations of the form $\E[\hinge{M(X) - \eta}]$.
+To build intuition, consider an (abstract)
+functional of the form in Lemma~\ref{lemma:cvar-calc},
+so that for a function $M : \mc{X} \to \R$ and $\eta \in \R$ we wish
+to estimate
+\begin{equation*}
+  F_\rho(M, \eta) \defeq \E\left[e^\rho \hinge{M(X) - \eta}\right] + \eta.
+\end{equation*}
+Consider a first-order expansion of $F_\rho$ around $M_0, \eta_0$, where
+$M_0(x) = \P(S > \predsetthresh \mid X = x)$ (recall
+Eq.~\eqref{eqn:conditional-miscoverage-func}) and $\eta_0$ minimizes
+$\E[e^\rho\hinge{M_0(X) - \eta}] + \eta$ (as in Lemma~\ref{lemma:cvar-calc})
+and is thus the $1 - e^{-\rho}$ quantile of $M_0$. Then using that the
+subdifferential $\frac{\partial}{\partial t} \hinge{t - \eta} = \indic{t >
+  \eta}$, we heuristically (ignoring interchanges of differentiation and
+integration) write
+\begin{align*}
+  F_\rho(M, \eta)
+  & \approx F_\rho(M_0, \eta_0)
+  + \E\left[ e^\rho \indic{M_0(X) > \eta_0}
+    \left(M(X) - M_0(X) + \eta_0 - \eta\right) \right]
+  + \eta - \eta_0,
+\end{align*}
+and rearranging,
+\begin{align*}
+  F_\rho(M_0, \eta_0)
+  & \approx F_\rho(M, \eta)
+  - \E\left[ e^\rho \indic{M_0(X) > \eta_0}
+    \left(M(X) - M_0(X)\right)\right] \\
+  & \qquad - (\eta - \eta_0)
+  \left(1 - e^\rho \P(M_0(X) > \eta_0)\right) \\
+  & = F_\rho(M, \eta) - e^\rho \E\left[\indic{M_0(X) > \eta_0}
+    \left(M(X) - M_0(X)\right)\right],
+\end{align*}
+where we used that $\P(M_0(X) > \eta_0) = e^{-\rho}$ by construction.
+For $(M, \eta)$ ``near enough'' to $M_0, \eta_0$, we
+have $\E[\indic{M_0 > \eta_0}(M - M_0)]
+\approx \E[\indic{M > \eta}(M - M_0)]
+\approx \E[\indic{M > \eta} (M - \indic{S > \predsetthresh})]$.
+In short, we have sketched that
+\begin{equation}
+  F_\rho(M_0, \eta_0)
+  \approx F_\rho(M, \eta)
+  + \E\left[e^\rho
+    \indic{M(X) > \eta} \left(\indic{S > \predsetthresh}
+    - M(X) \right) \right],
+  \label{eqn:intuition-for-augmentation}
+\end{equation}
+for $(M, \eta)$ appropriately near to the population quantities $M_0,
+\eta_0$.  Our idea, then, is to use the first-order term in
+Eq.~\eqref{eqn:intuition-for-augmentation}
+to correct an empirical calculation of $F_\rho(M, \eta)$.
+
+We first split the data $\{ (\scorerv_i, X_{I, i}) \}_{i=1}^n \simiid
+P_{0,I}$ into $\nBatch \ge 2$ batches $\mc{I}_1, \dots, \mc{I}_\nBatch$ of
+size $\frac{n}{\nBatch}$.  For each batch $\batch \in [\nBatch]$, we form an
+estimate $\what {\MC}^{(\predsetthresh)}_\batch$ of
+${\MC}^{(\predsetthresh)}$ using all samples from $[n] \setminus
+\mc{I}_\batch$.  Using the pool of unlabeled samples, we then compute an
+estimate $\what \qfunc_\batch^{(\predsetthresh)}(\rho)$ of the quantile
+$\qfunc_0(\what {\MC}^{(\predsetthresh)}_\batch,\rho)$ (see
+step~\eqref{eqn:quantile-est-unlabeled}), which then gives the $\batch$th
+augmented estimator~\eqref{eqn:sens-func-aug-estimator}.  Average over all
+$\nBatch$ batches gives the final estimator
+$\what{\SF}^{(\predsetthresh)}_n(\rho)$.  (The augmentation term
+$\Aug^{(\predsetthresh)}_{\what h^{(\predsetthresh)}_\batch, \what
+  {\MC}^{(\predsetthresh)}_\batch}$ makes
+$\what{\SF}^{(\predsetthresh)}_n(\rho)$ potentially non-monotonic in
+$\rho$.) We study the consistency results of the sensitivity estimator~\eqref{eqn:final-sens-aug-estimator} in Appendix~\ref{sec:sensitivity_consistency}.
+
+\subsection{Consistency and convergence rate of the augmented estimator $ \what{\SF}^{(q)}_n$}
+\label{sec:sensitivity_consistency}
+We study the consistency and rate of covergence of the sensitivity
+estimator~\eqref{eqn:final-sens-aug-estimator} as a path function of $\rho
+\in \R_+$, for which we require a few assumptions below.
+Assumption~\ref{ass:miscov-estimator-consistent} states that the fitted
+estimator $\what \MC_\batch$ needs to be appropriately consistent for
+$\MCov$, while Assumption~\ref{ass:miscov-quantile-estimator-consistent}
+basically ensures the pool of unlabeled samples is large enough to provide a
+good estimate of the quantiles of $\what \MC_\batch$.
+Assumption~\ref{ass:miscov-density} is technical and prevents
+the random variable $\MCov(X_I)$ from being too concentrated,
+thus allowing quantile estimation.
+%
+%\textbf{Notation}. Let $P^{-1}_{\alpha}(p)$ denote the $\alpha$-th quantile of random variable $p(I)$. Further, when $p(\cdot)$ is random, the probabilities are only taken over $X_I \sim P_{0,I}$.
+
+\begin{assumption}[Miscoverage estimation]
+  \label{ass:miscov-estimator-consistent}
+  For each batch $\batch \in [\nBatch]$,
+  we have
+  \begin{align*}
+    \norm{\what {\MC}^{(\predsetthresh)}_\batch- {\MC}^{(\predsetthresh)}}_{L^\infty(P_{0,I})} = o_p(n^{-1/4}).
+  \end{align*}
+\end{assumption}
+
+\begin{assumption}[Quantile estimation]
+  \label{ass:miscov-quantile-estimator-consistent}
+  For each $\batch \in [\nBatch]$ and every
+  compact $K \subset \R_+$,
+  the quantile estimator $\what \qfunc_\batch$ satisfies
+  \begin{align*}
+    \sup_{\rho \in K} \left| \what \qfunc_\batch(\rho) - \qfunc_0(\what \MC_\batch, \rho)\right| = o_p(n^{-1/4}).
+  \end{align*}
+\end{assumption}
+
+\begin{assumption}
+\label{ass:miscov-density}
+The random variable $\MCov(X_I)$ has a bounded density $f_{\MC}$ on $[0,1]$.
+\end{assumption}
+
+Under these assumptions, we have the following
+theorem, which shows that for every compact set $K \subset \R$, the sequence of
+processes $\{ \sqrt{n}(\what{\SF}^{(\predsetthresh)}_n(\rho)-
+\SFcov(\rho)) \}_{\rho \in K}$ converges in distribution in $L^\infty(K)$ to
+a tight Gaussian process, whose covariance is tedious to specify
+though we characterize it in the proof of the theorem in
+Appendix~\ref{proof-thm-unif-conv-sens}.
+\begin{theorem}
+  \label{thm:unif-conv-sens}
+  Let
+  Assumptions~\ref{ass:miscov-estimator-consistent}--\ref{ass:miscov-density}
+  hold. Then there exists a tight Gaussian process $\mathbb{G}$ such that,
+  for every compact set $K \subset \R^+$, we have
+  \begin{align*}
+    \{ \sqrt{n}(\what{\SF}^{(\predsetthresh)}_n(\rho)- \SFcov(\rho)) \}_{\rho \in K}
+    \cd
+    \{ \mathbb{G}(\rho) \}_{\rho \in K}
+    ~~~ \mbox{as~elements~of~~}L^\infty(K).
+  \end{align*}
+\end{theorem}
+
+A few consequences of Theorem~\ref{thm:unif-conv-sens} are immediate.
+First, we have $\sqrt{n}$-consistency:
+\begin{align*}
+  \sqrt{n} \cdot
+  \sup_{\rho \in K}|\what{\SF}^{(\predsetthresh)}_n(\rho)- \SFcov(\rho))|
+  \cd \sup_{\rho \in K} \mathbb{G}(\rho)
+\end{align*}
+as the supremum mapping is continuous in $L^\infty$, and so
+$\linfs{\what{\SF}^{(t)}_n - \SFcov} = O_P(1/\sqrt{n})$. As another
+immediate consequence, we see that under the assumptions of
+Theorem~\ref{thm:unif-conv-sens},
+for every $\rho >0$, there exists $\sigma^2(\rho) < \infty$ such that
+\begin{align*}
+  \sqrt{n}(\what{\SF}^{(\predsetthresh)}_n(\rho)- \SFcov(\rho)) \cd
+   \normal(0,\sigma^2(\rho)).
+\end{align*}
+(This is similar to the result \cite[Thm.~1]{SubbaswamyAdSa21},
+but as we note in footnote~\ref{footnote:hong-wrong},
+the papers~\cite{SubbaswamyAdSa21,JeongNa20} may have technical
+mistakes.)

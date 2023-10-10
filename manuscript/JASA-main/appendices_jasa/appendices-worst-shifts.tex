@@ -1,0 +1,1167 @@
+% -*- Mode: latex -*- %
+
+\section{Proofs related to finding worst shift directions}
+\label{sec:worst-shift-proofs}
+
+\subsection{Proofs on worst direction recovery}
+
+\subsubsection{Proof of Lemma~\ref{lemma:stochastic-domination-direction}}
+\label{sec:proof-stochastic-domination-direction}
+
+Fix $q \in \R$, $\delta \in (0,1)$, and consider $v \in \mc{V},  t \in \R$ such that $\P( v(X) \ge t) \ge \delta$, i.e $F_v^-(t) \le 1-\delta$.  We then have
+\begin{align*}
+\P( \score(X,Y) > q \mid v(X) \ge t )  &= \dfrac{ \P( \score(X,Y) > q,   F_v^-(v(X)) \ge F_v^-(t))}{1 - F_v^-(t)} \\
+&\overset{(i)}{\le} \dfrac{ \P( \score(X,Y) > q,   F_{v\opt}(v\opt(X)) \ge F_v^-(t))}{1 - F_v^-(t)} \\
+&\overset{(ii)}{=}  \P( \score(X,Y) > q \mid  F_{v\opt}(v\opt(X)) \ge F_v^-(t))) \\
+&= \P( \score(X,Y) > q \mid  v\opt(X)) \ge {F_{v\opt}}^{-1}(F_v^-(t)))
+\end{align*}
+where $(i)$ and $(ii)$ comes from Assumption~\ref{assumption:stochastic-dominance},  and from the continuity of the distribution of $v\opt(X)$,  which guarantees that $  F_{v\opt}^-(v\opt(X)) = F_{v\opt}(v\opt(X)) \sim \uniform[0,1]$.
+
+Since $\P(v\opt(X)) \ge {F_{v\opt}}^{-1}(F_v^-(t))) =  \P( F_{v\opt}(v\opt(X)) \ge F_v^-(t)) = 1 - F_v^-(t) \ge \delta$, this implies that
+\begin{align*}
+  \wc(C^{(q)}, \mc{R}_{v\opt}, \delta; \, Q_0) \le
+  \P( \score(X,Y) \le q \mid v(X) \ge t ).
+\end{align*}
+The result follows by taking the infimum over all $(v, t) \in \mc{V}
+\times \R$ such that $\P( v(X) \ge t) \ge \delta$.
+
+\subsubsection{Proof of Lemma~\ref{lemma:heterogeneous-regression-verifies}}
+\label{sec:proof-heterogeneous-regression-verifies}
+
+Let $(t,u) \in \R^2$,  and assume for simplicity that $\score(x,y) = \left| y - \mu^\star(x) \right|$ (the squared error case is similar).
+We then have for all $v \in \mc{V} = \R^d \setminus \{0\}$, 
+\begin{align*}
+\P\left[ \score(X,Y) \ge t, F_v^-(v^T X) \ge u \right]
+&= \E \left[  \P \left( X^T \vvar \ge h^{-1}(t/|\varepsilon|), F_v^-(X^T v) \ge u \mid \varepsilon \right) \right]  \\
+&\overset{(i)}{\le} \E \left[ \min\left(  \P \left( X^T \vvar \ge h^{-1}(t/|\varepsilon|) \mid \varepsilon \right),  \P( F_v^-(X^T v) \ge u) \right) \right] \\
+&\overset{(ii)}{=}  \E \left[ \min\left(  \P \left( X^T \vvar \ge h^{-1}(t/|\varepsilon|) \mid \varepsilon \right),  \P( F_{\vvar}^-(X^T \vvar) \ge u) \right) \right] \\
+&= \E \left[ 
+	\P\left( X^T \vvar \ge \max(  h^{-1}(t/|\varepsilon|),  F_{\vvar}^{-1}(u)) \mid \varepsilon \right) 
+\right] \\
+&= \E \left[ 
+	\P\left( |\varepsilon| h(X^T \vvar) \ge t, F_{\vvar}^-(X^T \vvar) \ge u \mid \varepsilon \right) 
+\right] \\
+&= \P\left( \score(X,Y) \ge t, F_{\vvar}^-(X^T \vvar) \ge u \right).
+\end{align*} 
+Inequality $(i)$ is simply a restatement of the elementary fact $\P( A \cap B) \le \min(\P(A), \P(B))$, while equality $(ii)$ is due to the fact that, since every linear combination $X^T v$ has a continuous distribution for all $v \neq 0$,  $F_v^-(X^T v)$ has an uniform distribution on $[0,1]$.
+
+%The first condition of the assumption is immediate,
+%as for any $\R$-valued random variable $Z$, we have
+%$\law(Z \mid Z \ge \tau) \succeq \law(Z \mid Z \ge t)$ for $\tau \ge t$
+%(cf.~\cite[Thm.~1.A.15]{ShakedSh07}).
+%I now claim that if
+%$(Z_1, Z_2) \simiid \normal(0, 1)$, then
+%for any $\beta \in [-1, 1]$ and $\tau \in \R$,
+%\begin{equation}
+%  \label{eqn:gaussian-dominance}
+%  \law(Z_1 \mid Z_1 \ge \tau)
+%  \succeq \law(\beta Z_1 + \sqrt{1 - \beta^2} Z_2 \mid Z_1  \ge \tau).
+%\end{equation}
+%The result is clear when $\beta = 1$, so let $\beta < 1$. Let $\gamma$ denote the
+%$2$-dimensional Gaussian measure, let $t > \tau$, and define the
+%halfspaces $A_1 = \{z_1 \ge t\}$, $A_2 = \{\beta z_1 + \sqrt{1 - \beta^2} z_2 \ge
+%t\}$, and $B = \{z_1 \ge \tau\}$.  Then $\gamma(A_1) = \gamma(A_2)$ by the
+%rotational symmetry of Gaussians, and $A_1 \cap B = A_1$ while $A_2 \cap B
+%\subsetneq A_2$.  Thus
+%\begin{equation*}
+%  \P(Z_1 \ge t \mid Z_1 \ge \tau)
+%  = \frac{\gamma(A_1 \cap B)}{\gamma(B)}
+%  > \frac{\gamma(A_2 \cap B)}{\gamma(B)}
+%  = \P(\beta Z_1 + \sqrt{1 - \beta^2} Z_2 \ge t \mid Z_1 \ge \tau).
+%\end{equation*}
+%If $t < \tau$, then $\P(Z_1 \ge t \mid Z_1 \ge \tau) = 1
+%\ge \P(\beta Z_1 + \sqrt{1 - \beta^2} Z_2 \ge t \mid Z_1 \ge \tau)$, proving
+%the dominance~\eqref{eqn:gaussian-dominance}.
+%
+%We can now show the second condition of
+%Assumption~\ref{assumption:stochastic-dominance}. Without
+%loss of generality, let $u \in \sphere^{d-1}$. Then
+%writing $X = (I - uu^T) X + uu^T X$, we have
+%\begin{equation*}
+%  \vvar^T X =
+%  \vvar^T(I - uu^T) X +  \vvar^T u u^T X
+%  \eqdist
+%  \sqrt{1 - \beta^2} Z_2 + \beta Z_1
+%\end{equation*}
+%for $\beta =  \vvar^T u$ and $Z_i \simiid \normal(0, 1)$.
+%Notably, if $\P(u^T X \ge t) \ge \P( \vvar^T X \ge \tau)$, then
+%$t \le \tau$, and therefore
+%\begin{equation*}
+%  \law( \vvar^T X \mid  \vvar^T X \ge \tau)
+%  \succeq \law( \vvar^T X \mid  \vvar^T X \ge t)
+%  \stackrel{(\star)}{\succeq} \law( \vvar^T X \mid u^T X \ge t)
+%\end{equation*}
+%where inequality~$(\star)$ is the dominance~\eqref{eqn:gaussian-dominance}.
+%As $h$ is increasing, we therefore obtain that
+%\begin{align*}
+%  \law(\score(X, Y) \mid  \vvar^T X \ge \tau)
+%  & = \law(h(v^T X)^2 \noise^2 \mid  \vvar^T X \ge \tau) \\
+%  & \succeq
+%  \law(h( \vvar^T X)^2 \noise^2 \mid u^T X \ge t)
+%  = \law(\score(X, Y) \mid u^T X \ge t)
+%\end{align*}
+%as desired.
+%
+%\maxcomment{
+%We don't prove the correct result: what we want to prove is
+%\begin{align*}
+% \law(\score(X, Y) \mid  v^T X \ge \tau)
+%  & = \law(h(\vvar^T X)^2 \noise^2 \mid  \vvar^T X \ge \tau) \\
+%  & \succeq
+%  \law(h( \vvar^T X)^2 \noise^2 \mid u^T X \ge t)
+%  = \law(\score(X, Y) \mid u^T X \ge t)
+%\end{align*}
+%when $\P( u^T X \ge t) \ge \P( \vvar^T \tau)$.
+%But this is immediate (without assumption on $X$) since for all $\tau ' \ge \tau$,  we have
+%\begin{align*}
+%\P( \vvar^T X \ge \tau' \mid \vvar^T X \ge \tau) = \dfrac{\P( \vvar^T X \ge \tau') }{\P( \vvar^T X \ge \tau)} &\ge \dfrac{\P( \vvar^T X \ge \tau',  ~ u^T X \ge t) }{\P( u^T X \ge t)} \\
+%&= \P( \vvar^T X \ge \tau' \mid u^T X \ge t).
+%\end{align*}
+%The key is that $\law( Z \mid Z \ge \tau) \succeq \law( Z \mid Z' \ge t)$ when $\P(Z \ge \tau) \le \P(Z' \ge t)$.
+%
+%Now if we replace the model by $Y = \mu^\star(X) + \sigma^\star(X)  \varepsilon $ for some ${\sigma^\star} \in \mc{H}$ in some Hilbert space $\mc{H}$  we can also show that, if $\score(X,Y) = (Y - \mu^\star(X))^2$  then we have, for all $\sigma \in \mc{H}$,
+%\begin{align*}
+%\law(\score(X, Y) \mid  \sigma^\star(X) \ge \tau) \succeq \law(\score(X, Y) \mid \sigma(X) \ge t)
+%\end{align*}
+%whenever $\P(\sigma(X) \ge t) \ge \P(\sigma^\star(X) \ge \tau)$,  for the same reason as above.
+%That could potentially lead us to generalize the set of shifts we consider to ``functional" worst directions $\sigma \in \mc{H}$, with
+%\begin{align*}
+%\mc{R}_\sigma = \{ \sigma^{-1}([t, \infty)) \}_{t \in (0, \infty)}.
+%\end{align*}
+%
+%}
+
+\subsubsection{Proof of Lemma~\ref{lemma:worst-direction-order-consistency}}
+\label{sec:proof-worst-direction-order-consistency}
+\newcommand{\orthantdominates}{\succeq_{\mathsf{uo}}}
+
+Assumption~\ref{assumption:stochastic-dominance} ensures the following upper orthant stochastic order:
+\begin{align*}
+(\score(X,Y),  F_{v\opt}(v\opt(X)) \stocuo (\score(X,Y),  F_v^-(v(X))) \text{ for all } v \in \mc{V}.
+\end{align*}
+Letting $F_S(t) \defeq \P( \scorerv \le t)$, we first observe by conditioning on $(X_1, Y_1)$ that
+\begin{align*}
+&\P\left[ \score(X_1,  Y_1) > \score(X_2, Y_2), \, v(X_1) > v(X_3) \right] \\
+&\quad =
+\E\left[ \P(\score(X_1,  Y_1) > \score(X_2, Y_2) \mid X_1, Y_1) \P(v(X_1) > v(X_3) \mid X_1) \right] \\
+&\quad = \E\left[ F_S^-(\score(X_1, Y_1)) F_v^-(v(X_1)) \right].
+\end{align*}
+We then have the following lemma on upper orthant ordering.
+\begin{lemma}
+  \label{lemma:orders}
+  Let $U, V \in \R^2$. Then $U \orthantdominates V$ if and only if for all
+  non-negative and non-decreasing functions $f, g$,
+  \begin{equation}
+    \label{eqn:domination-by-fg}
+    \E[f(V_1) g(V_2)]
+    \le \E[f(U_1) g(U_2)].
+  \end{equation}
+  If additionally  $U_1 \eqdist V_1$ and $\E[|f(V_1) g(V_2)|]$
+  and $\E[|f(U_1) g(U_2)|] < \infty$,
+  then $\E[f(V_1) g(V_2)] \le \E[f(U_1) g(U_2)]$ for all
+  non-negative and non-decreasing $f$ and non-decreasing $g$.
+\end{lemma}
+\begin{proof}
+  The equivalence of inequality~\eqref{eqn:domination-by-fg} and
+  $U \orthantdominates V$ is~\cite[Eq.~(6.B.4)]{ShakedSh07}.
+  For the second result, consider the sequence
+  $g_m(x) \defeq \hinge{g(x) + m} - m$
+  for $m = 1, 2, \ldots$. Then $g_m \downarrow g$, while
+  \begin{equation*}
+    \E[f(U_1) g_m(U_2)]
+    % = \E[f(U_1)\hinge{g(U_2) + m}] - m \E[f(U_1)]
+    \ge \E[f(V_1) \hinge{g(V_2) + m}] - m \E[g(V_1)]
+    = \E[f(V_1) g_m(V_2)].
+  \end{equation*}
+  Dominated convergence gives the result.
+\end{proof}
+
+Applying Lemma~\ref{lemma:orders} with the non-decreasing functions $f=F_S^-$ and $g=\text{id}$, we obtain
+\begin{align*}
+\E\left[ F_S^-(\score(X_1, Y_1)) F_v^-(v(X_1)) \right] \le \E\left[ F_S^-(\score(X_1, Y_1)) F_{v\opt}^-(v\opt(X_1)) \right],
+\end{align*}
+which is equivalent to
+\begin{align*}
+\P\left[ \score(X_1,  Y_1) > \score(X_2, Y_2), \, v(X_1) > v(X_3) \right] \le \P\left[ \score(X_1,  Y_1) > \score(X_2, Y_2), \, v\opt(X_1) > v\opt(X_3) \right]
+\end{align*}
+The same argument with $f=F_S$ also proves that:
+\begin{align*}
+ \P\left[ \scorerv_1 \ge \scorerv_2,  v(X_1) > v(X_3) \right] \le  \P\left[ \score(X_1,  Y_1) \ge \score(X_2, Y_2), \,  v\opt(X_1) >  v\opt(X_3) \right],
+\end{align*}
+which allows us to conclude that
+\begin{align*}
+v\opt \in \argmax_{v \in \mc{V}} \left\{ \P\left( \scorerv_1 > \scorerv_2,  v(X_1) > v(X_3) \right) + \P\left( \scorerv_1 \ge \scorerv_2,  v(X_1) > v(X_3) \right) \right\}.
+\end{align*}
+
+\subsubsection{Proof of Lemma~\ref{lemma:penalized-linear-loss-expression}}
+\label{sec:proof-penalized-linear-loss-expression}
+
+By definition of $\eta_S$, we have
+\begin{align*}
+\E \left[ \sign(S_1 - S_2) \mid X_1 \right] &= \P( S_1 > S_2 \mid X_1) -  \P(S_1 < S_2 \mid X_1) \\
+&= 2 \P(S_1 > S_2 \mid X_1) - 1 + \P(S_1 = S_2 \mid X_1) \\
+&= 2 \eta_S(X_1) - 1,
+\end{align*}
+which shows that for all $v \in \mc{V}$, 
+\begin{align*}
+\E \left[ (v(X_1) - \sign(\scorerv_1 - \scorerv_2))^2 \right] = \E\left[ \left( v(X_1) - (2\eta_S(X_1) -1) \right)^2 \right] + \E\left[ \var(\sign(\scorerv_1 - \scorerv_2) \mid X_1) \right],
+\end{align*}
+and proves our first result.
+
+Additionally,  for any measurable function $f : \mc{X} \to \R$,  let $F_f$ be the c.d.f.\ of $f(X)$  which satisfies $F_f(X) \succeq U \sim \uniform[0,1] \succeq F_f^{-}(X)$, where the latter is the left-continuous version.
+By conditioning respectively, and in order,
+on $(X_1,Y_1)$ and $X_3$, and then only on $(X_1, Y_1)$,  we see that
+\begin{align*}
+\P\left( \scorerv_1 > \scorerv_2 , f(X_1) > f(X_3) \right) &+ \half \P\left( \scorerv_1 = \scorerv_2 , f(X_1) > f(X_3) \right) \\
+&= \E\left[ \eta_S(X_1) \indic{ f(X_1) > f(X_3) } \right] \\
+&= \E\left[ \eta_S(X_1) F_f^{-}(f(X_1)) \right]  \\
+&= \int_{(0,1)^2} \P\left[ \eta_S(X_1) \ge u,  F_f^{-}(f(X_1)) \ge v \right] du dv \\
+&\le \int_{(0,1)^2}  \min \left\{ \P(\eta_S(X_1) \ge u),  \P(F_f^{-}(f(X_1)) \ge v) \right\} du dv \\
+&\overset{(i)}{\le} \int_{(0,1)^2}  \min \left\{ \P(\eta_S(X_1) \ge u),  \P(F_{\eta_S}^{-}(\eta_S(X_1)) \ge v) \right\} du dv \\
+&\overset{(ii)}{=} \E\left[ \eta_S(X_1) F_{\eta_S}^{-}(\eta_S(X_1)) \right] \\
+&= \P\left( \scorerv_1 > \scorerv_2 , \eta_S(X_1) > \eta_S(X_3) \right) +  \half \P\left( \scorerv_1 = \scorerv_2 , \eta_S(X_1) > \eta_S(X_3) \right).
+\end{align*}
+Equality $(i)$ comes from the fact that for any measurable function $f$, the
+function $v \mapsto \P(F_f^{-}(f(X_1)) \ge v)$ is less than $1-v =
+\P(F_{\eta_S}^{-}(\eta_S(X_1)) \ge v)$, as by assumption, $\eta_S(X)$ has a
+continuous distribution, which entails that $F_{\eta_S}^{-}(\eta_S(X))
+\overset{d}{=} \uniform[0,1]$.  Equality $(ii)$ uses that $F_{\eta_S} =
+F_{\eta_S}^-$ is non-decreasing, so
+\begin{align*}
+\min \left\{ \P(\eta_S(X_1) \ge u),  \P(F_{\eta_S}^{-}(\eta_S(X_1)) \ge v) \right\} =
+\P\left[ \eta_S(X_1) \ge u,  F_{\eta_S}^{-}(\eta_S(X_1)) \ge v \right]
+\end{align*}
+for all $(u,v) \in (0,1)^2$.
+ 
+\subsubsection{Proof of Proposition~\ref{prop:consistency-worst-direction-rkhs}}
+\label{sec:proof-consistency-worst-direction-rkhs}
+For each $i \in [n]$,  define
+\begin{align*}
+\tilde{Y}_i =  \half \E\left[ \sign\left( \score(X_i,Y_i) - \score(X', Y') \right) \mid X_i,Y_i \right] \in \left[-\half, \half \right],
+\end{align*}
+and define the ``theoretical'' estimator that $\what v_{\text{pen},
+  \lambda_n}$ approximates,
+\begin{align*}
+  \tilde{v}_{\text{pen}, \lambda_n} \defeq \argmin_{v \in \mc{V}} \left\{ \frac{1}{n}\sum_{i=1}^n \left( v(X_i) - \tilde{Y_i} \right)^2 + \lambda_n \norm{v}_\mc{V}^2 \right\}.
+\end{align*}
+A direct application of Theorem 9.1 in~\citet{SteinwartCh08} to the dense separable RKHS $\mc{V}$ with bounded measurable kernel $k$ shows that
+\begin{align}
+\label{eqn:rkhs-erm-convergence}
+\int_{x \in \mc{X}} \left( \tilde{v}_{\text{pen}, \lambda_n}(x) - \E\left[ \tilde{Y} \mid X=x \right] \right)^2 dP_X(x) = o_p(1),
+\end{align}
+where additionally $\E[ \tilde{Y} \mid X=x] = \eta_S(x) - \half$.
+
+It remains to compare the finite sample estimators $\hat{v}_{\text{pen},
+  \lambda_n}$ and $\tilde{v}_{\text{pen}, \lambda_n}$.  The key is to notice
+that, if we let $\bar{Y}_i^n \defeq \frac{1}{2(n-1)}\sum_{j \neq i}
+\sign(\scorerv_i - \scorerv_j)$, then
+\begin{align*}
+\hat{v}_{\text{pen}, \lambda_n}  \defeq \argmin_{v \in \mc{V}} \left\{ \frac{1}{n}\sum_{i=1}^n \left( v(X_i) - \bar{Y}_i^n \right)^2 + \lambda_n \norm{v}_\mc{V}^2 \right\}, 
+\end{align*}
+and we expect $\{ \bar{Y}_i^n \}_{i=1}^n$ and $\{ \tilde{Y}_i \}_{i=1}^n$ to
+be uniformly close.  Indeed, we have $\tilde{Y}_i = f(\scorerv_i)$, where
+$f(s) \defeq \half \E[ \sign(s - \scorerv)]$, and $\bar{Y}_i ^n =
+f_n(\scorerv_i)$, with $f_n(s) \defeq \frac{1}{2(n-1)} \sum_{j=1}^n \sign(s
+- \scorerv_j)$.
+
+Let $E_n \defeq \max_{1 \le i \le n} \left| \tilde{Y}_i - \tilde{Y}_i^n
+\right| \le 1$.
+
+%Since the class of sign thresholds $\{ x \mapsto \sign(s-x)\}_{s \in \R}$ is uniformly bounded by $1$, and has a VC-dimension bounded by $2$,  the law of the iterated logarithm for VC classes (see, e.g., \cite[Theorem 2.1]{AlexanderTa89}) implies that for all $\varepsilon > 0$, 
+%\begin{align}
+%\label{eqn:cdf-uniform-conv}
+%n^{1/2-\varepsilon} \sup_{s \in \R} \left| f_n(s) - f(s) \right| \cas 0,~ \text{thus} ~
+%n^{1/2-\varepsilon} E_n  \cas 0.
+%\end{align}
+As the class of sign thresholds $\{ x \mapsto \sign(s-x)\}_{s \in \R}$ is
+uniformly bounded by $1$ and has VC-dimension at most $2$, Donsker's
+theorem implies that
+\begin{align}
+  \label{eqn:cdf-uniform-conv}
+  n^{1/2} \sup_{s \in \R} \left| f_n(s) - f(s) \right| =O_p(1),~ \text{thus} ~
+  E_n  =O_p(n^{-1/2}).
+\end{align}
+
+To conclude the proof of the first result, define 
+\begin{align*}
+  R_n(v) \defeq
+  \left\{ \frac{1}{n}\sum_{i=1}^n \left( v(X_i) - \bar{Y}_i^n \right)^2 + \lambda_n \norm{v}_\mc{V}^2 \right\}
+\end{align*}
+and $\tilde{R}_n$ similarly with each $\tilde{Y}_i$ in lieu of $\bar{Y}_i^n$.
+The convergence~\eqref{eqn:cdf-uniform-conv} directly implies that uniformly over $v \in \mc{V}$, we have
+\begin{align}
+\label{eqn:risk-uniform-approx}
+\left| R_n(v) - \tilde{R}_n(v) \right| \le 2 E_n \left\{1+ \frac{1}{n} \sum_{i=1}^n \left| v(X_i) - \tilde{Y}_i \right| \right\} = O(E_n) \left( \norm{v}_\mc{V} + 1 \right),
+\end{align}
+as the kernel $k$ is bounded, so there exists $C_k \defeq \sup_{x \in
+  \mc{X}} k(x,x)^{1/2}$ such that $|v(x)| = |\langle k(x,\cdot), v
+\rangle_{\mc{V}}| \le C_k \norm{v}_\mc{V}$ for all $x \in \mc{X}$.  The
+inequality~\eqref{eqn:risk-uniform-approx}, along with the fact that
+$\lambda_n \norm{\hat v_{\text{pen}, \lambda_n}}_\mc{V}^2 \le R_n(0) \le 1$
+(and similarly for $\tilde{v}_{\text{pen}, \lambda_n}$), leads us to
+\begin{align*}
+&R_n(\tilde{v}_{\text{pen}, \lambda_n}) - R_n(\hat v_{\text{pen}, \lambda_n})\\ &= 
+\left( R_n(\tilde{v}_{\text{pen}, \lambda_n}) - \tilde{R}_n(\tilde{v}_{\text{pen}, \lambda_n}) \right) +  \left( \tilde{R}_n(\tilde{v}_{\text{pen}, \lambda_n}) - \tilde{R}_n(\hat v_{\text{pen}, \lambda_n}) \right) + 
+\left(\tilde{R}_n(\hat v_{\text{pen}, \lambda_n}) - R_n(\hat v_{\text{pen}, \lambda_n}) \right) \\
+ &\le 2 \sup_{v \in \mc{V}: \norm{v}_\mc{V} \le \lambda_n^{-1/2}} \left| R_n(v) - \tilde{R}_n(v) \right| = O(\lambda_n^{-1/2} E_n).
+\end{align*}
+
+
+By the strong convexity of $R_n$
+(via the regularization term $\lambda \norm{v}_{\mc{V}}^2$),
+and as $\hat v_{\text{pen}, \lambda_n}$ is its minimizer, we must have 
+\begin{align*}
+R_n(v) - R_n(\hat v_{\text{pen}, \lambda_n}) \ge \lambda_n \norm{v - \hat v_{\text{pen}, \lambda_n}}_\mc{V}^2 \text{ for all } v\in \mc{V},
+\end{align*}
+which, combining the last two inequalities and
+substituting $v = \tilde{v}_{\text{pen},\lambda_n}$, implies that
+\begin{align*}
+\norm{\tilde{v}_{\text{pen}, \lambda_n} - \hat v_{\text{pen}, \lambda_n}}_\mc{V}^2 \le O\left(\lambda_n^{-3/2} E_n \right).
+\end{align*}
+As the kernel $k$ is bounded, we then have
+%\begin{align*}
+%\norm{\tilde{v}_{\text{pen}, \lambda_n} - \hat v_{\text{pen}, \lambda_n}}_{L^2(P_X)} &\le \left(\int_{x} k(x,x)dP_X(x)\right)^{1/2} \norm{\tilde{v}_{\text{pen}, \lambda_n} - \hat v_{\text{pen}, \lambda_n}}_{\mc{V}} \\
+%&= O(\lambda_n^{-3/4} E_n^{1/2}) = o(n^{\varepsilon - 1/16}),
+%\end{align*}
+%which holds almost surely for all $\varepsilon > 0$.
+\begin{align*}
+\norm{\tilde{v}_{\text{pen}, \lambda_n} - \hat v_{\text{pen}, \lambda_n}}_{L^2(P_X)} &\le \left(\int_{x} k(x,x)dP_X(x)\right)^{1/2} \norm{\tilde{v}_{\text{pen}, \lambda_n} - \hat v_{\text{pen}, \lambda_n}}_{\mc{V}} \\
+&= O(\lambda_n^{-3/4} E_n^{1/2}) = O_p(n^{- 1/16}),
+\end{align*}
+Recalling equation~\eqref{eqn:rkhs-erm-convergence}, this yields the desired result.
+
+For the second claim,  observe that our first result also entails that
+\begin{align}
+\label{eqn:v-dense-in-l2}
+\inf_{v \in \mc{V}} \int_{x \in \mc{X}} \left( v(x) + \half - \eta_S(x) \right)^2 dP_X(x) = 0.
+\end{align}
+We claim that a consequence of this fact is that
+\begin{align}
+\label{eqn:vopt-and-etas-are-same}
+\E\left[ \eta_S(X) F_{\eta_S}(\eta_S(X)) \right] = \E \left[ \eta_S(X) F_{v\opt}(v\opt(X)) \right].
+\end{align}
+Before proving claim~\eqref{eqn:vopt-and-etas-are-same}, we see how this implies that $v\opt$ must be a function of $\eta_S$. 
+Observe that we can rewrite the latter equality as
+\begin{align*}
+\int \P\left( \eta_S(X) \ge u_1,  F_{\eta_S}(\eta_S(X)) \ge u_2 \right) du_1 du_2 = \int \P\left( \eta_S(X) \ge u_1,  F_{v\opt}(v\opt(X)) \ge u_2 \right) du_1 du_2.
+\end{align*}
+On the other hand, it is straightforward to check that, as the distribution
+of $\eta_S(X)$ is continuous by assumption, we have $(\eta_S(X),
+F_{\eta_S}(\eta_S(X))) \stocuo (\eta_S(X), F_{v\opt}(v\opt(X))$, and so both
+integrands must be identical up to a measure 0 set, as the left is
+always larger than the right while the integrals are equal.  By
+left-continuity of both functions, the equality must extend to the entire
+square $[0,1]^2$, so for all $(u_1,u_2) \in [0,1]^2$ we have
+\begin{align*}
+ \P\left( \eta_S(X) \ge u_1,  F_{\eta_S}(\eta_S(X)) \ge u_2 \right)  =  \P\left( \eta_S(X) \ge u_1,  F_{v\opt}(v\opt(X)) \ge u_2 \right).
+\end{align*}
+Taking $u_2 = F_{\eta_S}(u_1)$,  this directly gives
+\begin{align*}
+ \P\left( \eta_S(X) \ge u \right) =  \P\left( \eta_S(X) \ge u,  F_{v\opt}(v\opt(X)) \ge F_{\eta_S}(u) \right),
+\end{align*}
+for all $u \in [0,1]$, which in turn implies
+\begin{align*}
+ \P\left[ F_{\eta_{S}}(\eta_S(X)) < F_{\eta_{S}}(u),  F_{v\opt}(v\opt(X)) \ge F_{\eta_S}(u) \right] = \P\left[ \eta_S(X) < u,  F_{v\opt}(v\opt(X)) \ge F_{\eta_S}(u) \right] = 0.
+\end{align*}
+This equality holds for any $u \in [0,1]$, so we must have
+$F_{v\opt}(v\opt(X)) = F_{\eta_{S}}(\eta_S(X))$ almost surely, which
+concludes the proof of the second part of
+Proposition~\ref{prop:consistency-worst-direction-rkhs}.
+
+Coming back to the claim~\eqref{eqn:vopt-and-etas-are-same},  we first observe that Lemma~\ref{lemma:penalized-linear-loss-expression} ensures that
+%, on the one hand, and Lemma~\ref{lemma:worst-direction-order-consistency}, on the other hand, ensure that we have respectively
+\begin{align*}
+\E\left[ \eta_S(X) F_{\eta_S}(\eta_S(X)) \right] = \inf_{f: \mc{X} \to \R ~ \text{measurable}} \left[ \eta_S(X) F_f^-(f(X)) \right],
+\end{align*}
+which immediately yields the inequality $\E\left[ \eta_S(X) F_{v\opt}(v\opt(X))
+  \right] \ge \E\left[ \eta_S(X) F_{\eta_S}(\eta_S(X)) \right]$, because
+$\mc{V} \subset \{f: \mc{X} \to \R \text{ measurable} \}$ and $F_{v\opt} \ge
+F_{v\opt}^-$.
+
+%and
+%\begin{align*}
+%\E\left[ \eta_S(X) F_{v\opt}(v\opt(X)) \right] = \inf_{v \in \mc{V}} \left[ \eta_S(X) F_v^-(v(X)) \right].
+%\end{align*}
+
+For the reverse inequality,  consider a sequence $v_n \in \mc{V}$ such that $\norm{v_n + \half - \eta_S}_{L^2(P_X)} \to 0$, which is possible from the infimum~\eqref{eqn:v-dense-in-l2}. 
+Since $\eta_S(X)$ has a continuous distribution, we must have $F_{v_n + \half} \to F_{\eta_S}$ pointwise, and hence uniformly as they are non-decreasing functions.
+This, plus the fact that $v_n(X)+\half \cp \eta_S(X)$,  implies by continuous mapping that
+\begin{align*}
+F_{v_n}(v_n(X))  = F_{v_n+\half}\left(v_n(X)+\half\right) \cp F_{\eta_S}(\eta_S(X)),
+\end{align*} and, since the sequence $\{ \eta_S(X) F_{v_n}(v_n(X)) \}_{n \ge 1}$ is uniformly bounded (by 1) that
+\begin{align*}
+\E\left[ \eta_S(X) F_{v_n}(v_n(X)) \right] \underset{n \to \infty}{\rightarrow} \E\left[ \eta_S(X) F_{\eta_S}(\eta_S(X)) \right],
+\end{align*}
+which eventually yields that
+\begin{align*}
+\inf_{v \in \mc{V}} \left[ \eta_S(X) F_v^-(v(X)) \right] \le \E\left[ \eta_S(X) F_{\eta_S}(\eta_S(X)) \right]
+\end{align*}
+and concludes the proof, as Lemma~\ref{lemma:worst-direction-order-consistency} ensures that
+\begin{align*}
+\E\left[ \eta_S(X) F_{v\opt}(v\opt(X)) \right] = \inf_{v \in \mc{V}} \left[ \eta_S(X) F_v^-(v(X)) \right].
+\end{align*}
+
+\subsubsection{Proof of Proposition~\ref{proposition:vopt-least-squares}}
+\label{sec:proof-vopt-least-squares}
+
+
+We now show that
+\begin{equation}
+  \label{eqn:upper-dominance-vopt}
+  (\score(X, Y), X^T v\opt) \orthantdominates (\score(X, Y), X^T u)
+\end{equation}
+for any vector $u$ satisfying $\ltwos{\Sigma^{1/2} v\opt} =
+\ltwos{\Sigma^{1/2} u}$.  Without loss of generality, we assume
+$\ltwos{\Sigma^{1/2} v\opt} = 1$.  Then for all $q \in \R$ and $t \in \R$,
+\begin{align*}
+  \P( \score(X,Y) \ge q, X^T v\opt \ge t)
+  & = \P( \score(X,Y) \ge q \mid X^T v\opt \ge t) \P(X^T v\opt \ge t) \\
+  &\stackrel{(\star)}{\ge}
+  \P( \score(X,Y) \ge q \mid  X^T u \ge t) \P(X^T u \ge t) \\
+  & = \P( \score(X,Y) \ge q, X^T u \ge t ),
+\end{align*}
+where inequality $(\star)$ uses
+Assumption~\ref{assumption:stochastic-dominance} and that $\tilde{X} \defeq
+\Sigma^{-1/2} X$ has an isotropic disitribution, so that $\P(X^T u \ge t) =
+\P( \tilde{X}^T \Sigma^{1/2} u \ge t) = \P( \tilde{X}^T \Sigma^{1/2} v\opt
+\ge t) = \P( X^T v\opt \ge t)$ and
+$X^T u \eqdist X^T v\opt$.
+In particular, Lemma~\ref{lemma:orders} yields
+\begin{equation*}
+  \E \left[ \score(X,Y) X^T u \right] \le
+  \E \left[ \score(X,Y) X^T v\opt \right]
+\end{equation*}
+for all $u \in \R^d$ such that $\ltwos{\Sigma^{1/2}u} =
+\ltwos{\Sigma^{1/2}v\opt}$, because
+$\E[|\score(X, Y) X^T u|] < \infty$ by Cauchy-Schwarz.
+As a result, using the assumption in the proposition that
+$\E[\score(X, Y) X] \neq 0$, we have the fixed point
+\begin{align*}
+  v\opt = \argmin_{u \in \R^d} \left\{ \E \left[ \score(X,Y) X^T u \right]
+  \mid \ltwos{\Sigma^{1/2} u} = \ltwos{\Sigma^{1/2} v\opt} \right\}.
+\end{align*}
+By a direct change of variables via $\tilde{X} = \Sigma^{-1/2} X$, this is
+equivalent to
+\begin{align*}
+  \Sigma^{1/2} v\opt = \argmin_{\tilde{u} \in \R^d} \left\{ \tilde{u}^T \E \left[ \score(X,Y) \tilde{X} \right] \mid \ltwo{\tilde{u}} = \ltwo{\Sigma^{1/2} v\opt} \right\}.
+\end{align*}
+Rewriting, we obtain
+\begin{align*}
+  v\opt \propto \Sigma^{-1} \E \left[X \score(X,Y)\right]
+  = \E\left[XX^T\right]^{-1} \E \left[ X \score(X,Y) \right]
+  = \argmin_u \E[(\score(X, Y) - X^T u)^2].
+\end{align*}
+
+\subsection{Proof of Theorem~\ref{theorem:uniform-asymptotic-coverage}}
+\label{sec:proof-uniform-asymptotic-coverage}
+
+The proof of the theorem is technical, so we
+state and prove several lemmas on worst coverage regularity and convergence
+(Section~\ref{sec:lemmes-worst-coverage-and-direction-recovery}), combining
+all the pieces in Section~\ref{sec:finalize-uniform-proof}.
+
+\subsubsection{Lemmas on worst coverage estimation}
+\label{sec:lemmes-worst-coverage-and-direction-recovery}
+
+%\maxcomment{
+%Need to modify the proofs by replacing $v^T X$ with $v(X)$.  The uniform continuity claim is not necessarily true anymore (as $\mc{V}$ is not necessarily compact anymore).
+%However, we only use it in Lemma~\ref{lem:consistency-of-empirical-worst-direction}, for which I provide here an alternative proof.
+%}
+
+%\maxcomment{
+%We only need $v\opt(X)$ to have a continuous distribution, as in the Lemma, we only use the fact that $v \mapsto \wc( C^{(q,\score)}, \mc{R}_{v}, \delta; \, Q_0)$ is continuous in $v\opt$ for each fixed $q$.
+%}
+
+\begin{lemma}
+  \label{lem:continuous-distribution-vs-worst-coverage-continuity}
+  Let Assumption~\ref{assumption:continuity-worst-coverage-1} hold.  Then
+  the function $(q, v, \delta) \mapsto \wc( C^{(q,\score)}, \mc{R}_v,
+  \delta; \, Q_0) $ is continuous at any tuple $(q,v\opt, \delta)$,  considering $\mc{V}$ as a subset of the Banach space $L^2(P_X)$.
+\end{lemma}
+
+\begin{proof}
+  We use $C^{(q)}$ as shorthand for $C^{(q,\score)}$, and we consider a
+  sequence $\{ (q_n , v_n, \delta_n) \}_{n \ge 1} \to (q, v\opt, \delta) \in \R
+  \times \mc{V} \times (0,1)$.  We will show that $\{ \wc(C^{(q_n)},
+  \mc{R}_{v_n}, \delta_n; \, Q_0) \}_{n \ge 1}$ converges by proving that
+  the sequence has a unique accumulation point.  We therefore assume without
+  loss of generality that
+  \begin{align}
+    \label{eqn:limit-of-wcs}
+    \wc(C^{(q_n)}, \mc{R}_{v_n}, \delta_n; \, Q_0)
+    \underset{n \to \infty}{\longrightarrow} \ell \in [0,1],
+  \end{align}
+  and we successively prove that $\ell \le \wc(C^{(q)}, \mc{R}_{v}, \delta;
+  \, Q_0)$ and $ \wc(C^{(q)}, \mc{R}_{v}, \delta; \, Q_0) \le \ell$.
+  Combining claims~\ref{claim:lower-limit-wcs}
+  and~\ref{claim:upper-limit-wcs} immediately gives the continuity claim in
+  Lemma~\ref{lem:continuous-distribution-vs-worst-coverage-continuity}.
+
+  \begin{claim}
+    \label{claim:lower-limit-wcs}
+    The limit $\ell$ in Eq.~\eqref{eqn:limit-of-wcs} satisfies
+    $\ell \le \wc(C^{(q)}, \mc{R}_v, \delta; Q_0)$.
+  \end{claim}
+  \begin{proof}
+    Let $\varepsilon > 0$, and consider $t \in \R$ such that $\P( v\opt(X) \ge
+    t) \in (\delta,1)$ and
+    \begin{align*}
+      Q_0 \left(  \score(X,Y) \le q \mid v\opt(X) \ge t \right)
+      \le \wc(C^{(q)}, \mc{R}_{v\opt}, \delta; \, Q_0) + \varepsilon.
+    \end{align*}
+    Next, consider $t_n \in \R$ such that $Q_0( v_n(X) \ge t_n) \ge \delta_n$ and $Q_0( v_n(X) \ge t_n) \to Q_0( v\opt(X) \ge t) \} $. 
+    As we may consider a
+    subsequence, we assume without loss of generality that $\{ t_n \}_{n \ge
+      1}$ converges to $\tilde{t} \in \left[ - \infty, \infty \right]$.  Then
+    we have by Slutsky's lemma that $v_n(X) - t_n \cd v\opt(X) -
+    \tilde{t}$ (since $v_n(X) \cd v(X)$), and thus
+    \begin{align*}
+      Q_0( v\opt (X) \ge \tilde{t}) = \lim_{n \to \infty} Q_0(v_n(X) \ge t_n) = Q_0( v\opt(X) \ge t) \ge \delta,
+    \end{align*}
+    as $v\opt(X)$ has a continuous distribution (the above relation also proves
+    that $\tilde{t} \in \R$, since $0 < Q_0( v\opt(X) \ge t) < 1 )$.  Since we
+    either have $\{ v\opt(X) \ge \tilde{t} \} \subset \{ v\opt(X) \ge t \}$ or $\{
+   v\opt(X) \ge t \} \subset \{ v\opt(X) \ge \tilde{t} \}$, the above relation
+    also shows that
+    \begin{align*}
+      Q_0(  \score(X,Y) \le q \mid v\opt(X) \ge \tilde{t}) = Q_0(  \score(X,Y) \le q \mid v\opt(X) \ge t) \le  \wc(C^{(q)}, \mc{R}_{v}, \delta; \, Q_0) + \varepsilon.
+    \end{align*}
+    Finally, if we define $\Delta_{n,v} \defeq v_n(X) - v\opt(X) - t_n
+    +\tilde{t} \cp 0$, we have
+    \begin{align}
+      \label{eqn:cvg-prob-xtvscores}
+      \begin{split}
+        &\big| Q_0( \score(X,Y) \le q_n,  v_n(X)  \ge t_n) - Q_0( \score(X,Y) \le q,  v(X) \ge \tilde{t}) \big| \\
+        &\le Q_0\left( |\score(X,Y) - q| \le |q_n - q| \right) + Q_0(\tilde{t} - \Delta_{n,v} \le v\opt(X)  < \tilde{t}) + Q_0( \tilde{t}  \le v\opt(X)  < \tilde{t} - \Delta_{n,v}) \\
+        &\underset{n \to \infty}{\longrightarrow} 0,
+      \end{split}
+    \end{align}
+    where the first (resp.\ second and third) term converges to $0$ as the
+    distribution of $\score(X,Y)$ (resp. $v\opt(X)$) is continuous under $Q_0$.
+    This proves that
+    \begin{align*}
+      Q_0( \score(X,Y) \le q_n \mid  v_n(X) \ge t_n) \underset{n \to \infty}{\longrightarrow} Q_0( \score(X,Y) \le q \mid v(X) \ge \tilde{t}) \le \wc(C^{(q)}, \mc{R}_{v}, \delta; \, Q_0) + \varepsilon,
+    \end{align*}
+    and thus $\ell \le \wc(C^{(q)}, \mc{R}_{v}, \delta; \, Q_0) + \varepsilon$.
+    As $\varepsilon > 0$ was arbitrary, we have the claim.
+  \end{proof}
+
+  \begin{claim}
+    \label{claim:upper-limit-wcs}
+    The limit $\ell$ in Eq.~\eqref{eqn:limit-of-wcs} satisfies
+    $\ell \le \wc(C^{(q)}, \mc{R}_v, \delta; Q_0)$.
+  \end{claim}
+  \begin{proof}
+    By definition of the worst-coverage, we can find $\{ t_n \}_{n \ge 1}$
+    such that $Q_0 (v_n(X) \ge t_n) \ge \delta_n$ for all $n \ge 1$, and
+    \begin{align*}
+      % \label{eqn:convergence-lower-semi-continuity}
+      Q_0( \score(X,Y) \le q_n \mid v_n(X) \ge t_n) \underset{n \to \infty}{\longrightarrow} \ell.
+    \end{align*}
+    As we may always consider a subsequence, we again assume that $t_n
+    \to t \in [ -\infty, \infty]$.  Next, observe that, by Slutsky's lemma, $v_n(X) - t_n \cd v\opt(X) - t $
+    (where the limit distribution is continuous but potentially infinite if
+    $t \in \{ -\infty, \infty\}$), so
+    \begin{align}
+      \label{eqn:cvg-prob-xtv-lower-semicontinuity}
+      Q_0( v\opt(X) \ge t) =  \lim_n Q_0( v_n(X) \ge t_n) \ge  \delta
+    \end{align}
+    by the Portmanteau theorem,
+    which also proves that $t < \infty$.
+
+    If $t = - \infty$, then $Q_0( v_n(X) \ge t_n) \to 1$.  As the
+    distribution of $\score(X,Y)$ is continuous under $Q_0$, this ensures
+    that
+    \begin{align*}
+      Q_0( \score(X,Y) \le q_n \mid v_n(X) \ge t_n )\to Q_0( \score(X,Y) \le q) \ge \wc(C^{(q)}, \mc{R}_{v\opt}, \delta; \, Q_0),
+    \end{align*}
+    and proves that $\ell \ge \wc(C^{(q)}, \mc{R}_{v\opt}, \delta; \, Q_0)$.  If
+    $t \in \R$, then with derivation \emph{mutatis mutandis} identical to
+    that to develop the convergence~\eqref{eqn:cvg-prob-xtvscores}, we
+    obtain that
+    \begin{align*}
+      Q_0( \score(X,Y) \le q_n,  v_n(X) \ge t_n)  - Q_0( \score(X,Y) \le q,  v\opt(X) \ge t) \underset{n \to \infty}{\rightarrow} 0.
+    \end{align*}
+    With equation~\eqref{eqn:cvg-prob-xtv-lower-semicontinuity}, this directly
+    shows that
+    \begin{align*}
+      \wc(C^{(q)}, \mc{R}_{v\opt}, \delta; \, Q_0)
+      &\le Q_0( \score(X,Y) \le q \mid v\opt(X) \ge t)  \\
+      &= \lim_{n \to \infty} Q_0( \score(X,Y) \le q \mid v_n(X) \ge t_n) = \ell
+    \end{align*}
+    as desired.
+  \end{proof}
+  
+%  For the proof of the uniform continuity claim, let $\bar{\R} = [-\infty,
+%    \infty]$ be the usual compactification of $\R$.  We extend the
+%  worst-coverage function to $\bar{\R} \times \mc{V} \times \openleft{0}{1}$
+%  by setting $\wc(C^{(-\infty)}, \mc{R}_{v}, \delta; \, Q_0) = 0$, and
+%  $\wc(C^{(+\infty)}, \mc{R}_{v}, \delta; \, Q_0) = 1$ for all $(v, \delta)
+%  \in \mc{V} \times \openleft{0}{1}$, and $\wc(C^{(q)}, \mc{R}_{v}, 1; \,
+%  Q_0) = P_0( \scorerv \le q)$ for all $(q,v) \in \R \times \mc{V}$.
+%  The  bound
+%  \begin{align*}
+%    1 -  \delta^{-1}P_0(\scorerv > q)  \le \wc(C^{(q)}, \mc{R}_{v}, \delta; \, Q_0) \le \delta^{-1}P_0(\scorerv \le q),
+%  \end{align*}
+%  valid for all $(q, v, \delta) \in \R \times \mc{V} \times (0,1)$, ensures
+%  that the extension itself is continuous on $\bar{\R} \times \mc{V} \times
+%  \openleft{0}{1}$, as  if $\{ (q_n, v_n, \delta_n) \}_{n \ge
+%    1} \to (q,v,\delta)$, with $q \in \{ -\infty, \infty \}$ or $\delta =1$,
+%  we still have
+%  \begin{align*}
+%    \wc(C^{(q_n)}, \mc{R}_{v_n}, \delta_n; \, Q_0)  \underset{n \to \infty}{\longrightarrow} \wc(C^{(q)}, \mc{R}_{v}, \delta; \, Q_0) =
+%    \begin{cases}
+%      P_0(\scorerv \le q) &\mbox{if} ~ \delta = 1~\text{and}~ q \in \R \\
+%      0  &\mbox{if} ~ q = -\infty \\
+%      1 &\mbox{if} ~ q = \infty.
+%    \end{cases}
+%  \end{align*}
+%  %% We endow $\bar{\R}$ with the distance $d: (x,y) \mapsto |\arctan(x) -
+%  %% \arctan(y)|$ on $\bar{\R}$, which induces the standard topology on real
+%  %% numbers, and for a fixed $\delta \in (0,1)$, we consider the product
+%  %% distance on $\bar{\R} \times \mc{V} \times [\delta, 1]$ (say the
+%  %% maximum).
+%  The set $\bar{\R} \times \mc{V} \times [\delta, 1]$ is
+%  compact, whence Heine's theorem ensures that the function
+%  $(q, v, \delta) \mapsto \wc(C^{(q)}, \mc{R}_{v}, \delta; \, Q_0)$ is
+%  uniformly continuous on $\bar{\R} \times \mc{V} \times [\delta, 1]$.  The
+%  restriction of the function to $\R \times \mc{V} \times
+%  \openright{\delta}{1}$ is then also uniformly continuous.
+\end{proof}
+
+
+\begin{lemma}
+  \label{lem:consistency-of-empirical-worst-coverage-for-alpha}
+  As $n \to \infty \; \; (n_1,n_2 \to \infty)$, the confidence set mapping
+  $\what C_n$ from Alg.~\ref{alg:worst-direction-validation} satisfies
+  \begin{equation*}
+    1- \alpha \le \wc( \what C_n, \mc{R}_{\hat v}, \delta; \, \what Q_{n_2})
+    \le 1 - \alpha + u_n,
+  \end{equation*}
+  where $u_n \in [0,\alpha]$, and $u_n \cp 0$ if
+  Assumption~\ref{assumption:estimated-scores-as-distinct} holds.
+\end{lemma}
+\begin{proof}
+  The lower bound is immediate by definition of $\what C_n$.
+  For the upper bound, we have
+  \begin{equation*}
+    \wc( \what C_n, \mc{R}_{\hat v}, \delta; \, \what Q_{n_2}) \le 1- \alpha + \frac{1}{n_2 \delta}
+  \end{equation*}
+  whenever the scores $\{ \scoreest(X_i,Y_i) \}_{i=n_1+1}^n$ are all distinct, which occurs eventually with high probability under Assumption~\ref{assumption:estimated-scores-as-distinct}.
+\end{proof}
+
+%\begin{lemma}
+%\label{lem:consistency-of-effective-quantile}
+%Suppose that Assumptions~\ref{assumption:stochastic-dominance}, \ref{assumption:consistency-of-scores-and-vhat}, \ref{assumption:continuity-worst-coverage-1} and \ref{assumption:estimated-scores-as-distinct} hold.
+%Then, as $n \to \infty \;  \; (n_1,n_2 \to \infty)$, we have
+%\begin{align}
+%\sup_{q}|\wc( C^{(q,\scoreest)}, \mc{R}_{\hat v}, \delta; \, \what Q_{n_2})-\wc( {C}^{(q, \score)}, \mc{R}_{v\opt}, \delta; \, Q_0)|& = o_{P}(1).
+%\end{align}
+%
+%Hence, by Lemma \ref{lem:consistency-of-empirical-WC}, we have $\wc( {C}^{(\hat q_{\delta}, \score)}, \mc{R}_{v\opt}, \delta; \, Q_0) =1-\alpha +o_{P}(1).$
+%
+%\maxcomment{This lemma is a bit unclear and part of the proof redundant with the next one. I think we should instead prove in two separate lemmas the following results, the first one proving that worst coverages under $\what Q_n$ and $Q_0$ are close, and the second proving that when $\hat v$ and $v\opt$ are close, the worst coverages under both directions are similar, ie respectively
+%\begin{align*}
+%\sup_{q, v} \left\{ \lvert 
+%\wc( C^{(q,\scoreest)}, \mc{R}_{v}, \delta; \, \what Q_{n_2})-\wc( {C}^{(q, \scoreest)}, \mc{R}_{v}, \delta; \, Q_0) \rvert 
+%\right\} = o_p(1),
+%\end{align*}
+%and 
+%\begin{align*}
+%\sup_q \lvert \wc( C^{(q,\score)}, \mc{R}_{\hat v}, \delta; \, Q_0) 
+%-
+%\wc( {C}^{(q, \score)}, \mc{R}_{v\opt}, \delta; \, Q_0) \rvert = o_p(1).
+%\end{align*}
+%Along with the next lemma, they ensure the exact same results, but we don't need to prove things twice.
+%
+%Also we need to be more precise with assumptions needed.
+%}
+%\end{lemma}
+%
+%\begin{proof}
+%We recall that
+%\begin{equation*}
+%\wc( \hat{C}^{(q,\hat \score)}, \mc{R}_{\hat v}, \delta; \, \hat Q_{n_2})= \inf_{a : Q_{n_2}(X \in R_{\hat v,a}) \geq \delta} P_{n_2}(\hat{S} \leq q \mid X \in R_{\hat v,a}),
+%\end{equation*}
+%and
+%\begin{equation*}
+%\wc( \hat{C}^{(q,\score)}, \mc{R}_{v\opt}, \delta; \, Q_0)= \inf_{a : Q_{0}(X \in R_{v\opt,a}) \geq \delta} P_{0}({S} \leq  q \mid X \in R_{v\opt,a}),
+%\end{equation*}
+%where $\mathcal{R}_{v,a}=\left\{x \in \mathbb{R}^d \mid v^Tx \geq a \right\}$ .
+%
+%We first show that with probability over $\mc{I}_1$ and $\mc{I}_2$, we have
+%\begin{align}
+%\label{eqn:WC-close}
+%\sup_{q}|\inf_{a : Q_{n_2}(X \in R_{\hat v,a}) \geq \delta}P_{n_2}(\hat{S} \leq q \mid X \in R_{\hat v,a})- \inf_{a : Q_{n_2}(X \in R_{\hat v,a}) \geq \delta}P_{0}({S} \leq  q \mid X \in R_{ v\opt,a})| = o_{P}(1)
+%\end{align}
+%
+%Equivalently, we show that with probability over $\mc{I}_1$ and $\mc{I}_2$, we have
+%\begin{align}
+%\label{eqn:condn-prob-close}
+%\sup_{q, a : Q_{n_2}(X \in R_{\hat v,a}) \geq \delta}|P_{n_2}(\hat{S} \leq q \mid X \in R_{\hat v,a})- P_{0}({S} \leq  q \mid X \in R_{ v\opt,a})| = o_{P}(1),
+%\end{align}
+%
+%
+%In order to show \eqref{eqn:condn-prob-close}, it suffices to show the following:
+%\begin{enumerate}
+%\item{
+%With probability  over $\mc{I}_1$ and $\mc{I}_2$, we have
+%\begin{align}
+%\label{eqn:vhat_consistent}
+%\sup_{a} |Q_{n_2}(X \in R_{\hat{v},a}) -Q_0(X \in R_{{v\opt},a,b}) |
+% = o_{P}(1)
+%\end{align}
+%
+%}
+%\item{With probability over $\mc{I}_1$ and $\mc{I}_2$, we have
+%\begin{align}
+%\label{eqn:intersect-prob-close-v}
+%  \sup_{q,  a  : Q_{n_2}(X \in R_{\what{v},a}) \ge \delta} |P_{n_2}(\hat S \leq q, X \in R_{\what{v},a})-P_0(S \leq q  ,X \in R_{{v\opt},a})| =o_{P}(1).
+%\end{align}
+%}
+%
+%\end{enumerate}
+%\eqref{eqn:condn-prob-close} follows from \eqref{eqn:vhat_consistent} and  \eqref{eqn:intersect-prob-close-v} using similar arguments as in \citep{CauchoisGuDu20} that we present here for completeness.
+%
+%For any $\varepsilon$ and
+%nonnegative $\alpha, \beta, \gamma$ with $\alpha \le \gamma$ and
+%$2|\varepsilon| \le \gamma$,
+%\begin{equation*}
+%  \left|\frac{\alpha}{\gamma + \varepsilon} - \frac{\beta}{\gamma}\right|
+%  \le \frac{|\alpha - \beta|}{\gamma}
+%  + \frac{|\alpha \epsilon|}{\gamma^2 + \gamma \epsilon}
+%  \le \frac{|\alpha - \beta|}{\gamma}
+%  + \frac{2 |\epsilon|}{\gamma}.
+%\end{equation*}
+%Thus, we have with probability over $\mc{I}_1$ and $\mc{I}_2$ that
+%\begin{align*}
+%  \lefteqn{|P_{n_2}(S \leq  q \mid X \in R_{\what{v},a})
+%    - P_0(S \leq  q  \mid X \in R_{{v\opt},a})|} \\
+%  & = \left|\frac{P_{n_2}(S \leq q , X \in R_{\what{v},a})}{
+%    Q_{n_2}(X \in R_{\what{v},a})}
+%  - \frac{P_0(S \leq q  , X \in R_{{v\opt},a})}{Q_0( X \in R_{{v\opt},a})}\right| \\
+%  & \le \left|\frac{P_{n_2}(S \leq  q,  X \in R_{\what{v},a})
+%    - P_0(S \leq  q , X \in R_{{v\opt},a})}{Q_0( X \in R_{{v\opt},a}) }\right| +\left|\frac{Q_{n_2}(X \in R_{\what{v},a})-Q_0( X \in R_{{v\opt},a})}{Q_0( X \in R_{{v\opt},a})}\right|
+%    = o_{P}(1)
+%\end{align*}
+%simultaneously for all $q   \in \R$ and $a \in \mathbb{R}$ such that $ Q_{n_2}(X \in R_{\what{v},a}) \geq \delta$,
+%where we substitute $\gamma = Q_0( X \in R_{{v\opt},a})$,
+%$\alpha = P_0(S \leq  q,  X \in R_{{v\opt},a})$,
+%$\beta = P_{n_2}(S \leq  q,  X \in R_{{v\opt},a})$, and
+%$\varepsilon = (Q_{n_2} - Q_0)( X \in R_{{v\opt},a})$.
+%
+%The proof of \eqref{eqn:vhat_consistent} follows from triangle inequality using the following two results:
+%\begin{enumerate}
+%\item[1a.]{
+%With probability over $\mc{I}_1$ and $\mc{I}_2$, we have
+%\begin{align}
+%\label{eqn:slabs_conc}
+%&\sup_{a} |Q_{n_2}(X \in R_{\what{v},a}) -Q_0(X \in R_{\what{v},a}) | = o_{P}(1).
+%\end{align}
+%
+%}
+%\item[1b.]{
+%With probability over $\mc{I}_1$ and $\mc{I}_2$, we have
+%\begin{align}
+%\label{eqn:slabs_conc_vhat}
+%\sup_{a} |Q_0(X \in R_{\what{v},a}) -Q_0(X \in R_{{v\opt},a}) |  = o_{P}(1).
+%\end{align}
+%}
+%\end{enumerate}
+%The proof of \eqref{eqn:slabs_conc} follows from Glivenko-Cantelli Lemma. We present the proof of \eqref{eqn:slabs_conc_vhat} here. Since $X$ is a finite random variable, so there exists a large constant $B < \infty$ such that $\norm{X} \leq B$ with a high probability. Now, by Assumption~\ref{assumption:continuity-worst-coverage-1}, we have that the distribution of ${v\opt}^TX$ is continuous, hence, it is uniformly continuous. Thus, for any small $\epsilon>0$, there exists a small $\beta>0$ such that for any $a \in \mathbb{R}$, we have
+%\begin{align*}
+%|Q_{0}({v\opt}^TX \geq a \pm \beta)-Q_{0}({v\opt}^TX \geq a )| < \epsilon.
+%\end{align*}
+%
+%Further, by Assumption~\ref{assumption:consistency-of-scores-and-vhat}, we have that $\norm{\hat{v}-v\opt}= o_{P}(1)$. Now, we choose a small $\eta >0$ such that $\eta B < \beta$ and $\norm{\hat{v}-v\opt} < \eta$ eventually with a high probability.
+%Thus, the event $E=\left\lbrace|\what{v}^TX-{v\opt}^TX| \leq \eta B\right\rbrace$ has a high probability $(\geq 1-\epsilon, \text{say})$.
+%
+%Conditioning on $\mc{I}_1$ and $\mc{I}_2$, we have
+%\begin{align}
+%Q_0(X \in 	R_{\what{v},a}) &= Q_0(a \leq \what{v}^TX , E)+ Q_0(a \leq \what{v}^TX , E^c) \leq Q_0\left(a- \eta B \leq {v\opt}^TX \right)  +\epsilon \leq Q_0(a \leq {v\opt}^TX ) +2 \epsilon.
+%\end{align}
+%Similarly, for the lower bound, we have,
+%\begin{align}
+%Q_0(X \in 	R_{\what{v},a}) &= Q_0(a \leq \what{v}^TX , E)+ Q_0(a \leq \what{v}^TX , E^c) \geq Q_0\left(a+ \eta B \leq {v\opt}^TX,E \right)  \geq Q_0(a \leq {v\opt}^TX ) - \epsilon.
+%\end{align}
+%Hence, \eqref{eqn:slabs_conc_vhat} follows.
+%
+%The proof of \eqref{eqn:intersect-prob-close-v} follows from triangle inequality using the following three results:
+%\begin{enumerate}
+%\item[2a.]{With probability over $\mc{I}_1$ and $\mc{I}_2$, we have
+%\begin{align}
+%\label{eqn:intersect-prob-close-n}
+%  &\sup_{q,a} |P_{n_2}(\hat S \leq q, X \in R_{\what{v},a})-P_0(\hat S \leq q  ,X \in R_{\what{v},a})| = o_{P}(1).
+%\end{align}
+%}
+%\item[2b.]{
+%With probability over $\mc{I}_1$ and $\mc{I}_2$, we have
+%\begin{align}
+%\label{eqn:intersect-prob-close-pop}
+%  \sup_{q,a} |P_0(\hat S \leq q , X \in R_{\what{v},a})-&P_0(\hat S \leq q ,X \in R_{{v\opt},a})|
+% = o_{P}(1).
+%\end{align}
+%}
+%
+%\item[2c.]{
+%With probability over $\mc{I}_1$, we have
+%\begin{align}
+%\label{eqn:intersect-prob-close-pop-scores}
+%  \sup_{q,a} |P_0(\hat S \leq q , X \in  R_{{v\opt},a})-&P_0( S \leq q ,X \in R_{{v\opt},a})|
+%  = o_{P}(1).
+%\end{align}
+%}
+%\end{enumerate}
+%
+%The proof of \eqref{eqn:intersect-prob-close-n} follows by Glivenko-Cantelli lemma and that of \eqref{eqn:intersect-prob-close-pop} again follows similarly as the proof for \eqref{eqn:slabs_conc_vhat}. We present the proof of \eqref{eqn:intersect-prob-close-pop-scores} here. By Assumption~\ref{assumption:continuity-worst-coverage-1}, we have that the distribution of $S$ is continuous, hence, it is uniformly conitnuous. Thus, for any small $\epsilon^{'}>0$, there exists a small $\beta^{'}>0$ such that for any $s \in \mathbb{R}$, we have
+%\begin{align*}
+%|P_{0}(S \leq q  \pm \beta^{'})-P_{0}(S \leq q )| < \epsilon^{'}.
+%\end{align*}
+%Further, by Assumption~\ref{assumption:consistency-of-scores-and-vhat}, we have that $ \ltwopxs{\what{S} - S}^2=o_{P}(1)$. Now, we choose small $\gamma>0$ such that $\sqrt{\gamma} < \beta^{'}$ and the event $G=\left\{\ltwopx{\hat S-S} \leq \gamma \right\}$ has a high probability eventually.
+%We also define the sets
+%\begin{equation*}
+%B \defeq \{(x,y) \in \mc{X} \times \mc{Y} \mid |\hat S(x,y)-S(x,y)| > \sqrt{ \gamma}\}.
+%\end{equation*}
+%Then $B \subset \mc{X} \times \mc{Y}$ is measurable. Now, conditioning on $\mc{I}_1$ and $G$, we have by Markov's inequality,
+%\begin{equation*}
+%P_{X,Y}(B) \leq \frac{\ltwopx{\hat{S}-S}}{\sqrt{\gamma}} \leq \sqrt{\gamma}.
+%\end{equation*}
+%Thus, conditioning on $\mc{I}_1$ and $G$ gives
+%\begin{align*}
+%P_0(\hat S \leq q , X \in  R_{{v\opt},a})&= P_0(\hat S \leq q , X \in  R_{{v\opt},a},B)+P_0(\hat S \leq q , X \in  R_{{v\opt},a}, B^c) \\
+%& \qquad \qquad \leq  \sqrt{\gamma} + P_0( S \leq q + \sqrt{\gamma}, X \in  R_{{v\opt},a}) \\
+%& \qquad \qquad \leq  \epsilon^{'} + P_0( S \leq q , X \in  R_{{v\opt},a}).
+%\end{align*}
+%Similarly, we can show the lower bound, thus proving \eqref{eqn:intersect-prob-close-pop-scores}.
+%
+%Now, from \eqref{eqn:WC-close}, we can choose a small $\epsilon>0$ such that
+%
+%\begin{align}
+%\sup_{q}|\inf_{a : Q_{n_2}(X \in R_{\hat v,a}) \geq \delta}P_{n_2}(\hat{S} \leq q \mid X \in R_{\hat v,a})- \inf_{a : Q_{n_2}(X \in R_{\hat v,a}) \geq \delta}P_{0}({S} \leq  q \mid X \in R_{ v\opt,a})| < \epsilon
+%\end{align}
+%eventually with a high probability.
+%Further, from \eqref{eqn:vhat_consistent}, we can choose a small $\gamma>0$ such that
+%\begin{align*}
+%\sup_{a} |Q_{n_2}(X \in R_{\hat{v},a}) -Q_0(X \in R_{{v\opt},a,b}) | < \gamma
+%\end{align*}
+%eventually with a high probability.
+%We thus,  have the following sequence of inclusions
+%$\{ R_{{ v\opt},a} \in \mc{R}_{ v\opt} \mid Q_0(X \in R_{{ v\opt},a})  ) \ge \delta + \gamma \} \subset
+%\{  R_{{ v\opt},a} \in \mc{R}_{ v\opt} \mid Q_{n_2}(X \in R_{\what{v},a}) ) \ge \delta \} \subset
+%\{  R_{{ v\opt},a} \in \mc{R}_{ v\opt} \mid Q_0(X\in R_{{ v\opt},a}) \ge \delta - \gamma \}
+%$.
+%
+%Let $\delta^{\pm}=\delta \pm (\gamma)$.
+%Now following the above set inclusions, we have
+%
+%\begin{align*}
+%	\wc( \hat{C}^{(q,\score)}, \mc{R}_{ v\opt}, \delta^{+}; \,  Q_{0})
+%	\ge \wc( \hat{C}^{(q,\hat \score)}, \mc{R}_{\hat v}, \delta; \, \hat Q_{n_2}) -\epsilon,
+%\end{align*}
+%and
+%\begin{align*}
+%	\wc( \hat{C}^{(q,\score)}, \mc{R}_{ v\opt}, \delta^{-}; \,  Q_{0})
+%	\le \wc( \hat{C}^{(q,\hat \score)}, \mc{R}_{\hat v}, \delta; \, \hat Q_{n_2})  +\epsilon,
+%\end{align*}
+%eventually with a high probability and simultaneously for all $q \in \mathbb{R}$.
+%
+%Now by Lemma \ref{lem:continuous-distribution-vs-worst-coverage-continuity}, we have that for any sequence $\{\delta_m\} \to \delta$, $\wc( {C}^{(q,\score)}, \mc{R}_{v\opt}, \delta_m; \, Q_0) \to \wc( {C}^{(q,\score)}, \mc{R}_{v\opt}, \delta; \, Q_0)$ uniformly over $q$. Hence, $\sup_{q} |\wc( {C}^{(q,\score)}, \mc{R}_{v\opt}, \delta; \, Q_0) - \wc( \hat{C}^{(\hat \score)}, \mc{R}_{\hat v}, \delta; \, \hat Q_{n_2})|=o_{P}(1)$.
+%This completes the proof.
+%\end{proof}
+
+\begin{lemma}
+  \label{lem:consistency-of-empirical-worst-coverages}
+  Let
+  Assumption~\ref{assumption:continuity-worst-coverage-1} hold.
+  Then as $n \to \infty$,
+  the worst coverages under $\what Q_{n_2}$ and $Q_0$ satisfy
+  the Glivenko-Cantelli result
+  \begin{align*}
+    \sup_{q\in \R} \left| 
+    \wc( C^{(q,\scoreest)}, \mc{R}_{\hat v}, \delta; \, \what Q_{n_2})-\wc( {C}^{(q, \scoreest)}, \mc{R}_{\hat v}, \delta; \, Q_0) \right| 
+    \cas 0.
+  \end{align*}
+\end{lemma}
+\begin{proof}
+  Let $\varepsilon > 0$ be arbitrary.  Recalling
+  equations~\eqref{eqn:uniform-robust-estimation-cdf}
+  and~\eqref{eqn:uniform-probability-events} in the proof of
+  Theorem~\ref{theorem:high-probability-coverage}, there exists a universal
+  constant $c < \infty$ such that conditionally on $\scoreest$ and the first
+  half of the validation set (hence $\hat v$), we have with probability at
+  least $1- \varepsilon$ over $\{ (X_i, Y_i) \}_{i=n_1+1}^{n}$ that
+  \begin{align*}
+    \begin{split}
+      \sup_{q \in \R} \Big| \inf_{\substack{R \in \mc{R}_{\hat v} \\ Q_{n_2} (X\in R) \ge \delta }} Q_{n_2}\left( \scoreest(X,Y) \le q \mid X \in R \right) &-  
+      \inf_{\substack{R \in \mc{R}_{\hat v} \\ Q_{n_2}(X\in R) \ge \delta }} Q_0\left( \scoreest(X,Y) \le q \mid X \in R \right) \Big|  \\
+      &\le c \sqrt{\frac{\log(n_2/\varepsilon)}{n_2\delta}}
+    \end{split}
+  \end{align*}
+  and
+  \begin{align*}
+    \sup_{q \in \R, R \in \mc{R}_{\hat v}} \lvert Q_{n_2}( X \in R) - Q_0(X \in R) \rvert \le  c \sqrt{\frac{\log(n_2/\varepsilon)}{n_2}}.
+  \end{align*}
+  Setting $\delta_n^\pm \defeq \delta \pm c
+  \sqrt{\frac{\log(n_2/\varepsilon)}{n_2}}$, these two statements ensure
+  that with probability $1-\varepsilon$ over $\{ (X_i, Y_i)
+  \}_{i=n_1+1}^{n}$, simultaneously for all $q \in \R$,
+  \begin{align*}
+    \wc( C^{(q,\scoreest)}, \mc{R}_{\hat v}, \delta_n^-; \, Q_0)
+    -  c \sqrt{\frac{\log(n_2 /\varepsilon)}{n_2 \delta}} &\le 
+    \wc( C^{(q,\scoreest)}, \mc{R}_{\hat v}, \delta; \, \what Q_{n_2}) \\
+    &\le \wc( C^{(q,\scoreest)}, \mc{R}_{\hat v}, \delta_n^+; \, Q_0) +
+    c \sqrt{\frac{\log(n_2/\varepsilon)}{n_2\delta}}.
+  \end{align*}
+
+  To conclude, we claim that for all $q \in \R$, $v \in \mc{V}$ for which $v(X)$ has a continuous distribution, scores
+  $\score$, and $0<
+  \delta_0 < \delta_1 < 1$, we have
+  \begin{align}
+    \label{eqn:worst-coverage-lipschitz-in-delta}
+    \wc( C^{(q,\score)}, \mc{R}_{v}, \delta_1; \, Q_0) - \frac{\delta_1 -
+      \delta_0}{\delta_1}\le \wc( C^{(q,\score)}, \mc{R}_{v}, \delta_0; \,
+    Q_0).
+  \end{align}
+  Temporarily deferring the proof of
+  inequality~\eqref{eqn:worst-coverage-lipschitz-in-delta},
+  this shows in particular that for all $q \in \R$, so long as $\hat v(X)$ has a continuous distribution (which occurs with probability going to $1$ from Assumption~\ref{assumption:continuity-worst-coverage-1}),
+  \begin{align*}
+    \wc( C^{(q,\scoreest)}, \mc{R}_{\hat v}, \delta_n^-; \, Q_0) \ge \wc( C^{(q,\scoreest)}, \mc{R}_{\hat v}, \delta; \, Q_0) - \frac{ \delta-\delta_n^-}{\delta},
+  \end{align*}
+  and that
+  \begin{align*}
+    \wc( C^{(q,\scoreest)}, \mc{R}_{\hat v}, \delta_n^+; \, Q_0) \le \wc( C^{(q,\scoreest)}, \mc{R}_{\hat v}, \delta; \, Q_0) + \frac{\delta_n^+ - \delta}{\delta}.
+  \end{align*}
+  We thus have, conditionally on $\scoreest$ and $\hat v$,
+  which are
+  independent of the sample $\{ (X_i, Y_i) \}_{i=n_1+1}^{n}$,
+  that with probability at least $1 - \varepsilon$
+  \begin{align*}
+    \sup_{q \in \R} \lvert \wc( C^{(q,\scoreest)}, \mc{R}_{\hat v}, \delta; \, \what Q_{n_2}) 
+    - \wc( C^{(q,\scoreest)}, \mc{R}_{\hat v}, \delta; \, Q_0 )   \rvert
+    & \le
+    c \sqrt{\frac{\log(n_2/\varepsilon)}{n_2}}\left(\delta^{-1/2} + \delta^{-1} \right).
+  \end{align*}
+  The Borel-Cantelli lemma then gives the almost sure convergence.
+%%   This eventually proves that (even conditionally on $\scoreest$ and $\hat v$),
+%%   \begin{align*}
+%%     \sup_{q \in \R} \lvert \wc( C^{(q,\scoreest)}, \mc{R}_{\hat v}, \delta; \, \what Q_{n_2}) 
+%%     - \wc( C^{(q,\scoreest)}, \mc{R}_{\hat v}, \delta; \, Q_0 ) \rvert = o_p(1).
+%% \end{align*}
+  
+  We return to demonstrate the
+  claim~\eqref{eqn:worst-coverage-lipschitz-in-delta}.
+  We have by definition that
+  \begin{equation*}
+    \wc(C^{(q,\score)}, \mc{R}_v, \delta_0; Q_0)
+    = \min\left\{
+    \begin{array}{l}
+      \inf_{R \in \mc{R}_v} \{Q_0(\score(X, Y) \le q \mid X \in R) :
+      \delta_1 \le Q_0(X \in R)\}, \\
+      \inf_{R \in \mc{R}_v} \{Q_0(\score(X, Y) \le q \mid X \in R) :
+      \delta_0 \le Q_0(X \in R) < \delta_1 \}
+    \end{array}
+    \right\}.
+  \end{equation*}
+  If the topmost term achieves the minimum, the
+  claim~\eqref{eqn:worst-coverage-lipschitz-in-delta} is immediate,
+  so we may instead assume that the bottom term achieves it.  
+ The fact that $v(X)$ is continuous ensures the
+  existence of $a_1 \in \R$ such that $Q_0( v(X)  \ge a_1) = \delta_1$
+  satisfying
+  \begin{equation*}
+    \wc( C^{(q,\score)}, \mc{R}_{v}, \delta_1; \, Q_0)
+    \le Q_0( \score(X,Y) \le q \mid v(X) \ge a_1)
+  \end{equation*}
+  as $\wc$ is an infimum over all such shifts.
+  Then for any $a_0 \ge a_1$ such that
+  $Q_0( v(X) \ge a_0) \ge \delta_0$, we in turn have
+  \begin{align*}
+    Q_0( \score(X,Y) \le q \mid v(X) \ge a_1)
+    &= \delta_1^{-1} Q_0( \score(X,Y) \le q,  v(X) \ge a_1) \\
+    &\le \delta_1^{-1} \left( Q_0(\score(X,Y) \le q,  v(X) \ge a_0) +  Q_0(a_1 \le  v(X) < a_0) \right) \\
+    & \le Q_0( \score(X,Y) \le q \mid v(X)  \ge a_0) + \frac{\delta_1 - \delta_0}{\delta_1},
+  \end{align*}
+  where we have used that $Q_0( v(X) \ge a_0) \le \delta_1$.
+  Taking an infimum over all such $a_0$
+  gives
+  the statement~\eqref{eqn:worst-coverage-lipschitz-in-delta} above.
+\end{proof}
+
+\begin{lemma}
+  \label{lem:uniform-convergence-over-v-for-scores}
+  Let Assumptions~\ref{assumption:consistency-of-scores-and-vhat}
+  and~\ref{assumption:continuity-worst-coverage-1} hold. Then the score
+  functions $\scoreest$ and $\score$ offer uniformly close worst coverage in
+  the sense that
+  \begin{equation*}
+    \sup_{q,v}
+    \left\{ \left| \wc( C^{(q, \scoreest)}, \mc{R}_{ v}, \delta; \,  Q_{0})
+    -\wc( {C}^{(q,  \score)}, \mc{R}_{v}, \delta; \, Q_0) \right|
+    \mid q \in \R, v \in \mc{V} \right\}
+    = o_P(1). %% O(\ltwopxs{\scoreest - \score}^2).
+  \end{equation*}
+\end{lemma}
+\begin{proof}
+  We need to show
+  \begin{align*}
+    \sup_{q,v} \left| \inf_{a : Q_{0}(X \in R_{ v,a}) \geq \delta}P_{0}( \scoreest \leq q \mid X \in R_{ v,a})- \inf_{a : Q_{0}(X \in R_{ v,a}) \geq \delta}P_{0}({\scorerv} \leq  q \mid X \in R_{ v,a})
+    \right| = o_P(1),
+    %% O(\ltwopxs{\scoreest - \score}^2),
+  \end{align*}
+  for which it is sufficient to prove that
+  \begin{align*}
+    \label{eqn:intersect-prob-close-v-2}
+    \sup_a \left\{ \lvert Q_{0}(\scoreest(X,Y) \leq q, X \in R_{{v},a})
+    -Q_0( \score(X,Y) \leq q  ,X \in R_{{v},a})\rvert   
+    \mid Q_0\left( v(X) \ge a\right) \ge \delta  \right\}
+    \cp 0.
+  \end{align*}
+
+  Fix $\varepsilon > 0$.  Under
+  Assumption~\ref{assumption:continuity-worst-coverage-1}, the distribution
+  of $\scorerv$ is continuous, so that $q \mapsto P_0( \scorerv \le q)$ is
+  continuous, monotone, and has finite limits in $\pm \infty$, so that it is
+  uniformly continuous. Thus, there exists $\eta = \eta(\varepsilon) >0$
+  such that
+  \begin{align*}
+    \sup_{q \in \R} P_{0}(q < \scorerv\le q + \eta ) \le \varepsilon.
+  \end{align*}
+  %Further, by Assumption~\ref{assumption:consistency-of-scores-and-vhat}, we have that $ \ltwopxs{\scoreest - S}^2=o_{P}(1)$. 
+  Now, define
+  \begin{equation*}
+    B_{n} \defeq \{(x,y) \in \mc{X} \times \mc{Y} \mid |\scoreest(x,y)-\score(x,y)| \ge \eta \},
+  \end{equation*}
+  and observe that for all $q \in \R$, $v \in \mc{V}$ and $a \in \R$, we have
+  \begin{align*}
+    Q_0( \scoreest(X,Y) \le q,  v(X) \ge a) &\le Q_0(B_{n}) + Q_0( \score(X,Y) \le q+\eta,  v(X) \ge a) \\
+    &\le Q_0(B_{n}) + Q_0( \score(X,Y) \le q+\eta,  v(X) \ge a) \\
+    &\le Q_0(B_{n}) +  Q_0( \score(X,Y) \le q,  v(X) \ge a) + \varepsilon,
+  \end{align*}
+  and similarly
+  \begin{align*}
+    Q_0( \score(X,Y) \le q,  v(X) \ge a) \le Q_0(B_{n}) +  Q_0( \scoreest(X,Y) \le q,  v(X) \ge a) + \varepsilon.
+  \end{align*}
+  These imply that
+  \begin{align*}
+    \sup_a \Big\{ \left| Q_0( \scoreest(X,Y) \le q, v(X) \ge a) - Q_0( \score(X,Y) \le q, v(X) \ge a) \right|
+    & \mid 
+    Q_0\left( v(X) \ge a\right) \ge \delta
+    \Big\} \\
+    &\le \varepsilon + Q_0(B_{n}),
+  \end{align*}
+  and we conclude using Markov's inequality and
+  Assumption~\ref{assumption:consistency-of-scores-and-vhat} that
+  \begin{align*}
+    Q_0(B_n) \le \frac{\ltwopx{\scoreest-\score}^2}{\eta^2} \cp 0,
+  \end{align*}
+  which gives the result.
+\end{proof}
+
+\begin{lemma}
+  \label{lem:consistency-of-empirical-worst-direction}
+  Let Assumptions~\ref{assumption:consistency-of-scores-and-vhat}
+  and~\ref{assumption:continuity-worst-coverage-1} hold.  Then as $n_1 \to
+  \infty$,
+  \begin{align*}
+    \sup_q \lvert \wc( C^{(q,\score)}, \mc{R}_{\hat v}, \delta; \, Q_0) 
+    -
+    \wc( {C}^{(q, \score)}, \mc{R}_{v\opt}, \delta; \, Q_0) \rvert = o_p(1).
+  \end{align*}
+\end{lemma}
+\begin{proof}
+%  Fix $\varepsilon > 0$.  By
+%  Lemma~\ref{lem:continuous-distribution-vs-worst-coverage-continuity},
+%  $(q,v) \mapsto \wc( C^{(q,\score)}, \mc{R}_{v}, \delta; \, Q_0)$ is
+%  uniformly continuous, so there exists $\eta > 0$ such that for all $v,
+%  v^\prime \in \mc{V}$ with $\norm{v - v^\prime}_2 \le \eta$,
+%  \begin{align*}
+%    \sup_q \lvert \wc( C^{(q,\score)}, \mc{R}_{v^\prime}, \delta; \, Q_0) 
+%    -
+%    \wc( {C}^{(q, \score)}, \mc{R}_{v}, \delta; \, Q_0) \rvert \le \varepsilon,
+%  \end{align*}
+%  and thus
+%  \begin{align*}
+%    \P\left[ \sup_q \lvert \wc( C^{(q,\score)}, \mc{R}_{\hat v}, \delta; \, Q_0) 
+%      -
+%      \wc( {C}^{(q, \score)}, \mc{R}_{v\opt}, \delta; \, Q_0) \rvert > \varepsilon \right]
+%    \le \P \left[ \norm{\hat v - v\opt}_2 > \eta \right].
+%  \end{align*}
+%  Assumption~\ref{assumption:consistency-of-scores-and-vhat} that $\hat v \cp
+%  v\opt$ then gives the lemma.
+  
+  Let $\varepsilon > 0$.
+For each $v \in \mc{V}$,  the function $q \in \R  \mapsto \wc( C^{(q,\score)}, \mc{R}_{v\opt}, \delta; \, Q_0)$ is bounded non-decreasing, hence there exists a $\{ q_i \}_{i=1}^N \subset \R$ a non-decreasing sequence so that 
+\begin{align*}
+\sup_{0\le i \le N} \left|  \wc( C^{(q_{i+1},\score)}, \mc{R}_{v\opt}, \delta; \, Q_0) -  \wc( C^{(q_i,\score)}, \mc{R}_{v\opt}, \delta; \, Q_0) \right| \le \varepsilon,
+\end{align*}
+with the convention that $q_0 = -\infty$ and $q_{N+1} = \infty$.
+
+For each fixed $q \in \R$, $v \in \mc{V} \mapsto \wc( C^{(q,\score)}, \mc{R}_{v}, \delta; \, Q_0) $ is continuous,  which implies by continuous mapping (since $\norm{\hat{v} - v}_{L^2(P_X)} \cp 0$) that
+\begin{align*}
+\sup_{0\le i \le N+1} \left|  \wc( C^{(q_{i},\score)}, \mc{R}_{\hat{v}}, \delta; \, Q_0) -  \wc( C^{(q_i,\score)}, \mc{R}_{v\opt}, \delta; \, Q_0) \right| = o_P(1).
+\end{align*}
+
+Finally,  we can use the fact that $q \in \R  \mapsto \wc( C^{(q,\score)}, \mc{R}_{\hat{v}}, \delta; \, Q_0)$ is also non-decreasing to conclude that
+\begin{align*}
+&\sup_{q \in \R} \left| \wc( C^{(q,\score)}, \mc{R}_{\hat{v}}, \delta; \, Q_0)
+- \wc( C^{(q,\score)}, \mc{R}_{v\opt}, \delta; \, Q_0) \right|
+\le
+\\
+ & \sup_{0\le i \le N+1} \left|  \wc( C^{(q_{i},\score)}, \mc{R}_{\hat{v}}, \delta; \, Q_0) -  \wc( C^{(q_i,\score)}, \mc{R}_{v\opt}, \delta; \, Q_0) \right| + \varepsilon,
+\end{align*} 
+which eventually yields the desired result as $\varepsilon$ is arbitrary.
+\end{proof}
+
+\subsubsection{Finalizing the proof of
+  Theorem~\ref{theorem:uniform-asymptotic-coverage}}
+\label{sec:finalize-uniform-proof}
+
+Lemma~\ref{lem:uniform-convergence-over-v-for-scores} shows that $\what{C}_n
+= C^{(\hat q_{\delta}, \scoreest)}$ satisfies
+\begin{align*}
+  \sup_ {v \in \mc{V}} |\wc( \what{C}_n, \mc{R}_{v}, \delta; \, Q_0)-\wc( {C}^{(\hat q_{\delta},  \score)}, \mc{R}_{v}, \delta; \, Q_0)| = o_p(1),
+\end{align*}
+which implies
+\begin{equation}
+  \label{eqn:peanut-butter}
+  |\wc( \what{C}_n, \mc{R}, \delta; \, Q_0) -\wc( {C}^{( \hat q_{\delta},  \score)}, \mc{R}, \delta; \, Q_0)| = o_p(1).
+\end{equation}
+Combining
+Lemmas~\ref{lem:consistency-of-empirical-worst-coverages},
+\ref{lem:uniform-convergence-over-v-for-scores}
+and~\ref{lem:consistency-of-empirical-worst-direction}, we
+additionally see that
+\begin{align*}
+\wc( {C}^{(\hat q_{\delta},  \score)}, \mc{R}_{v\opt}, \delta; \, Q_0)
+&\overset{\ref{lem:consistency-of-empirical-worst-direction}}{=}
+ \wc( {C}^{(\hat q_{\delta},  \score)}, \mc{R}_{\hat v}, \delta; \, Q_0) +o_{P}(1) \\
+&\overset{\ref{lem:uniform-convergence-over-v-for-scores} }{=}
+ \wc( {C}^{(\hat q_{\delta},  \scoreest)}, \mc{R}_{\hat v}, \delta; \, Q_0) +o_{P}(1) \\
+&\overset{\ref{lem:consistency-of-empirical-worst-coverages}}{=} 
+\wc( {C}^{(\hat q_{\delta},  \scoreest)}, \mc{R}_{\hat v}, \delta; \, \what{Q}_{n_2}) +o_{P}(1).
+\end{align*}
+As $\wc( {C}^{(\hat q_{\delta}, \scoreest)}, \mc{R}_{\hat v}, \delta; \,
+\what{Q}_{n_2}) = 1- \alpha + u_n$ for some $u_n \ge 0$ by
+Lemma~\ref{lem:consistency-of-empirical-worst-coverage-for-alpha}, where
+$u_n \cp 0$ under Assumption~\ref{assumption:estimated-scores-as-distinct},
+we have
+\begin{align}
+  \label{eqn:more-peanut-butter}
+  \wc( {C}^{(\hat q_{\delta}, \score)}, \mc{R}_{v\opt}, \delta; \, Q_0)
+  = 1 - \alpha + u_n + o_P(1).
+\end{align}
+With Lemma~\ref{lemma:stochastic-domination-direction},
+Assumption~\ref{assumption:stochastic-dominance} ensures that
+$\wc( {C}^{(\hat q_{\delta},  \score)}, \mc{R}_{v\opt}, \delta; \, Q_0)= \wc( {C}^{(\hat q_{\delta},  \score)}, \mc{R}, \delta; \, Q_0)$,
+so we can conclude that
+\begin{eqnarray*}
+  \wc( \what{C}_n , \mc{R}, \delta; \, Q_0)
+  & \stackrel{\eqref{eqn:peanut-butter}}{=} &
+  \wc( {C}^{( \hat q_{\delta},  \score)}, \mc{R}, \delta; \, Q_0) + o_p(1) \\
+  & \stackrel{\textup{Lem.~\ref{lemma:stochastic-domination-direction}}}{=} &
+  \wc( {C}^{( \hat q_{\delta},  \score)}, \mc{R}_{v\opt}, \delta; \, Q_0) + o_p(1)
+  \stackrel{\eqref{eqn:more-peanut-butter}}{=} 1 - \alpha + u_n + o_p(1).
+\end{eqnarray*}
+
+
