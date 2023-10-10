@@ -3,7 +3,14 @@ Robust Validation: Confident Predictions Even When Distributions Shift
 This repository contains the code for replication of the results in the paper "Robust Validation: Confident Predictions Even When Distributions Shift
 " by XXXX-1, XXXX-4, XXXX-8 and XXXX-6. 
 
-We note that all the R and python files are compatible to be run with the latest version of all the packages used. Simply doing install.packages ("package name") for R packages used and pip install "package name" for python packages will suffice.
+Compile the tex file JASA-main.tex in the folder JASA-main/jasa_submission to get the pdf version of the main paper. Figures and other dependencies are already included in sub folders.
+
+We use the following R and Python versions:
+
+R version 4.2.2
+Python version: 3.10.9
+
+We note that all the R and python files are compatible to be run with the latest version of all the packages used. Simply doing install.packages ("package name") for R packages used and pip install "package name" for python packages will suffice. For completenes, we have included the library and package version in README file in the "code" folder.
 
 
 To generate Figures 1 and 5, run the files code/Make Figs 1, 5 part 1.ipynb  and code/Make Figs 1, 5 part 2.ipynb 
