@@ -164,18 +164,14 @@ if __name__ == "__main__":
         data_folder = "datasets/QMNIST"
     path_to_data = path_to_scratch + data_folder
 
-    if args.dataset == "CIFAR-10":
-        path_to_experiment_folder = path_to_scratch + \
-            "experiments/robust_cv/cifar_10/" + \
-            args.dataset.lower() + "-" + args.experiment_name
-    else:
-        path_to_experiment_folder = path_to_scratch + \
-            "experiments/robust_cv/qmnist/" + \
-            args.dataset.lower() + "-" + args.experiment_name
+    path_to_experiment_folder = os.path.join(
+        path_to_scratch,
+        "experiments/robust_cv", args.dataset.lower()"
+    )
     
     if not os.path.exists(path_to_experiment_folder):
         os.mkdir(path_to_experiment_folder)
-    path_to_experiment_files = os.path.join(path_to_experiment_folder,args.dataset.lower())
+    path_to_experiment_files = os.path.join(path_to_experiment_folder,args.experiment_name)
     
     print("***** STARTING MULTICLASS EXPERIMENT WITH DATASET {} ****".format(args.dataset))
 
@@ -332,8 +328,7 @@ if __name__ == "__main__":
         index+= 1
             
         
-    
     print("*** Saving Results ***")
 
     df_multitrial_summary.to_csv(
-        path_to_experiment_files + "-summary-" + args.experiment_name + ".csv")
+        path_to_experiment_files + "-summary.csv")

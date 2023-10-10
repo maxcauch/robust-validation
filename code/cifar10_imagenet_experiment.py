@@ -228,8 +228,7 @@ if __name__ == "__main__":
     chisq = lambda z: 0.5 * cp.sum_squares(z - 1)  # This is the chi-squared ball.
 
     path_to_experiment_folder = os.path.join(
-        path_to_scratch, "experiments/robust_cv", args.dataset.lower(),
-        args.dataset.lower() + "-" + args.experiment_name)
+        path_to_scratch, "experiments/robust_cv", args.dataset.lower())
 
     if args.dataset == "cifar-10":
         data_folder = os.path.join("datasets", args.dataset.lower())
@@ -241,7 +240,7 @@ if __name__ == "__main__":
     path_to_data = os.path.join(path_to_scratch,data_folder)
     if not os.path.exists(path_to_experiment_folder):
         os.mkdir(path_to_experiment_folder)
-    path_to_experiment_files = os.path.join(path_to_experiment_folder,args.dataset.lower())
+    path_to_experiment_files = os.path.join(path_to_experiment_folder,args.experiment_name)
 
     print("***** STARTING MULTICLASS EXPERIMENT WITH DATASET {} ****".format(args.dataset))
 
@@ -434,4 +433,4 @@ if __name__ == "__main__":
     print("*** Saving Results ***")
 
     df_multitrial_summary.to_csv(
-        path_to_experiment_files + "-summary-" + args.experiment_name + ".csv")
+        path_to_experiment_files + "-summary.csv")
