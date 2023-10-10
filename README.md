@@ -6,7 +6,7 @@ This repository contains the code for replication of the results in the paper "R
 We note that all the R and python files are compatible to be run with the latest version of all the packages used. Simply doing install.packages ("package name") for R packages used and pip install "package name" for python packages will suffice.
 
 
-To generate Figures 1 and 5, run the file code/Make Figs 1, 5 part 1.ipynb  and code/Make Figs 1, 5 part 2.ipynb 
+To generate Figures 1 and 5, run the files code/Make Figs 1, 5 part 1.ipynb  and code/Make Figs 1, 5 part 2.ipynb 
 
 To generate figures 2, 3, and 4, run the following files in the order:
 
