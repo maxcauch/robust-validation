@@ -4,3 +4,7 @@
 .RData
 .Ruserdata
 *.Rproj
+.ipynb_checkpoints
+__pycache__
+code/backend/np_backend/cython/build/*
+code/backend/np_backend/cython/cython_utils.c*
