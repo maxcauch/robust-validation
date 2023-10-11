@@ -18,16 +18,13 @@ def find_worst_coverage(np.ndarray[DTYPE_t, ndim=1] arr, double delta):
     
     cdef Py_ssize_t index, begin, end
     
-    
     for index in range(min_size-1):
         begin_sum += arr[index]
     
     for begin in range(length-min_size+1):
         current_sum = begin_sum 
-#        current_sum = sum from begin to begin + min_size - 2
         for end in range(begin+min_size, length+1):
             current_sum += arr[end-1]
-#        current_sum = sum from begin to end - 1 included
             if current_sum / (end - begin) < min_coverage:
                 min_coverage = current_sum / (end - begin)
                 min_begin = begin
