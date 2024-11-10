@@ -2,7 +2,7 @@ import numpy as np
 import math
 cimport numpy as np
 
-DTYPE = np.int
+DTYPE = int
 ctypedef np.int_t DTYPE_t
 
 def find_worst_coverage(np.ndarray[DTYPE_t, ndim=1] arr, double delta):
