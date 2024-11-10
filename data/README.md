@@ -1,1 +1,0 @@
-This folder contains data needed to produce the following plots in the main paper: Figure 1,5,6,7,8,9,10. Data needed to produce figures 2, 3, and 4 are huge Machine learning datasets and need to be downloaded while running the corresponding scripts.
